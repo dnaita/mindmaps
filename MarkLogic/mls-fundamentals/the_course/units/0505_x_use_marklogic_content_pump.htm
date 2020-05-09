@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Use MarkLogic Content Pump to Bulk Load</strong></p>
+<p>In this walkthrough exercise, you use MarkLogic Content Pump to bulk load documents into the star-wars database. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In the virtual machine, in a <strong>command prompt</strong> window, enter<span class="code"> java -version </span>to see that JRE 1.6 or later is installed. </li>
+  <li class="exercise-step">On the desktop of the virtual machine, double-click the <strong>mlcp-1.3-3</strong> folder, to open it.</li>
+  <li class="exercise-step">Double-click the <strong>bin</strong> folder.</li>
+  <li class="exercise-step">Notice the <strong>mlcp.sh</strong> file.</li>
+</ol>
+<p>Set up an XDBC server so that  MLCP will be able to communicate with the star-wars database:</p>
+<ol start="5" class="exercise-step">
+  <li class="exercise-step">In the <strong>Admin Interface</strong> (http://localhost:8001), select <strong>Configure</strong> - <strong>Groups</strong> - <strong>Default</strong> - <strong>App Servers</strong>.</li>
+  <li class="exercise-step">Select the <strong>Create XDBC</strong> tab.</li>
+  <li class="exercise-step">For <strong>xdbc server name</strong>, enter <span class="code">8070-star-wars</span>.</li>
+  <li class="exercise-step">For <strong>root</strong>, enter <span class="code">/</span>.</li>
+  <li class="exercise-step">For <strong>port</strong>, enter <span class="code">8070</span>.</li>
+  <li class="exercise-step">For modules, leave (file system) selected.</li>
+  <li class="exercise-step">For database, select <strong>star-wars</strong>.</li>
+  <li class="exercise-step">Click the <strong>ok</strong> button.</li>
+  <li class="exercise-step">Click the <strong>Configure</strong> link (far left), to see the new XDBC server listed on the summary page:<br>
+    <br>
+  <img src="../images/unit05/app_servers.png" width="213" height="139" class="image-border"></li></ol>
+<p>Use MLCP to bulk load documents into the star-wars database: </p>
+<ol class="exercise-step" start="14">
+  <li class="exercise-step">In the mls-fundamentals/<strong>unit05</strong> folder, open <strong>ex05a.txt</strong> in a text editor:<br>
+    <br>
+  <img src="../images/unit05/centos_ex05a.png" width="681" height="132" class="image-border"></li>
+  <li class="exercise-step">Notice <strong>-input_file_path</strong>, which references the location of the star-wars documents on the file system, and <strong>-output_uri_replace</strong>, which modifies the URIs of the documents as they are being loaded.</li>
+  <li class="exercise-step"><strong>Copy</strong> all of the text. </li>
+  <li class="exercise-step">In a <strong>command prompt</strong> window, as the cent user, <strong>paste</strong> the text, and press the <strong>Enter</strong> key to run it. </li>
+  <li class="exercise-step">See that the command ran successfully, loading 51 documents:<br>
+    <br>
+  <img src="../images/unit05/centos_mlcp.png" width="659" height="361" class="image-border"></li>
+  <li class="exercise-step">In <strong>Query Console</strong>, select the <strong>star-wars</strong> database and click the <strong>Explore</strong> button.</li>
+  <li class="exercise-step">See that the documents loaded:<br>
+    <br>
+  <img src="../images/unit05/star-wars_content.png" width="528" height="177" class="image-border"></li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="05f1_summary.htm">Summary (Unit 5)</a></p>
+<p>Back: <a href="0505_using_marklogic_content_pump.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Understanding a Database</strong></p>
+<p>In MarkLogic, a database is a set of configurations, which includes a  reference to one or more forests. </p>
+<p>A forest is where the documents in a database are physically stored. The name forest comes from the concept of XML documents (which MarkLogic was originally for) having tree-like structures. Hence, the idea of  storing trees in forests.<br>
+  <br>
+</p>
+<p><img src="../images/unit03/database_with_forest.png" width="122" height="111"><br>
+  <br>
+</p>
+<p>Although we use the term forest for referring to the location of documents stored in a MarkLogic database, documents in any of the supported file formats (i.e. JSON, XML, RDF, text, or binary) can be stored in a forest.</p>
+<p>A forest can only be attached to one database, but a  database can have more than one forest attached to it.</p>
+<p>Sizing guidelines (e.g. 2 cores per forest, maximum of 200GB per forest) are available in the Scalability Considerations in MarkLogic Server section of the Scalability, Availability, and Failover Guide (<strong>docs.marklogic.com/guide/cluster/scalability</strong>).</p>
+<p>Data cannot be loaded into a database until a forest has been created  and connected to the database.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0302_creating_a_forest.htm">Topic (Creating a Forest)</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

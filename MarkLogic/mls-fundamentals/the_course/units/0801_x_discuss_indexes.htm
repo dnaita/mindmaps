@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Discuss Indexes</strong></p>
+<p>In this walkthrough exercise, you  discuss the indexes  for the Top Songs application. Then, you view the default index settings for a database. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In a browser, navigate to <a href="http://mlu.marklogic.com/top-songs" target="_blank">mlu.marklogic.com/top-songs</a>.</li>
+  <li class="exercise-step">With <strong>facets </strong>requiring an index, realize that the artist facet is using an index of the values in the artist element of the song documents, that the decade facet is using an index of  values in the week elements in the song documents, and that the genre element is using an index of the values in the genre elements in the song documents.</li>
+  <li class="exercise-step">In looking at the <strong>sort</strong> menu, realize that indexes (e.g. values in the week element of the song documents for  sort:newest and sort:oldest, values in the artist element of the song documents for sort:artist, and values in the title element of the song documents for sort:title) make it so the sorts perform quickly.</li>
+  <li class="exercise-step">In looking at the <strong>birthday search</strong> form field, realize that an index of the values in the week element of the song documents enables the search to happen quickly.</li>
+  <li class="exercise-step">Click  the <strong>advanced search</strong> link.</li>
+  <li class="exercise-step"><strong>Notice</strong> the artist/writer/producer form field.</li>
+  <li class="exercise-step"><strong>Realize</strong> that an index with the values in the artist, writer, and producer elements from the song documents enables this search to happen quickly.</li>
+  <li class="exercise-step">View the <strong>genre</strong> drop-down list. </li>
+  <li class="exercise-step"><strong>Realize</strong> that  an index with the values from the genre elements of the song documents makes this list possible.</li>
+  <li class="exercise-step">In the <strong>Admin Interface</strong>, select <strong>Configure</strong> - <strong>Databases</strong> - <strong>patents</strong>.</li>
+  <li class="exercise-step"><strong>Scroll</strong> down to view the  true and false radio buttons for a variety of indexes available for the database.</li>
+  <li class="exercise-step">Back towards the top, in the left navigation, <strong>notice</strong> additional types of indexes that you could set up for the database (e.g. Element Range Indexes, Fields, Geospatial Indexes). </li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0802_adding_an_index.htm" class="exercise-link">Topic (Adding an Index)</a></p>
+<p>Back: <a href="0801_x_discuss_indexes.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

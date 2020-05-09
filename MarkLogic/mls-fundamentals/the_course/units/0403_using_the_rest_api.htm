@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Using the REST API</strong></p>
+<p>The MarkLogic REST API is a full-featured, language-independent interface to communicating with MarkLogic. It is based on the REST architectural style, using simple HTTP methods,  common throughout the Internet. </p>
+<p>The  REST API provides a<strong> language-independent interface</strong> to MarkLogic's many features and capabilities,  including the ability to create, read, update, and delete documents (CRUD), query documents, transform data, manage transactions, work with alerting, and insert and query RDF triples. </p>
+<p>Extensive detail on the  REST API is available in the <strong>REST Application Developer's Guide</strong> (docs.marklogic.com/guide/rest-dev).</p>
+<p><img src="../images/unit04/rest_guide.png" width="551" height="335" class="image-border"></p>
+<p>In order to communicate  with a MarkLogic database through the REST API, a REST API instance for the database needs to  first exist.</p>
+<p class="topic-sub-heading">Creating a REST API Instance</p>
+<p>To create a  REST API instance,  a POST request can be sent to the /rest-apis service on port 8002, with REST API instance configuration information in XML or JSON.</p>
+<p> <span class="code">curl --anyauth --user admin:admin -X POST -d@&quot;Desktop/mls-fundamentals/unit04/<strong>config.json</strong>&quot; -i -H &quot;Content-type: application/json&quot; http://localhost:8002/v1/rest-apis</span><br>
+</p>
+<p>Posting the following JSON  file would result in an REST API instance being set up at port 8060, which points to a database named  patents.</p>
+<p><img src="../images/unit04/config_json.png" width="463" height="192" class="image-border"></p>
+<p>Alternatively, instead of JSON, the  XML file below could be used, with the XML file referenced and the Content-type header set to application/xml in the HTTP request.</p>
+<p class="code"> curl --anyauth --user admin:admin -X POST -d@&quot;Desktop/mls-fundamentals/unit04/<strong>config.xml</strong>&quot; -i -H &quot;Content-type: <strong>application/xml</strong>&quot; http://localhost:8002/v1/rest-apis</p>
+<p><img src="../images/unit04/config_xml.png" width="462" height="173" class="image-border"></p>
+<p>If the database specified in the configuration file does not already exist, a database and forest(s) with that name (e.g. patents) will be created. </p>
+<p>The  forests-per-host element is optional. If the forest-per-host element is not present, and the database does not already exist, three forests will be created for the new database. </p>
+<p>Detail on the configuration elements, including all additional options, is available in a table in the Creating an Instance section of the REST Application Developer's Guide (<strong>docs.marklogic.com/guide/rest-dev/service#id_12021</strong>).</p>
+<p class="topic-sub-heading">Testing a REST API Instance</p>
+<p>A REST API instance can be tested by  entering the name or IP address of the host and  the port number of the instance (e.g. http://localhost:8060) in a browser. If the instance is properly configured, a   summary of the capabilities provided by the instance will be displayed.</p>
+<p><img src="../images/unit04/summary_cropped.png" width="676" height="293" class="image-border"></p>
+<p class="topic-sub-heading">cURL</p>
+<p>cURL is an open source command line tool that can be used for  transferring data using various protocols, including HTTP. Available for 34 operating systems, it can be downloaded from <strong>curl.haxx.se/dlwiz/?type=bin.</strong></p>
+<p><img src="../images/unit04/centos_curl.png" width="658" height="135" class="image-border"></p>
+<p>There is a reference that explains all of the cURL/HTTP arguments at <strong>curl.haxx.se/docs/manpage.html</strong>. </p>
+<p class="topic-sub-heading">Postman </p>
+<p>Postman (<strong>www.getpostman.com</strong>) is a  Chrome application that offers a friendly interface for writing REST requests. </p>
+<p><img src="../images/unit04/postman.png" width="701" height="455" class="image-border"></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0403_x_create_a_rest_api_instance.htm" class="exercise-link">Exercise (Create a REST API Instance)</a></p>
+<p>Back: <a href="0402_x_use_query_console.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

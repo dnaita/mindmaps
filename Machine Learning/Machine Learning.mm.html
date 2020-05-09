@@ -1,0 +1,915 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Machine Learning</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Machine Learning</span>
+<ul><li><p><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+USES
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_2399561018979342704.jpeg" >&#xa;  
+</li>
+</ul>&#xa;    <p>&#xa;      Machine Learning algorithms and techniques are used to build models to discover hidden patterns and trends in the data, allowing for data driven decisions to be made.&#xa;    </p>&#xa;  
+<p>focuses on the study and construction of computer systems that can learn from data without being explicitly programmed.
+<p><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">learning categories</span>
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_1" class="foldclosed" onClick="show_folder('1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1" class="foldopened" onClick="hide_folder('1_2_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Supervised learning</span>
+<ul id="fold1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">What is it</span>
+<ul><li><p>we are given a data set and already know what our correct output should look like, having the idea that there is a relationship between the input and the output.
+&#xa;    <img src="Supervised.PNG" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Algorithms</span>
+<ul><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Regression</span>
+<ul><li><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Predicting some continuous value output, meaning that we are trying to map input variables to some continuous function</span>
+<p><span id="show1_2_1_1" class="foldclosed" onClick="show_folder('1_2_1_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1_1" class="foldopened" onClick="hide_folder('1_2_1_1')">-</span>
+e.g.
+<ul id="fold1_2_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <p>&#xa;      Given data about the size of houses on the real estate market, try to predict their price. Price as a function of size is a continuous output.&#xa;    </p>&#xa;    <p>&#xa;      &#xa;    </p>&#xa;    <p>&#xa;      <font color="rgb(31, 31, 31)" face="OpenSans, Arial, sans-serif" size="14px">We could turn this example into a classification problem by instead making our output about whether the house &quot;sells for more or less than the asking price.&quot; Here we are classifying the houses based on price into two discrete categories.</font>&#xa;    </p>&#xa;  
+<p>Given a picture of a person, we have to predict their age on the basis of the given picture
+<p>how much amount will it rain ?
+<p>What will be the stock price of a particular stock
+&#xa;    <img src="Machine Learning_1940531070144496793.jpeg" >&#xa;  
+</li>
+</ul><p><span id="show1_2_1_2" class="foldclosed" onClick="show_folder('1_2_1_2')" style="POSITION: absolute">+</span> <span id="hide1_2_1_2" class="foldopened" onClick="hide_folder('1_2_1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Types</span>
+<ul id="fold1_2_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Simple regression</span>
+<ul><li>Linear
+<ul><li>&#xa;    <img src="Machine Learning_6561667667657029644.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Multiple regression</span>
+<ul><li>Linear
+<ul><li>&#xa;    <img src="Machine Learning_1708359525585281941.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul><p><span id="show1_2_1_3" class="foldclosed" onClick="show_folder('1_2_1_3')" style="POSITION: absolute">+</span> <span id="hide1_2_1_3" class="foldopened" onClick="hide_folder('1_2_1_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Regression Algos</span>
+<ul id="fold1_2_1_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_1090816427796079078.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Classification</span>
+<ul><li><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">predicting a discreet valued output, &nbsp;we are trying to map input variables into discrete categories.</span>
+<p><span id="show1_2_1_4" class="foldclosed" onClick="show_folder('1_2_1_4')" style="POSITION: absolute">+</span> <span id="hide1_2_1_4" class="foldopened" onClick="hide_folder('1_2_1_4')">-</span>
+e.g.
+<ul id="fold1_2_1_4" style="POSITION: relative; VISIBILITY: visible;"><li>will it rain tomorrow
+
+</li>
+<li>Stock prices will fall or rise ?
+
+</li>
+<li>Given a patient with a tumor, we have to predict whether the tumor is malignant or benign.
+
+</li>
+
+</ul><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      There are many algorithms to build a classification model, including <b>kNN or k-nearest neighbors, Decision Trees and Na&#239;ve Bayes.</b>&#xa;    </p>&#xa;  </span>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Algos</span>
+<ul><li><span id="show1_2_1_5" class="foldclosed" onClick="show_folder('1_2_1_5')" style="POSITION: absolute">+</span> <span id="hide1_2_1_5" class="foldopened" onClick="hide_folder('1_2_1_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">KNN- &nbsp;K-nearest Neighbors.</span>
+<ul id="fold1_2_1_5" style="POSITION: relative; VISIBILITY: visible;"><li><p>This technique relies on the notion that samples with similar characteristics, that is samples with similar values for input, likely belong to the same class.
+</li>
+</ul>
+</li>
+<li><span id="show1_2_1_6" class="foldclosed" onClick="show_folder('1_2_1_6')" style="POSITION: absolute">+</span> <span id="hide1_2_1_6" class="foldopened" onClick="hide_folder('1_2_1_6')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Decision Trees</span>
+<ul id="fold1_2_1_6" style="POSITION: relative; VISIBILITY: visible;"><li><p> model that uses a tree-like structure to represent multiple decision paths. Traversing each path leads to a different way to classify an input sample.
+<p><span id="show1_2_1_6_1" class="foldclosed" onClick="show_folder('1_2_1_6_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1_6_1" class="foldopened" onClick="hide_folder('1_2_1_6_1')">-</span>
+decision trees
+<ul id="fold1_2_1_6_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="decisionTrees.PNG" >&#xa;  
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Naive Bayes</span>
+
+</li>
+<li><span id="show1_2_1_7" class="foldclosed" onClick="show_folder('1_2_1_7')" style="POSITION: absolute">+</span> <span id="hide1_2_1_7" class="foldopened" onClick="hide_folder('1_2_1_7')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Logistic Regression</span>
+<ul id="fold1_2_1_7" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Hypothesis</span>
+<ul><li><span id="show1_2_1_7_1" class="foldclosed" onClick="show_folder('1_2_1_7_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1_7_1" class="foldopened" onClick="hide_folder('1_2_1_7_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Model</span>
+<ul id="fold1_2_1_7_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_2574144460460219961.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Sigmoid function</span>
+<ul><li>&#xa;    <p>&#xa;      A sigmoid function is a type of <b>activation function</b>, and more &#xa;      specifically defined as a squashing function. Squashing functions <b>limit &#xa;      the output to a range between 0 and 1</b>, making these functions useful &#xa;      in the prediction of probabilities.&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_2_1_7_2" class="foldclosed" onClick="show_folder('1_2_1_7_2')" style="POSITION: absolute">+</span> <span id="hide1_2_1_7_2" class="foldopened" onClick="hide_folder('1_2_1_7_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Interpretation</span>
+<ul id="fold1_2_1_7_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_3417822527087323573.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_2_1_7_3" class="foldclosed" onClick="show_folder('1_2_1_7_3')" style="POSITION: absolute">+</span> <span id="hide1_2_1_7_3" class="foldopened" onClick="hide_folder('1_2_1_7_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Decision boundary</span>
+<ul id="fold1_2_1_7_3" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Its a property of Hypothesis not the training set</span>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">The decision boundary is the line that separates the area where y = 0 and where y = 1. It is created by our hypothesis function.</span>
+<img src="Machine Learning_6412789092713273149.jpeg"/>
+</li>
+</ul>
+</li>
+<li><span id="show1_2_1_7_4" class="foldclosed" onClick="show_folder('1_2_1_7_4')" style="POSITION: absolute">+</span> <span id="hide1_2_1_7_4" class="foldopened" onClick="hide_folder('1_2_1_7_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Non linear Boundary Decision</span>
+<ul id="fold1_2_1_7_4" style="POSITION: relative; VISIBILITY: visible;"><li><img src="Machine Learning_1132798847687187451.jpeg"/>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_1_7_5" class="foldclosed" onClick="show_folder('1_2_1_7_5')" style="POSITION: absolute">+</span> <span id="hide1_2_1_7_5" class="foldopened" onClick="hide_folder('1_2_1_7_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Cost Function</span>
+<ul id="fold1_2_1_7_5" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_1_7_5_1" class="foldclosed" onClick="show_folder('1_2_1_7_5_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1_7_5_1" class="foldopened" onClick="hide_folder('1_2_1_7_5_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Given</span>
+<ul id="fold1_2_1_7_5_1" style="POSITION: relative; VISIBILITY: visible;"><li><img src="Machine Learning_4150182424995452944.jpeg"/>
+
+</li>
+
+</ul>
+</li>
+<li>so
+<ul><li><img src="Machine Learning_4324863329384740003.jpeg"/>
+
+</li>
+<li><img src="Machine Learning_8604860486714327421.jpeg"/>
+
+</li>
+<li><img src="Machine Learning_95670111893896373.jpeg"/>
+
+</li>
+<li><img src="Machine Learning_1477909598839118117.jpeg"/>
+
+</li>
+<li><img src="Machine Learning_3115307094171777664.jpeg"/>
+
+</li>
+<li><img src="Machine Learning_4876816070751347619.jpeg"/>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_1_7_6" class="foldclosed" onClick="show_folder('1_2_1_7_6')" style="POSITION: absolute">+</span> <span id="hide1_2_1_7_6" class="foldopened" onClick="hide_folder('1_2_1_7_6')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Gradient Descent</span>
+<ul id="fold1_2_1_7_6" style="POSITION: relative; VISIBILITY: visible;"><li><img src="Machine Learning_5257416714517560371.jpeg"/>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul></li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">k-Nearest Neighbors</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Linear Regression</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Logistic Regression</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Support Vector Machines (SVMs)</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Decision Trees and Random Forests</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Neural networks2</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_2" class="foldclosed" onClick="show_folder('1_2_2')" style="POSITION: absolute">+</span> <span id="hide1_2_2" class="foldopened" onClick="hide_folder('1_2_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Un-supervised learning</span>
+<ul id="fold1_2_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span id="show1_2_2_1" class="foldclosed" onClick="show_folder('1_2_2_1')" style="POSITION: absolute">+</span> <span id="hide1_2_2_1" class="foldopened" onClick="hide_folder('1_2_2_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">What is it ?</span>
+<ul id="fold1_2_2_1" style="POSITION: relative; VISIBILITY: visible;"><li>allows us to approach problems with little or no idea what our results should look like.
+
+</li>
+<li>&#xa;    <img src="unSupervised.PNG" >&#xa;  
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Dimension reduction</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Density estimation</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Market based analysis</span>
+
+</li>
+<li><span id="show1_2_2_1_1" class="foldclosed" onClick="show_folder('1_2_2_1_1')" style="POSITION: absolute">+</span> <span id="hide1_2_2_1_1" class="foldopened" onClick="hide_folder('1_2_2_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">e.g.</span>
+<ul id="fold1_2_2_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <p>&#xa;      <b>Clustering</b>: Take a collection of 1,000,000 different genes, and find a way to automatically group these genes into groups that are somehow similar or related by different variables, such as lifespan, location, roles, and so on.&#xa;    </p>&#xa;  
+&#xa;    <p>&#xa;      <b>Non-clustering:</b>&#160;The &quot;Cocktail Party Algorithm&quot;, allows you to find structure in a chaotic environment. (i.e. identifying individual voices and music from a mesh of sounds at a cocktail party).&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+
+</ul><span style="font-family: Cambria, sans-serif; font-weight: bold; ">&#xa;    <p>&#xa;      Cluster analysis/Clustering&#xa;    </p>&#xa;  </span>
+<ul><li><span id="show1_2_2_2" class="foldclosed" onClick="show_folder('1_2_2_2')" style="POSITION: absolute">+</span> <span id="hide1_2_2_2" class="foldopened" onClick="hide_folder('1_2_2_2')">-</span>
+e.g. 
+<ul id="fold1_2_2_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">the goal is to organize similar items in your dataset into groups.</span>
+
+</li>
+<li>social network analysis
+
+</li>
+<li>organize computing clusters
+
+</li>
+<li>astronomical data analysis
+
+</li>
+<li>market segmentation
+
+</li>
+<li>segment your customers into seniors, adults and teenagers.
+
+</li>
+
+</ul>
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">K-Means</span>
+
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">DBSCAN</span>
+
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">Hierarchical Cluster Analysis (HCA)</span>
+
+</li>
+
+</ul><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Anomaly detection and novelty detection</span>
+<ul><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">e.g.</span>
+<ul><li>&#xa;    <p>&#xa;      detecting unusual credit card transactions to prevent fraud,&#xa;    </p>&#xa;    <p>&#xa;      &#xa;    </p>&#xa;    <p>&#xa;      catching manufacturing defects,or&#xa;    </p>&#xa;    <p>&#xa;      &#xa;    </p>&#xa;    <p>&#xa;      automatically removing outliers from a dataset before feeding it to &#xa;      another learning algorithm.&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">One-class SVM</span>
+
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">Isolation Forest</span>
+
+</li>
+
+</ul><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Association analysis</span>
+<ul><li>What is it ?
+<ul><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">The goal here is to come up with a set of rules to capture associations between items or events.</span>
+
+</li>
+<li><span id="show1_2_2_3" class="foldclosed" onClick="show_folder('1_2_2_3')" style="POSITION: absolute">+</span> <span id="hide1_2_2_3" class="foldopened" onClick="hide_folder('1_2_2_3')">-</span>
+e.g.
+<ul id="fold1_2_2_3" style="POSITION: relative; VISIBILITY: visible;"><li><p>association analysis can reveal that banking customers who have checking or deposit accounts also tend to be interested in other investment vehicles such as money market accounts.
+<p>above analysis can be used for cross selling
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">Apriori</span>
+
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">Eclat</span>
+
+</li>
+
+</ul><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Visualization and dimensionality reduction</span>
+<ul><li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">Principal Component Analysis (PCA)</span>
+
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">Kernel PCA</span>
+
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">Locally Linear Embedding (LLE)</span>
+
+</li>
+<li><span style="color: #0033ff;font-family: Cambria, sans-serif; font-weight: bold; ">t-Distributed Stochastic Neighbor Embedding (t-SNE)</span>
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_2_3" class="foldclosed" onClick="show_folder('1_2_3')" style="POSITION: absolute">+</span> <span id="hide1_2_3" class="foldopened" onClick="hide_folder('1_2_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">semisupervised learning</span>
+<ul id="fold1_2_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">what is it ?</span>
+<ul><li><p>Since labeling data is usually time-consuming and costly, you will often have plenty of unlabeled instances, and few labeled instances. Some algorithms can deal with data that&#8217;s partially labeled.
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_4" class="foldclosed" onClick="show_folder('1_2_4')" style="POSITION: absolute">+</span> <span id="hide1_2_4" class="foldopened" onClick="hide_folder('1_2_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Reinforcement Learning.</span>
+<ul id="fold1_2_4" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <p>&#xa;      <b>The learning system</b>, called an <b>agent</b>&#xa0;in this context, can &#xa;      observe the environment, select and perform actions, and get rewards in &#xa;      return (or penalties in the form of negative rewards, as shown in Figure &#xa;      1-12). It must t<b>hen learn by itself what is the best strategy</b>, <b>called</b>&#xa0;&#xa;      a <b>policy</b>, to get the most reward over time. <b>A policy defines what &#xa;      action the agent should choose when it is in a given situation</b>.&#xa;    </p>&#xa;  
+<p>e.g.
+<ul><li>many robots implement Reinforcement Learning algorithms to learn how to walk
+
+</li>
+<li>DeepMind&#8217;s AlphaGo program is also a good example of Reinforcement Learning:
+
+</li>
+
+</ul></li>
+</ul>
+</li>
+
+</ul><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Another crtieria for learning Categories</span>
+<ul><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">BATCH LEARNING or offline learning.</span>
+<ul><li><p>the system is incapable of learning incrementally:
+<p>it must be trained using all the available data.
+<p>This will generally take a lot of time and computing resources, so it is typically done offline
+<p>If you have a lot of data and you automate your system to train from scratch every day, it will end up costing you a lot of money.
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">ONLINE LEARNING</span>
+<ul><li><p>train the system incrementally by feeding it data instances sequentially, either individually or in small groups called mini-batches.
+</li>
+</ul>
+</li>
+
+</ul><p><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Regression Algos</span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_3_1" class="foldclosed" onClick="show_folder('1_3_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1" class="foldopened" onClick="hide_folder('1_3_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Linear Regression with Single variable</span>
+<ul id="fold1_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_3_1_1" class="foldclosed" onClick="show_folder('1_3_1_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1" class="foldopened" onClick="hide_folder('1_3_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Notations</span>
+<ul id="fold1_3_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_1871674660248652892.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_3_1_2" class="foldclosed" onClick="show_folder('1_3_1_2')" style="POSITION: absolute">+</span> <span id="hide1_3_1_2" class="foldopened" onClick="hide_folder('1_3_1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Cost Function</span>
+<ul id="fold1_3_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><p>We can measure the accuracy of our hypothesis function by using a cost function.
+<p>This takes an average difference (actually a fancier version of an average) of all the results of the hypothesis with inputs from x's and the actual output y's.
+&#xa;    <img src="Machine Learning_3253119321799469744.jpeg" >&#xa;  
+<p>This function is otherwise called the "Squared error function", or "Mean squared error".
+<p><span id="show1_3_1_2_1" class="foldclosed" onClick="show_folder('1_3_1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_2_1" class="foldopened" onClick="hide_folder('1_3_1_2_1')">-</span>
+Overall Idea
+<ul id="fold1_3_1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_2121330071525142165.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_3040059144864208539.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_3_1_3" class="foldclosed" onClick="show_folder('1_3_1_3')" style="POSITION: absolute">+</span> <span id="hide1_3_1_3" class="foldopened" onClick="hide_folder('1_3_1_3')">-</span>
+<span style="color: #338800;font-family: Cambria, sans-serif; font-weight: bold; ">gradient descent for single Variable</span>
+<ul id="fold1_3_1_3" style="POSITION: relative; VISIBILITY: visible;"><li><p>So we have our hypothesis function and we have a way of measuring how well it fits into the data. Now we need to estimate the parameters in the hypothesis function. That's where gradient descent comes in.
+<p><span id="show1_3_1_3_1" class="foldclosed" onClick="show_folder('1_3_1_3_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_3_1" class="foldopened" onClick="hide_folder('1_3_1_3_1')">-</span>
+pic
+<ul id="fold1_3_1_3_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_1972728614007897477.jpeg" >&#xa;  
+</li>
+</ul><p><span id="show1_3_1_3_2" class="foldclosed" onClick="show_folder('1_3_1_3_2')" style="POSITION: absolute">+</span> <span id="hide1_3_1_3_2" class="foldopened" onClick="hide_folder('1_3_1_3_2')">-</span>
+pic
+<ul id="fold1_3_1_3_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_4716029175577156420.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_2" class="foldclosed" onClick="show_folder('1_3_2')" style="POSITION: absolute">+</span> <span id="hide1_3_2" class="foldopened" onClick="hide_folder('1_3_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Linear Regression with Multiple variables</span>
+<ul id="fold1_3_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Notations</span>
+<ul><li>&#xa;    <img src="Machine Learning_8152973779665178726.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">hypothesis function</span>
+<ul><li>&#xa;    <img src="Machine Learning_1471109016522759139.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_760944677852326040.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_1639445699211957496.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_3_2_1" class="foldclosed" onClick="show_folder('1_3_2_1')" style="POSITION: absolute">+</span> <span id="hide1_3_2_1" class="foldopened" onClick="hide_folder('1_3_2_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Gradient Descent for Multiple Variables</span>
+<ul id="fold1_3_2_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_2112680198845401149.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_8690455404626551843.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_3" class="foldclosed" onClick="show_folder('1_3_3')" style="POSITION: absolute">+</span> <span id="hide1_3_3" class="foldopened" onClick="hide_folder('1_3_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Speeding Up Gradient Descent</span>
+<ul id="fold1_3_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <p>&#xa;      used to speed up gradient descent by having each of our input values in roughly the same range.&#xa;    </p>&#xa;    <p>&#xa;      <font color="rgb(31, 31, 31)" face="OpenSans, Arial, sans-serif" size="14px">This is because &#952; will descend quickly on small ranges and slowly on large ranges, and so will oscillate inefficiently down to the optimum when the variables are very uneven.</font>&#xa;    </p>&#xa;  
+&#xa;    <img src="Machine Learning_6251950312815364703.jpeg" >&#xa;  
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Feature Scaling</span>
+<ul><li><p>involves dividing the input values by the range (i.e. the maximum value minus the minimum value) of the input variable, resulting in a new range of just 1.
+</li>
+</ul><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Mean normalization</span>
+<ul><li><p>involves subtracting the average value for an input variable from the values for that input variable resulting in a new average value for the input variable of just zero.
+</li>
+</ul><p>To implement both of these techniques, adjust your input values as shown in this formula:
+<ul><li>&#xa;    <img src="Machine Learning_4280526680478723015.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_4168139232496554203.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_3_4" class="foldclosed" onClick="show_folder('1_3_4')" style="POSITION: absolute">+</span> <span id="hide1_3_4" class="foldopened" onClick="hide_folder('1_3_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Gradient descent test</span>
+<ul id="fold1_3_4" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_3_4_1" class="foldclosed" onClick="show_folder('1_3_4_1')" style="POSITION: absolute">+</span> <span id="hide1_3_4_1" class="foldopened" onClick="hide_folder('1_3_4_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Debugging gradient descent</span>
+<ul id="fold1_3_4_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>Make a plot with number of iterations on the x-axis. Now plot the cost function, J(&#952;) over the number of iterations of gradient descent. If J(&#952;) ever increases, then you probably need to decrease &#945;.
+&#xa;    <img src="Machine Learning_3631424186190762527.jpeg" >&#xa;  
+<p>It has been proven that if learning rate &#945;&nbsp;is sufficiently small, then J(&#952;) will decrease on every iteration.
+&#xa;    <img src="Machine Learning_3442998930490212444.jpeg" >&#xa;  
+<p>try alpha value as .001, 0.01 , 0.1 or 1 
+</li>
+</ul>
+</li>
+<li><span id="show1_3_4_2" class="foldclosed" onClick="show_folder('1_3_4_2')" style="POSITION: absolute">+</span> <span id="hide1_3_4_2" class="foldopened" onClick="hide_folder('1_3_4_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Automatic convergence test. </span>
+<ul id="fold1_3_4_2" style="POSITION: relative; VISIBILITY: visible;"><li><p>Declare convergence if J(&#952;) decreases by less than E in one iteration, where E is some small value such as 10&#8722;3. 
+<p><span style="color: #ff3333;font-family: Cambria, sans-serif; font-weight: bold; ">However in practice it's difficult to choose this threshold value.</span>
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_5" class="foldclosed" onClick="show_folder('1_3_5')" style="POSITION: absolute">+</span> <span id="hide1_3_5" class="foldopened" onClick="hide_folder('1_3_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Normal Equations</span>
+<ul id="fold1_3_5" style="POSITION: relative; VISIBILITY: visible;"><li><p> second way of minimizing J.
+<p>find the optimum theta without iteration
+&#xa;    <img src="Machine Learning_2972917634818673740.jpeg" >&#xa;  
+<p>e.g
+<ul><li>&#xa;    <img src="Machine Learning_6877081486928500048.jpeg" >&#xa;  
+</li>
+</ul><p><span id="show1_3_5_1" class="foldclosed" onClick="show_folder('1_3_5_1')" style="POSITION: absolute">+</span> <span id="hide1_3_5_1" class="foldopened" onClick="hide_folder('1_3_5_1')">-</span>
+Comparision 
+<ul id="fold1_3_5_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_1681741164410819342.jpeg" >&#xa;  
+</li>
+</ul><p>With the normal equation, computing the inversion has complexity O(n3). So if we have a very large number of features, the normal equation will be slow. In practice, when n exceeds 10,000 it might be a good time to go from a normal solution to an iterative process.
+&#xa;    <img src="Machine Learning_3039878896478257253.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_3_6" class="foldclosed" onClick="show_folder('1_3_6')" style="POSITION: absolute">+</span> <span id="hide1_3_6" class="foldopened" onClick="hide_folder('1_3_6')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Normal Equation Noninvertibility</span>
+<ul id="fold1_3_6" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_910532644038676995.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_5175160687208703009.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+
+</ul><p><span id="show1_4" class="foldclosed" onClick="show_folder('1_4')" style="POSITION: absolute">+</span> <span id="hide1_4" class="foldopened" onClick="hide_folder('1_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Types</span>
+<ul id="fold1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Anamoly Detection</span>
+<ul><li>Discovering unusual and abnormal cases
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Sequence Mining</span>
+<ul><li>Predicting next events , click streams
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Dimension Reduction</span>
+<ul><li>Reducing the size of the data.
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Recommendation systems</span>
+
+</li>
+
+</ul><p><span id="show1_5" class="foldclosed" onClick="show_folder('1_5')" style="POSITION: absolute">+</span> <span id="hide1_5" class="foldopened" onClick="hide_folder('1_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Popular Python libraries </span>
+<ul id="fold1_5" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_1743110788462659424.jpeg" >&#xa;  
+</li>
+</ul><p><span id="show1_6" class="foldclosed" onClick="show_folder('1_6')" style="POSITION: absolute">+</span> <span id="hide1_6" class="foldopened" onClick="hide_folder('1_6')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Sci-kit learn</span>
+<ul id="fold1_6" style="POSITION: relative; VISIBILITY: visible;"><li><p>an open source library in Python for end to end Machine Learning.
+<p>It builds upon the strength of NumPy, SciPy, and matplotlib like many other Python libraries.
+&#xa;    <img src="Machine Learning_6266998609908568471.jpeg" >&#xa;  
+</li>
+</ul><p><span id="show1_7" class="foldclosed" onClick="show_folder('1_7')" style="POSITION: absolute">+</span> <span id="hide1_7" class="foldopened" onClick="hide_folder('1_7')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Terminology </span>
+<ul id="fold1_7" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_7_1" class="foldclosed" onClick="show_folder('1_7_1')" style="POSITION: absolute">+</span> <span id="hide1_7_1" class="foldopened" onClick="hide_folder('1_7_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Samples</span>
+<ul id="fold1_7_1" style="POSITION: relative; VISIBILITY: visible;"><li>is an instance or example of an entity in your data.
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">typically a row in your dataset.</span>
+
+</li>
+<li><span id="show1_7_1_1" class="foldclosed" onClick="show_folder('1_7_1_1')" style="POSITION: absolute">+</span> <span id="hide1_7_1_1" class="foldopened" onClick="hide_folder('1_7_1_1')">-</span>
+e.g.
+<ul id="fold1_7_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Samples.PNG" >&#xa;  
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">other names</span>
+<ul><li>&#xa;    <img src="SampleNames.PNG" >&#xa;  
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Variables</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">typically columns in our dataset</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">sometimes referred to as features</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">other names</span>
+<ul><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">field, attribute, column, feature, dimensions</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul><p><span id="show1_8" class="foldclosed" onClick="show_folder('1_8')" style="POSITION: absolute">+</span> <span id="hide1_8" class="foldopened" onClick="hide_folder('1_8')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Matrix Calculations</span>
+<ul id="fold1_8" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_8_1" class="foldclosed" onClick="show_folder('1_8_1')" style="POSITION: absolute">+</span> <span id="hide1_8_1" class="foldopened" onClick="hide_folder('1_8_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Matrix-Matrix Multiplication</span>
+<ul id="fold1_8_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">To multiply two matrices, the number of columns of the first matrix must equal the number of rows of the second matrix.</span>
+&#xa;    <img src="Machine Learning_5057479316880147227.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_6262625241776840734.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_8_2" class="foldclosed" onClick="show_folder('1_8_2')" style="POSITION: absolute">+</span> <span id="hide1_8_2" class="foldopened" onClick="hide_folder('1_8_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Matrix multiplication properties</span>
+<ul id="fold1_8_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_8_2_1" class="foldclosed" onClick="show_folder('1_8_2_1')" style="POSITION: absolute">+</span> <span id="hide1_8_2_1" class="foldopened" onClick="hide_folder('1_8_2_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Not commutative</span>
+<ul id="fold1_8_2_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_5398781307313218642.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_8_2_2" class="foldclosed" onClick="show_folder('1_8_2_2')" style="POSITION: absolute">+</span> <span id="hide1_8_2_2" class="foldopened" onClick="hide_folder('1_8_2_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">It is associative</span>
+<ul id="fold1_8_2_2" style="POSITION: relative; VISIBILITY: visible;"><li>A*B*C = (A*B)*C = A * (B*C)
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_8_2_3" class="foldclosed" onClick="show_folder('1_8_2_3')" style="POSITION: absolute">+</span> <span id="hide1_8_2_3" class="foldopened" onClick="hide_folder('1_8_2_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Identity Matrix</span>
+<ul id="fold1_8_2_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_6215229812033657519.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_5432072881832907922.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_2086446779320798977.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_8_3" class="foldclosed" onClick="show_folder('1_8_3')" style="POSITION: absolute">+</span> <span id="hide1_8_3" class="foldopened" onClick="hide_folder('1_8_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Matrix Inverse</span>
+<ul id="fold1_8_3" style="POSITION: relative; VISIBILITY: visible;"><li><p>The inverse of a matrix A is denoted A^{-1}A &nbsp;&#8722;1 &nbsp;. Multiplying by the inverse results in the identity matrix.
+<p>Only square matrix has an inverse
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Matrix Transpose</span>
+
+</li>
+
+</ul><p><span id="show1_9" class="foldclosed" onClick="show_folder('1_9')" style="POSITION: absolute">+</span> <span id="hide1_9" class="foldopened" onClick="hide_folder('1_9')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Octave Commands</span>
+<ul id="fold1_9" style="POSITION: relative; VISIBILITY: visible;"><li>% Comments 
+
+</li>
+<li>; to suppress the output
+
+</li>
+<li>load(&lt;fileName&gt;) % will load the file in octave
+
+</li>
+<li>who &nbsp;% what all variables are in octave
+
+</li>
+<li>whos % details of the varaibles
+
+</li>
+<li>clear &lt;variebale Name&gt; &nbsp;% clears the specified variable
+
+</li>
+<li>save &lt;filename&gt; &lt;variable&gt; &nbsp;% will save the variable to the specified file
+
+</li>
+<li>save &lt;filename.txt&gt; &lt;variable&gt; -ascii &nbsp;% save file in a human readable format
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">matrix </span>
+<ul><li>if A is a matrix then A(3,2) will give 3 row, 2nd column element
+
+</li>
+<li>if A is a matrix then A(3,:) will give full 3rd row 
+
+</li>
+<li>if A is a matrix then A(:,2) will give full 2nd column
+
+</li>
+<li>if A is a matrix then A([1,3], :) will give full 1st &amp; &nbsp;3rd row
+
+</li>
+<li>A = [A , [100 ; 101 ;102]] &nbsp;%append column vector to the existing A matrix
+
+</li>
+<li>A(:) &nbsp;% puts all element of A into a single column vector
+
+</li>
+<li>C = [A B] &nbsp;%MATRIX CONCAT 
+
+</li>
+<li>C = [A ; B] % ROW WISE CONCAT
+
+</li>
+<li>size(X) % size of the matrix
+
+</li>
+<li>length(X) &nbsp;% length of the longest dimension of the matrix)
+
+</li>
+<li><span id="show1_9_1" class="foldclosed" onClick="show_folder('1_9_1')" style="POSITION: absolute">+</span> <span id="hide1_9_1" class="foldopened" onClick="hide_folder('1_9_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Computation Operations</span>
+<ul id="fold1_9_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <p>&#xa;      <b>C .^2</b>&#160;&#160;% C is a matrix , we are doing <b>element wise </b>squaring of matrix c&#xa;    </p>&#xa;  
+<p>1 ./ C &nbsp;% element wise inverse
+<p>log(C) 
+<p>exp(c)
+<p>abs(c)
+<p>-c
+<p>C' % transpose of C
+<p>max(C) &nbsp;% column wise maximum 
+<p>max(max(c)) % maximum of a matrix
+<p>[val, ind] = max(C) &nbsp;% gives max of matrix C and its index
+<p>c &lt; 3 % return boolean value element wise 
+<p>[r,c] = find( a &lt; 3) % returns all elements less than 3)
+<p>magic(3)
+<p>floor(c)
+<p>ceil(c)
+<p>sum(c) or sum(c,1) % column wise sum
+<p>sum(c,2) % row wise sum
+<p>prod(c)
+<p>rand(3)
+<p>flipupd(c) &nbsp;% flips matrix
+<p>pinv(c) % inverse of matrix C
+</li>
+</ul>
+</li>
+<li><span id="show1_9_2" class="foldclosed" onClick="show_folder('1_9_2')" style="POSITION: absolute">+</span> <span id="hide1_9_2" class="foldopened" onClick="hide_folder('1_9_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Generating data</span>
+<ul id="fold1_9_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">t = [0 : 0.01 : 0.98] ; &nbsp;% generates data from 0 to 0.98 with a step of 0.01 </span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_9_3" class="foldclosed" onClick="show_folder('1_9_3')" style="POSITION: absolute">+</span> <span id="hide1_9_3" class="foldopened" onClick="hide_folder('1_9_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Plotting Data</span>
+<ul id="fold1_9_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <p>&#xa;      t=[0 : 0.01 : 0.98];&#xa;    </p>&#xa;    <p>&#xa;      y1 = sin(2*pi*4*t);&#xa;    </p>&#xa;    <p>&#xa;      plot(t,y1);&#xa;    </p>&#xa;    <p>&#xa;      hold on&#160;&#160;% holds the plotted picter&#xa;    </p>&#xa;    <p>&#xa;      y2 = cos(2*pi*4*t);&#xa;    </p>&#xa;    <p>&#xa;      plot(t, y2, 'r');&#160;&#160;% overlay plot the graph in red color&#xa;    </p>&#xa;    <p>&#xa;      xlabel('time');&#xa;    </p>&#xa;    <p>&#xa;      ylabel('value');&#xa;    </p>&#xa;    <p>&#xa;      legend('sin', 'cos');&#xa;    </p>&#xa;    <p>&#xa;      title('my plot');&#xa;    </p>&#xa;    <p>&#xa;      <b>print -dpng 'myPlot.png' % save the plot in file myPlot.png' </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>close&#160;&#160;% closes the plot figure </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>-----------------------For Seperate figures----------------------- </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>figure(1) ; plot(t,y1); </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>figure(2) ; plot(t,y12; </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>-----------------------For Sub plotting----------------------------- </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>subplot(1,2,1)&#160;&#160;%Divides plot in 1 by 2 grid and access 1st element. </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>plot(t,y1); </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>subplot(1,2,2); </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>plot(t,y2); </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>--------------------------------------------------------------------------- </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>axis()&#160;&#160;% changes axis scale. </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>clf % to clear figure </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>----------------------------------------- </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>imagesc(A) % creates a colored map </b>&#xa;    </p>&#xa;    <p>&#xa;      <b>imagesc(A), colorbar, colormap gray&#160;&#160;% chaining commands</b>&#xa;    </p>&#xa;    <p>&#xa;      &#xa;    </p>&#xa;  
+<p>help plot &nbsp;% provides help for the plot
+<p>plot can save files in multiple formats
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Control Statements</span>
+<ul><li><span id="show1_9_4" class="foldclosed" onClick="show_folder('1_9_4')" style="POSITION: absolute">+</span> <span id="hide1_9_4" class="foldopened" onClick="hide_folder('1_9_4')">-</span>
+For loop
+<ul id="fold1_9_4" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_2690737066323208312.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li>break 
+
+</li>
+<li>continue
+
+</li>
+<li><span id="show1_9_5" class="foldclosed" onClick="show_folder('1_9_5')" style="POSITION: absolute">+</span> <span id="hide1_9_5" class="foldopened" onClick="hide_folder('1_9_5')">-</span>
+while loop
+<ul id="fold1_9_5" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_6210981389461527322.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_9177792449302662350.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_9_6" class="foldclosed" onClick="show_folder('1_9_6')" style="POSITION: absolute">+</span> <span id="hide1_9_6" class="foldopened" onClick="hide_folder('1_9_6')">-</span>
+if else
+<ul id="fold1_9_6" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Machine Learning_4908239215522207693.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">functions</span>
+<ul><li><p>create a file with name of squareThisNumber.m 
+&#xa;    <img src="Machine Learning_5433754951602812812.jpeg" >&#xa;  
+<p>make call like squareThisNumber(3)
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">can return multiple values </span>
+&#xa;    <p>&#xa;      function [y1,y2] = squareAndCubeThisNumber(x)&#xa;    </p>&#xa;    <p>&#xa;      y1 = x^2;&#xa;    </p>&#xa;    <p>&#xa;      y2 = x^3&#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Vectorization</span>
+<ul><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Vectorized implementation is lot efficient than normal for loop</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">e.g.1</span>
+<ul><li>&#xa;    <img src="Machine Learning_4294049997863613552.jpeg" >&#xa;  
+&#xa;    <img src="Machine Learning_4478786354325325852.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">e.g. 2</span>
+<ul><li>&#xa;    <img src="Machine Learning_3377385067728969652.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul></li>
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>

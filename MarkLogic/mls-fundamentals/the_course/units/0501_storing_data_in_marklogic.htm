@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Storing Data in MarkLogic</strong></p>
+<p>Data is stored in MarkLogic as a document. This data model is extremely beneficial for loading content as-is, with no schema required. </p>
+<p>Document formats supported are <strong>JSON</strong>, <strong>XML</strong>, <strong>RDF</strong>, <strong>text</strong>, and <strong>binary</strong>. </p>
+<p>Documents in other formats (e.g. PDF, Word, Excel, PowerPoint, and HTML) can be converted to XML or JSON using MarkLogic's conversion functions.</p>
+<p>Compared to text documents, for storing data without any structure, JSON and XML documents are quite appealing as queries can be done not only for the existence of text, but also based on document structure.</p>
+<p>JSON document example:</p>
+<p class="code">{<br>
+&quot;recipe&quot;: <br>
+&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&quot;name&quot;: &quot;tofu soup&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&quot;ingredients&quot;:  [&quot;tofu block&quot;, &quot;carrots&quot;, &quot;mushrooms&quot;,  &quot;green onions&quot;, &quot;coconut milk&quot;],<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&quot;directions&quot;: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;preparation&quot;: &quot;Chop ingredients into medium-size cubes.&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;cooking&quot;: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;step1&quot;: &quot;In a large pot, combine all ingredients.&quot;,<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;step2&quot;: &quot;Cook on medium heat for 45 minutes.&quot;<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+  &nbsp;&nbsp;}<br>
+}</p>
+<p>XML document example:</p>
+<p class="code">&lt;recipe&gt;<br>
+&nbsp;&nbsp;&lt;name&gt;tofu soup&lt;/name&gt;<br>
+&nbsp;&nbsp;&lt;ingredients&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ingredient&gt;tofu block&lt;/ingredient&gt;<br>
+&nbsp;&nbsp;&nbsp;  &lt;ingredient&gt;carrots&lt;/ingredient&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ingredient&gt;mushrooms&lt;/ingredient&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ingredient&gt;green onions&lt;/ingredient&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ingredient&gt;coconut milk&lt;/ingredient&gt;<br>
+&nbsp;&nbsp;&lt;/ingredients&gt;<br>
+&nbsp;  &lt;directions&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;preparation&gt;Chop ingredients into medium-size cubes.&lt;/preparation&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;cooking&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;step1&gt;In a large pot, combine all ingredients.&lt;/step1&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;step2&gt;Cook on medium heat for 45 minutes.&lt;/step2&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/cooking&gt;<br>
+&nbsp;&nbsp;&lt;/directions&gt;<br>
+&lt;/recipe&gt;</p>
+<p><br>
+The RDF format is for storing triples, for semantics. </p>
+<p>The binary format is for storing binary files, such as images, sounds, or video files. </p>
+<p>Any information for a document beyond its content, such as metadata for an image, can be stored in an accompanying <strong>properties</strong> file. </p>
+<p class="topic-sub-heading">URI</p>
+<p>To be able to address any given document in a MarkLogic database, each document has a  unique URI (Uniform Resource Identifier).  For example, the following URI might be  used for the document illustrated  above:</p>
+<p class="code">/recipes/tofu-soup.json</p>
+<p>The URI is a string that is defined when a document is being loaded. It is common to put some thought into the URI that you will assign to each of your documents, as any directories in a URI can be used to retrieve documents from the database. </p>
+<p>The URI does not refer to the physical location of a document in the database, but rather, provides a unique name for retrieving the document. </p>
+<p>If another document is inserted at the same URI, it will replace the previous one. </p>
+<p  class="topic-sub-heading">Organizing Documents</p>
+<p>Documents can be organized in a database via any directories in the path of a URI  and/or via collections.</p>
+<p>Specifying <strong>directories</strong> in the URI of a document provides a  way to reference groups of documents in a database based on their URIs.</p>
+<p>Example JavaScript reference to  documents in a  recipes directory:<span class="code"> <br>
+  <br>
+xdmp.directory(&quot;/recipes/&quot;)</span></p>
+<p>Specifying <strong>collections</strong> for a document provides a way to tag a document with no regard for its URI. </p>
+<p>Example collection assignment:<span class="code"> <br>
+  <br>
+xdmp.documentAddCollections("/recipes/tofu-soup.json", &quot;vegetarian&quot;</span>)</p>
+<p>Example JavaScript to reference the documents in a collection named vegetarian:<span class="code"> <br>
+  <br>
+fn.collection(&quot;vegetarian&quot;)</span></p>
+<p>A document can belong to more than one collection. </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0501_x_view_documents_to_be_loaded.htm" class="exercise-link">Exercise (View Documents to Be Loaded)</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Getting Started with the Node.js API</strong></p>
+<p>Built on top of the REST API, the MarkLogic Node.js  API provides a native programming interface for JavaScript developers to use for creating Node.js applications that use a MarkLogic database.</p>
+<p class="topic-sub-heading">REST API Instance </p>
+<p>In order to be able to use the Node.js API to communicate with a MarkLogic database, a REST API instance needs to exist for the database.</p>
+<p class="topic-sub-heading">Using the Node.js API</p>
+<p>Available in the  public <strong>npm repository</strong> (www.npmjs.com/package/marklogic),  the MarkLogic Node.js API  package can be downloaded to a Node.js project through the simple command of<span class="code"> npm install marklogic</span>.</p>
+<p><img src="../images/unit06/npm_repository_page.png" width="703" height="296" class="image-border"></p>
+<p>To  use the downloaded  package, the require function can  be used. All of the MarkLogic Node.js API functionality then becomes available to the Node.js project. </p>
+<p><span class="code">var marklogic = require('marklogic');</span></p>
+<p>A connection can then be created, that uses  a  REST API instance to connect to a MarkLogic database: </p>
+<p class="code">var connection = {<br>
+&nbsp;&nbsp;host: 'localhost',<br>
+&nbsp;&nbsp;port: 8060,<br>
+&nbsp;&nbsp;user: 'admin',<br>
+&nbsp;&nbsp;password: 'admin'<br>
+};</p>
+<p>Documents can then be retrieved from the  database:</p>
+<p class="code"> var db = marklogic.createDatabaseClient(connection);<br>
+</p>
+<p class="code">db.documents.read('/patents/airless_diving.json', '/patents/waterski_drone.json')<br>
+  <br>
+  &nbsp;&nbsp;&nbsp;.result(function(documents) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;documents.forEach(function(document) {...})<br>
+&nbsp;&nbsp;&nbsp;});</p>
+<p class="topic-sub-heading">Reference Instance</p>
+<p>The <strong>Samplestack</strong> reference instance (available at github.com/marklogic/marklogic-samplestack) provides a 3-tier, enterprise reference architecture for Node.js developers to use for creating their own MarkLogic applications. </p>
+<p>Implemented using Angular, Node.js, Express, Gulp, and MarkLogic, Samplestack includes enterprise-grade features such as multi-statement transactions, role-based security, and LDAP integration.</p>
+<p class="topic-sub-heading">More Info</p>
+<p>Detail  on the MarkLogic Node.js API is available  in the  <strong>Node.js Application  Developer's Guide</strong>  (docs.marklogic.com/guide/node-dev) and on <strong>GitHub</strong> (github.com/marklogic/node-client-api).</p>
+<p>In addition, there is the 3-day instructor-led <strong>Developing MarkLogic Applications l: Node</strong> course (mlu.marklogic.com/registration).</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0604_x_use_the_node.js_api.htm" class="exercise-link">Exercise (Use the Node.js API)</a></p>
+<p>Back: <a href="0603_x_use_the_java_api.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

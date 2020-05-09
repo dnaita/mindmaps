@@ -1,0 +1,1 @@
+Desktop/mlcp-1.3-3/bin/mlcp.sh import -mode local -host localhost -port 8070 -username admin -password admin -input_file_path Desktop/mls-fundamentals/unit05/star-wars_data -output_uri_replace "home/cent/Desktop/mls-fundamentals/unit05/star-wars_data/data,'character',home/cent/Desktop/mls-fundamentals/unit05/star-wars_data/images,'image'"

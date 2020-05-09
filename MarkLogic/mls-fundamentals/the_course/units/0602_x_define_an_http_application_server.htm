@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Define an HTTP Application Server</strong></p>
+<p>In this walkthrough exercise, you set up an application server for the playground database. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In the <strong>Admin Interface</strong>, select   Configure - Groups - Default - <strong>App Servers</strong>.</li>
+  <li class="exercise-step">Select the <strong>Create HTTP</strong> tab.</li>
+  <li class="exercise-step">For server name, enter<span class="code"> 8050-playground</span>.</li>
+  <li class="exercise-step">For root, enter<span class="code"> /home/cent/Desktop/mls-projects/playground</span>.</li>
+  <li class="exercise-step">For port, enter<span class="code"> 8050</span>.</li>
+  <li class="exercise-step">For modules, leave <strong>(file system)</strong> selected.</li>
+  <li class="exercise-step">For database, select <strong>playground</strong>.</li>
+  <li class="exercise-step">Click the <strong>ok</strong> button. </li>
+  <li class="exercise-step">In <strong>Query Console</strong>, press F5 to refresh the web page, to see that an application server is now set up for the playground database:<br>
+    <br>
+    <img src="../images/unit06/centos_playground_app_server.png" width="434" height="19" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Select the <strong>playground</strong> database and click <strong>Explore</strong>, to see that you still have the /fun/hello.json and /fun/hello.xml documents in the database:<br>
+    <br>
+    <img src="../images/unit06/centos_playground_docs.png" width="495" height="125" class="image-border"><br>
+  </li>
+  <li class="exercise-step">On the desktop of your virtual machine, right-click to then select <strong>Create Folder</strong>.</li>
+  <li class="exercise-step">Name the folder<span class="code"> mls-projects</span>.</li>
+  <li class="exercise-step">Double-click the folder to open it.</li>
+  <li class="exercise-step">Inside the mls-projects folder, create another <strong>new folder</strong> named<span class="code"> playground</span>.</li>
+  <li class="exercise-step">Double-click the playground folder to open it.</li>
+  <li class="exercise-step">Inside the playground folder, right-click to then select <strong>Create Document</strong> - <strong>Empty File</strong>. </li>
+  <li class="exercise-step">Name the new file<span class="code"> index.xqy</span>.</li>
+  <li class="exercise-step"><strong>Double-click </strong> index.xqy to open it in a text editor.</li>
+  <li class="exercise-step">Enter the following (can copy from unit06/<strong>ex02a.txt</strong>):<br>
+    <br>
+    <span class="code">xdmp:set-response-content-type(&quot;text/html&quot;),<br>
+      fn:doc(&quot;/fun/hello.xml&quot;) </span><br>
+  </li>
+  <li class="exercise-step"><strong>Save</strong> the file.</li>
+  <li class="exercise-step">In a browser window within the virtual machine, enter<span class="code"> http://localhost:8050</span>.</li>
+  <li class="exercise-step">If prompted, enter <span class="code">admin</span> and <span class="code">admin</span>, to log in to the application.</li>
+  <li class="exercise-step">See that the contents of the /fun/hello.xml document display:<br>
+    <br>
+    <img src="../images/unit06/hello_world_xml.png" width="451" height="212" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Back in index.xqy, add to the code, to display the Hello World! message in an h1 tag:<br>
+    <span class="code"><br>
+      xdmp:set-response-content-type(&quot;text/html&quot;),<br>
+  <strong>&lt;h1&gt;{</strong>fn:doc(&quot;/fun/hello.xml&quot;)<strong>}&lt;/h1&gt;</strong></span><br>
+  </li>
+  <li class="exercise-step"><strong>Save</strong>  index.xqy  and <strong>refresh</strong> the browser window.</li>
+  <li class="exercise-step">See that the Hello World! text displays as an h1 element:<br>
+    <br>
+  <img src="../images/unit06/hello_world_xml_h1.png" width="451" height="212"></li>
+</ol>
+<p>Optionally, modify the XQuery code to display the contents of a JSON document:</p>
+<ol start="26" class="exercise-step">
+  <li class="exercise-step">Modify the code to display the  contents of the hello.json file (remove the h1 tags, remove the curly braces, and change the document URI extension to .json):<br>
+    <br>
+    <span class="code">xdmp:set-response-content-type(&quot;text/html&quot;),<br>    
+    <strong>fn:doc(&quot;/fun/hello.json&quot;)    </strong></span><br>
+  </li>
+  <li class="exercise-step"><strong>Save</strong> the file and <strong>refresh</strong> the browser page.</li>
+  <li class="exercise-step">See that the contents of the /fun/hello.json document display:<br>
+    <br>
+    <img src="../images/unit06/greeting.png" width="498" height="188" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Add to the code, to display just the value of  greeting, in an h1 tag:<br>
+    <span class="code"><br>
+    xdmp:set-response-content-type(&quot;text/html&quot;),<br>
+    <strong>&lt;h1&gt;{</strong>fn:doc(&quot;/fun/hello.json&quot;)<strong>/data()}&lt;/h1&gt;</strong></span><br>
+  </li>
+  <li class="exercise-step"><strong>Save</strong> the file and <strong>refresh</strong> the browser window.</li>
+  <li class="exercise-step">See the Hello World! text displayed in an h1 tag:<br>
+    <br>
+  <img src="../images/unit06/hello_world.png" width="500" height="209" class="image-border"></li>
+</ol>
+<p>&nbsp;</p>
+<p>Next: <a href="0603_getting_started_with_the_java_api.htm">Topic (Getting Started with the Java API)</a></p>
+<p>Back: <a href="0602_defining_an_http_application_server.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

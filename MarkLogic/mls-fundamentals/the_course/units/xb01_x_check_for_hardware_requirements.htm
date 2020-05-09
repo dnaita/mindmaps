@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Check for Hardware Requirements</strong></p>
+<p>In this walkthrough exercise, you check that the computer that you are thinking to use  for hosting the course virtual machine (for doing the course hands-on exercises) meets the  hardware requirements of 64-bit, 4 GB or more of RAM, and 20 GB or more of free disk space.</p>
+<p><a href="#win">Windows</a> | <a href="#mac">Macintosh</a> | <a href="#linux">Linux</a></p>
+<a name="win"/>
+<p>&nbsp;</p>
+<p> If it is a Windows computer (<em>steps may vary depending on your Windows</em> <em>version</em>):</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In Windows Explorer, right-click <strong>Computer</strong> (not C:), to then select <strong>Properties</strong>.</li>
+  <li class="exercise-step">See that the System window appears:<br>
+    <br>
+    <img src="../images/app0b/computer_properties.png" width="696" height="496" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Check that the System type is <strong>64-bit</strong>:<br>
+    <br>
+    <img src="../images/app0b/system_type.png" width="489" height="29" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Check that the installed memory is at least <strong>4 GB</strong>:<br>
+    <br>
+    <img src="../images/app0b/installed_memory.png" width="487" height="30" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In Windows Explorer, right-click <strong>C:</strong>, to then select <strong>Properties</strong>.</li>
+  <li class="exercise-step">See that the Local Disk (C:) Properties window appears:<br>
+    <br>
+    <img src="../images/app0b/local_disk_properties.png" width="377" height="505" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Check that the amount of free space is at least 20 GB:<br>
+    <br>
+<img src="../images/app0b/free_space.png" width="377" height="26" class="image-border"></li>
+</ol>
+<a name="mac"/>
+<p>&nbsp;</p>
+<p>If it is a Macintosh computer:</p>
+<ol class="exercise-step">
+  <li class="exercise-step">Go to the Apple menu (upper-left corner) and select <strong>About This Mac</strong>.</li>
+  <li class="exercise-step">Notice the <strong>Processor</strong> value (e.g. 1.3 GHz Intel Core i5):<br>
+    <br>
+  <img src="../images/app0b/about_this_mac.png" width="290" height="356" class="image-border"></li>
+  <li class="exercise-step">Check the Processor value against this list, ensuring that it is 64-bit:<br>
+    <br>
+  <img src="../images/app0b/mac_processor_table.png" width="236" height="237" class="image-border"></li>
+  <li class="exercise-step">Also in the About This Mac window, check that the <strong>Memory</strong> value is at least <strong>4 GB</strong>:<br>
+    <br>
+  <img src="../images/app0b/mac_memory.png" width="234" height="27" class="image-border"></li>
+  <li class="exercise-step">Select the <strong>Macintosh HD</strong>.</li>
+  <li class="exercise-step">In the <strong>File</strong> menu, select <strong>Get Info</strong>.</li>
+  <li class="exercise-step">Check the <strong>Available</strong> value to see that the amount of space available is at least 20 GB:<br>
+    <br>
+  <img src="../images/app0b/mac_hard_drive.png" width="282" height="585" class="image-border"></li>
+</ol>
+<a name="linux"/>
+<p>&nbsp;</p>
+<p>If it is a Linux computer:</p>
+<ol class="exercise-step">
+  <li class="exercise-step">To check that the operating system is 64-bit,  enter<span class="code"> getconf LONG_BIT </span>in a terminal window:<br>
+    <br>
+    <img src="../images/app0b/linux_64-bit.png" width="396" height="85" class="image-border"><br>
+  </li>
+  <li class="exercise-step">See that it says 64 (not 32).</li>
+  <li class="exercise-step">To view the amount of memory, enter<span class="code"> free -m</span>:<br>
+    <br>
+    <img src="../images/app0b/linux_memory.png" width="660" height="138" class="image-border"><br>
+  </li>
+  <li class="exercise-step">See that the  value in the total column is at least 4096 (i.e. 4 GB):<br>
+    <br>
+    <img src="../images/app0b/linux_memory_total.png" width="161" height="37" class="image-border"><br>
+  </li>
+  <li class="exercise-step">To check the amount of free space available, enter<span class="code"> df -h</span>:<br>
+    <br>
+    <img src="../images/app0b/linux_disk_space.png" width="491" height="155" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In the Avail column, see that the first value is at least 20G (i.e. 20 GB):<br>
+    <br>
+    <img src="../images/app0b/linux_disk_space_avail.png" width="54" height="59" class="image-border"></li></ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="xb02_creating_the_course_virtual_machine.htm">Topic (Creating the Course Virtual Machine)</a></p>
+<p>Back: <a href="xb01_understanding_the_course_system_requirements.htm">Previous<br>
+</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

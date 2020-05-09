@@ -1,0 +1,1 @@
+curl --anyauth --user admin:admin -X PUT -i -H "Content-Type: application/json" -d '{"patent": {"title": "Waterski drone", "inventor": "Ruth", "description": "Amazingly small but powerful drone for waterskiing without a boat"}}' "http://localhost:8060/v1/documents?uri=/patents/waterski_drone.json"

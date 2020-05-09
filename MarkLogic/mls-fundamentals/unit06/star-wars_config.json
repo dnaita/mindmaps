@@ -1,0 +1,9 @@
+{
+    "rest-api":
+    {
+        "name": "8071-star-wars",
+        "database": "star-wars",
+        "port": "8071",
+        "forests-per-host": 1
+    }
+}

@@ -1,0 +1,8 @@
+{ 
+  "rest-api": {
+    "name": "8060-patents",
+    "database": "patents",
+    "port": "8060",
+    "forests-per-host": 1
+  } 
+}

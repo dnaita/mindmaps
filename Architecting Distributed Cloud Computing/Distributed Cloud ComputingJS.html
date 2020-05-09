@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="treestyles.css" type="text/css"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><!--This file has been created with toxhtml.xsl--><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /><title>Architecting Distributed Cloud Applications</title><link rel="stylesheet" href="Distributed%20Cloud%20ComputingJS.html_files/treestyles.css" type="text/css" /><script type="text/javascript" src="Distributed%20Cloud%20ComputingJS.html_files/marktree.js"> 
+	</script></head><body><div class="basetop"><a onclick="expandAll(document.getElementById('base'))" href="#">Expand</a> -
+<a onclick="collapseAll(document.getElementById('base'))" href="#">Collapse</a></div><div class="basetext" id="base"><ul>
+	<li class="col" id="FMID_1806743548FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Architecting Distributed Cloud Applications</div>
+		<ul class="subexp">
+	<li class="exp" id="FMID_166081793FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Chapter 1</div>
+		<ul class="sub">
+	<li class="col" id="FMID_849616676FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;"><p>
+       some reasons why a service instance might fail or stop
+    </p></div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1623795368FM"><div class="nodecontent" style="font-size:150%;"><p><b>Developer. Unhandled exception,</b> caused by something the developer was not expecting and did not handle. The natural order of events is that the service logs the exception and terminates. The developer analyzes the logs, and takes corrective action in the code either to avoid the exception in the future, or to handle it more gracefully. This is an iterative process.
+    </p></div></li>
+	<li class="basic" id="FMID_631908515FM"><div class="nodecontent" style="font-size:150%;"><p><b>DevOps.Scaling down</b> the number of service instances. When the orchestrator takes the instances down, it is possible that the instance being stopped cannot shut down in a graceful way, and the request it was processing might fail.
+    </p></div></li>
+	<li class="basic" id="FMID_1100487583FM"><div class="nodecontent" style="font-size:150%;"><p><b>DevOps. Updating service code</b> to a new version also might result in the instance not shutting down gracefully. A service instance might be processing a request at the time it is taken down for upgrade, resulting in that instance being processed again.
+    </p></div></li>
+	<li class="basic" id="FMID_1421101688FM"><div class="nodecontent" style="font-size:150%;"><p><b>Orchestrator</b>. <b>Moving service code from one machine to another.</b>  The orchestrator's job is to make sure the service is up and running, and in doing so, it might decide to shut down an instance and move it to another piece of hardware.
+    </p></div></li>
+	<li class="basic" id="FMID_83958119FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Force majeure. <b>Hardware failure</b>, such as with the power supply, overheating fans, hard disk, network controller, router, or bad network cable, among others.
+    </p></div></li>
+	<li class="basic" id="FMID_1952221284FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Force majeure. <b>Datacenter outages</b> due to natural disasters or attacks.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_783351747FM"><div class="nodecontent" style="font-size:150%;">When architecting applications for the cloud, you should:</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1123358898FM"><div class="nodecontent" style="font-size:150%;">Assume failures will happen and design for resiliency.</div></li>
+	<li class="basic" id="FMID_1766537130FM"><div class="nodecontent" style="font-size:150%;">Avoid single points of failure through redundancy.</div></li></ul></li>
+	<li class="exp" id="FMID_1148644516FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Design self-healing applications</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_670385153FM"><div class="nodecontent" style="font-size:150%;">Detect failures.</div></li>
+	<li class="basic" id="FMID_627646117FM"><div class="nodecontent" style="font-size:150%;">Respond to failures gracefully.</div></li>
+	<li class="basic" id="FMID_304576048FM"><div class="nodecontent" style="font-size:150%;">Log and monitor failures to give operational insight.</div></li></ul></li>
+	<li class="exp" id="FMID_1164201324FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;"><p>
+      Based on application's availability requirements.
+    </p><p>
+      Following approach can be taken.
+    </p></div>
+		<ul class="sub">
+	<li class="exp" id="FMID_1156570890FM"><div class="nodecontent" style="font-size:150%;"><p><b>Retry failed operations.</b> 
+    </p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_117635051FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Transient failures might occur due to momentary loss of network connectivity, a dropped database connection, or a timeout when a service is busy. Build retry logic into your application to handle transient failures.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_799859723FM"><div class="nodecontent" style="font-size:150%;"><p><b>Protect failing remote services (circuit breaker design pattern).</b> 
+    </p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_119894029FM"><div class="nodecontent" style="font-size:150%;"><p>
+      It's advisable to retry after a transient failure, but if the failure persists, you can end up with too many callers hitting a failing service. This can lead to cascading failures as requests back up. Use the circuit breaker design pattern to fail fast (without making the remote call) when an operation is likely to fail.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_1120707933FM"><div class="nodecontent" style="font-size:150%;"><p><b>Isolate critical resources (bulkhead pattern).</b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_266812588FM"><div class="nodecontent" style="font-size:150%;"><p><b> </b>Failures in one subsystem can sometimes cascade. This can happen if a failure causes some resources, such as threads or sockets, from being freed in a timely manner, leading to resource exhaustion. To avoid this, partition a system into isolated groups, so that a failure in one partition does not bring down the entire system.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_868439675FM"><div class="nodecontent" style="font-size:150%;"><p><b>Perform load leveling. </b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_902936412FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Applications may experience <b>sudden spikes in traffic that can overwhelm services on the backend</b>. To avoid this, use the <b>queue-based load leveling pattern</b> to queue work items to run asynchronously. The queue acts as a buffer that evens out peaks in the load.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_451037807FM"><div class="nodecontent" style="font-size:150%;"><p><b>Fail over</b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1284666825FM"><div class="nodecontent" style="font-size:150%;"><p>
+      If an instance can't be reached, fail over to another instance.
+    </p><p /><p>
+      For things that are stateless, like a web server, put several instances behind a load balancer or traffic manager.
+    </p><p /><p>
+      For things that store state, like a DB, use replicas and fail over.
+    </p><p /><p>
+      Depending on the data store and how it replicates, this might require the application to deal with eventual consistency.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_157898986FM"><div class="nodecontent" style="font-size:150%;"><p><b>Compensate for failed transactions </b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1214989036FM"><div class="nodecontent" style="font-size:150%;"><p>
+       In general, avoid distributed transactions because they require coordination across services and resources. Instead, use compensating transactions to undo any step that already completed.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_225812045FM"><div class="nodecontent" style="font-size:150%;"><p><b>Use checkpoints </b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1669738498FM"><div class="nodecontent" style="font-size:150%;"><p>
+      on long-running transactions.
+    </p><p>
+      It can <b>provide</b> <b>resiliency</b> if a long-running operation fails. When the operation restarts (for example, it is picked up by another virtual machine), it can be resumed from the last checkpoint.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_1186677858FM"><div class="nodecontent" style="font-size:150%;"><p><b>Degrade gracefully</b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_406072917FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Sometimes you can't work around a problem, but you can provide reduced functionality that is still useful. Consider an application that shows a catalog of books. If the application can't retrieve the thumbnail image for the cover, it might show a placeholder image. Entire subsystems might be noncritical for the application. For example, in an e-commerce site, showing product recommendations is probably less critical than processing orders.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_459547540FM"><div class="nodecontent" style="font-size:150%;"><p><b>Throttle clients</b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_223817412FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Sometimes a small number of users create excessive load, which can reduce your application's availability for other users. In this situation, throttle the client for a certain period of time. See the throttling pattern for more information.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_741948993FM"><div class="nodecontent" style="font-size:150%;"><p><b>Block bad actors</b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1862994941FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Just because you throttle a client, it doesn't mean the client was acting maliciously. It just means that the client exceeded its service quota. But <b>if a client consistently exceeds their quota or otherwise behaves badly, you might block them</b>. <b>Define an out-of-band process for the user to request getting unblocked.</b></p></div></li></ul></li>
+	<li class="exp" id="FMID_903416061FM"><div class="nodecontent" style="font-size:150%;"><p><b>Use leader election</b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1611643000FM"><div class="nodecontent" style="font-size:150%;"><p>
+       When you need to coordinate a task, use leader election to select a coordinator. That way, the coordinator is not a single point of failure. If the coordinator fails, a new one is selected. Rather than implement a leader election algorithm from scratch, consider an off-the-shelf solution such as Apache ZooKeeper.
+    </p></div></li></ul></li>
+	<li class="exp" id="FMID_434732040FM"><div class="nodecontent" style="font-size:150%;"><p><b>Test with fault injection</b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1863454543FM"><div class="nodecontent" style="font-size:150%;"><p>
+       All too often, the success path is well tested but not the failure path. A system could run in production for a long time before a failure path is exercised. <b>Use fault injection to test the resiliency of the system to failures, either by triggering actual failures or by simulating them.</b></p></div></li></ul></li>
+	<li class="exp" id="FMID_895806008FM"><div class="nodecontent" style="font-size:150%;"><p><b>Embrace chaos engineering</b></p></div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1590037599FM"><div class="nodecontent" style="font-size:150%;"><p>
+       Chaos engineering extends the notion of fault injection by randomly injecting failures or abnormal conditions into production instances.
+    </p></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_808672260FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Orchestrators</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1323418504FM"><div class="nodecontent" style="font-size:150%;">automate the lifecycle and management of systems and services.</div></li>
+	<li class="exp" id="FMID_1365144872FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">The lifecycle consists of</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_943047718FM"><div class="nodecontent" style="font-size:150%;">creating and destroying the machines (virtual or physical)</div></li>
+	<li class="basic" id="FMID_530679559FM"><div class="nodecontent" style="font-size:150%;">monitoring the health of the deployed resources</div></li>
+	<li class="basic" id="FMID_1539248318FM"><div class="nodecontent" style="font-size:150%;">deploying and running the service code.</div></li></ul></li>
+	<li class="basic" id="FMID_173000839FM"><div class="nodecontent" style="font-size:150%;">also manages the network</div></li>
+	<li class="basic" id="FMID_1067854767FM"><div class="nodecontent" style="font-size:150%;">so that the communication between your machines is isolated</div></li>
+	<li class="basic" id="FMID_130444282FM"><div class="nodecontent" style="font-size:150%;">coordinates the distribution of bandwidth between different tenants,</div></li>
+	<li class="basic" id="FMID_1546856568FM"><div class="nodecontent" style="font-size:150%;">Cloud vendors' orchestrators are exposed through an API.</div></li></ul></li>
+	<li class="exp" id="FMID_442648689FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Orchestration </div>
+		<ul class="sub">
+	<li class="exp" id="FMID_1851894944FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Provisioning.</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_56094980FM"><div class="nodecontent" style="font-size:150%;">This is the process of bringing new resources online and getting those resources ready to perform work. This might be creating a new virtual machine and setting up the operating system, or creating and configuring the network.</div></li></ul></li>
+	<li class="exp" id="FMID_1746414067FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Cluster management.</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_580165817FM"><div class="nodecontent" style="font-size:150%;">involves sending tasks to machines, adding and removing machines, and managing active processes.</div></li></ul></li>
+	<li class="exp" id="FMID_737651851FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Scheduling</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1395459435FM"><div class="nodecontent" style="font-size:150%;">process of running a specific service on specific machines in a cluster.</div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_699594582FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">fault domain</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1943375583FM"><div class="nodecontent" style="font-size:150%;">unit of a single point of failure</div></li>
+	<li class="col" id="FMID_693120937FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">With this hierarchy, when:</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1100663412FM"><div class="nodecontent" style="font-size:150%;">A region goes down, everything inside the region is down.</div></li>
+	<li class="basic" id="FMID_1385383260FM"><div class="nodecontent" style="font-size:150%;">An availability zone goes down, everything inside the availability zone is lost.</div></li>
+	<li class="basic" id="FMID_292966687FM"><div class="nodecontent" style="font-size:150%;">A rack goes down, the PCs are lost.</div></li>
+	<li class="basic" id="FMID_1510221103FM"><div class="nodecontent" style="font-size:150%;">A PC goes down, the VMs on it are lost.</div></li></ul></li>
+	<li class="basic" id="FMID_408488587FM"><div class="nodecontent" style="font-size:150%;">You can ensure more robust services by deploying them across this fault-domain hierarchy.</div></li>
+	<li class="exp" id="FMID_1429613572FM"><div class="nodecontent" style="font-size:150%;">pic</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_155123629FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_330785631321591864.jpeg" /></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1830772618FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Why monolith to Microservice</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1215832131FM"><div class="nodecontent" style="font-size:150%;">Scale independently</div></li>
+	<li class="basic" id="FMID_1476397052FM"><div class="nodecontent" style="font-size:150%;">Different Technology Stacks</div></li>
+	<li class="basic" id="FMID_917282570FM"><div class="nodecontent" style="font-size:150%;">2 or more clients using different service version of the service</div></li>
+	<li class="basic" id="FMID_534856266FM"><div class="nodecontent" style="font-size:150%;">Conflicting dependencies</div></li>
+	<li class="exp" id="FMID_1458224346FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Pic</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_350755768FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_2765366986642207402.jpeg" /></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1971331869FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Myths on benefits of Microservices</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1440789857FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_644808380527976357.jpeg" /></div></li></ul></li>
+	<li class="exp" id="FMID_720490341FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Composing SLAs for Dependent Services</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_185315392FM"><div class="nodecontent" style="font-size:150%;">when the application is dependent on services with varying levels of SLAs, the composite SLA will be lower. That is because the probability of each service failing is independent, so the composite becomes the multiplication of each individual services uptime probability.  In the following example, the SLA for the application is 99.95% x 99.99% = 99.94%.</div></li>
+	<li class="col" id="FMID_349750754FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Fallback can be used</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1606799524FM"><div class="nodecontent" style="font-size:150%;">improve the composite SLA by creating independent fallback paths.</div></li>
+	<li class="basic" id="FMID_293824700FM"><div class="nodecontent" style="font-size:150%;">For example, if Microsoft Azure SQL Database is unavailable, put transactions into a queue for later processing.</div></li>
+	<li class="basic" id="FMID_1196339241FM"><div class="nodecontent" style="font-size:150%;">trade-offs to this approach. The application logic is more complex, you are paying for the queue, and there might be data-consistency issues to consider.</div></li></ul></li>
+	<li class="exp" id="FMID_1984837504FM"><div class="nodecontent" style="font-size:150%;">pic</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1975644737FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_4380662440492636840.jpeg" /></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1575587462FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">12 Factors</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_146844907FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_3132589503945783412.jpeg" /></div></li>
+	<li class="basic" id="FMID_1736776401FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_4507555058211269979.jpeg" /></div></li></ul></li>
+	<li class="exp" id="FMID_868366771FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Isolation vs. Density</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_927097771FM"><div class="nodecontent" style="font-size:150%;">One of the issues that we need to consider when building services for the cloud is how to host those services. Do I want to host them on bare metal or on a virtual machine? Do I want to host them in a container? Do I want to host them in a process? Behind these questions is the isolation vs. density consideration:</div></li>
+	<li class="exp" id="FMID_1357507108FM"><div class="nodecontent" style="font-size:150%;">pic</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1741864405FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_780397850814123132.jpeg" /></div></li></ul></li>
+	<li class="exp" id="FMID_1661538868FM"><div class="nodecontent" style="font-size:150%;">Hierarchy</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1579885956FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_8906274938253059899.jpeg" /></div></li></ul></li></ul></li></ul></li>
+	<li class="exp" id="FMID_788606595FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Chapter 2</div>
+		<ul class="sub">
+	<li class="exp" id="FMID_193803274FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Proxies</div>
+		<ul class="sub">
+	<li class="exp" id="FMID_1108610182FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">pic</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1429103917FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_2866069454978685627.jpeg" /></div></li></ul></li>
+	<li class="exp" id="FMID_1447449052FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Forward Proxy</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_376862202FM"><div class="nodecontent" style="font-size:150%;">have features to support clients</div></li>
+	<li class="col" id="FMID_1925989426FM"><div class="nodecontent" style="font-size:150%;">process outgoing requests and might perform following tasks</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1593508105FM"><div class="nodecontent" style="font-size:150%;">Caching</div></li>
+	<li class="basic" id="FMID_1318168523FM"><div class="nodecontent" style="font-size:150%;">Client anonymization</div></li>
+	<li class="basic" id="FMID_1166000453FM"><div class="nodecontent" style="font-size:150%;">Monitoring</div></li>
+	<li class="basic" id="FMID_782823180FM"><div class="nodecontent" style="font-size:150%;">Routing</div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_916215896FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Reverse Proxy</div>
+		<ul class="sub">
+	<li class="exp" id="FMID_70430310FM"><div class="nodecontent" style="font-size:150%;">pic</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1384979690FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_3002698433181399997.jpeg" /></div></li></ul></li>
+	<li class="basic" id="FMID_1301147672FM"><div class="nodecontent" style="font-size:150%;">have features to support services.</div></li>
+	<li class="exp" id="FMID_558997496FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;font-style:italic;"> perform some of the following tasks:</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_73988435FM"><div class="nodecontent" style="font-size:150%;">Load balancing</div></li>
+	<li class="basic" id="FMID_1784020873FM"><div class="nodecontent" style="font-size:150%;">Routing</div></li>
+	<li class="basic" id="FMID_35639425FM"><div class="nodecontent" style="font-size:150%;">SSL termination</div></li>
+	<li class="basic" id="FMID_273475449FM"><div class="nodecontent" style="font-size:150%;">Caching</div></li>
+	<li class="basic" id="FMID_1977795611FM"><div class="nodecontent" style="font-size:150%;">Authentication/validation</div></li>
+	<li class="basic" id="FMID_702525549FM"><div class="nodecontent" style="font-size:150%;">Tenant throttling/billing</div></li>
+	<li class="basic" id="FMID_1348975194FM"><div class="nodecontent" style="font-size:150%;">Some distributed denial of service (DDoS) mitigation</div></li>
+	<li class="basic" id="FMID_1095570737FM"><div class="nodecontent" style="font-size:150%;">Aggregation</div></li>
+	<li class="basic" id="FMID_1452900591FM"><div class="nodecontent" style="font-size:150%;">Monitoring</div></li></ul></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1786715744FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Cluster DNS and Service Reverse Proxy</div>
+		<ul class="sub">
+	<li class="col" id="FMID_1682246612FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">pic</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_69775784FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_7304335103904699079.jpeg" /></div></li></ul></li>
+	<li class="basic" id="FMID_748040319FM"><div class="nodecontent" style="font-size:150%;">In above case the request is for Inventory service, so Web Site will first connect with DNS to address of RP-I </div></li>
+	<li class="basic" id="FMID_1079286257FM"><div class="nodecontent" style="font-size:150%;">DNS : Domain Name Service</div></li>
+	<li class="basic" id="FMID_847327420FM"><div class="nodecontent" style="font-size:150%;">RP-I: stands for Inventory service reverse proxy</div></li>
+	<li class="basic" id="FMID_76139371FM"><div class="nodecontent" style="font-size:150%;">RP-O: stands for Orders service reverse proxy</div></li></ul></li>
+	<li class="exp" id="FMID_1698001080FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Reverse Proxy Load-Balancer Probes</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1303256298FM"><div class="nodecontent" style="font-size:150%;">Reverse proxies commonly use probes to determine whether a service instance is healthy.</div></li>
+	<li class="basic" id="FMID_38935363FM"><div class="nodecontent" style="font-size:150%;">Typically, when you configure a load balancer for a service, you specify probes.</div></li>
+	<li class="basic" id="FMID_111064833FM"><div class="nodecontent" style="font-size:150%;">With each probe, you specify an interval when the load balancer will make a request on the provided path and port and specify the expected result (for example, HTTP 200 OK)</div></li></ul></li>
+	<li class="exp" id="FMID_1705122796FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">API Versioning</div>
+		<ul class="sub">
+	<li class="col" id="FMID_1417697286FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">different approaches,</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_367764565FM"><div class="nodecontent" style="font-size:150%;"><a href="http://api.contoso.com/v1.0/products/users.">Make it a part of the URI path: http://api.contoso.com/v1.0/products/users.</a> <a href="http://api.contoso.com/v1.0/products/users."><img src="Distributed%20Cloud%20ComputingJS.html_files/ilink.png" alt="User Link" style="border-width:0" /></a></div></li>
+	<li class="basic" id="FMID_983245324FM"><div class="nodecontent" style="font-size:150%;"><a href="http://api.contoso.com/products/users?api-version=1.0.">Make it a query parameter as a number: http://api.contoso.com/products/users?api-version=1.0.</a> <a href="http://api.contoso.com/products/users?api-version=1.0."><img src="Distributed%20Cloud%20ComputingJS.html_files/ilink.png" alt="User Link" style="border-width:0" /></a></div></li>
+	<li class="basic" id="FMID_19786249FM"><div class="nodecontent" style="font-size:150%;"><a href="http://api.contoso.com/products/users?api-version=2016-12-07.">Make it a query parameter as a date: http://api.contoso.com/products/users?api-version=2016-12-07.</a> <a href="http://api.contoso.com/products/users?api-version=2016-12-07."><img src="Distributed%20Cloud%20ComputingJS.html_files/ilink.png" alt="User Link" style="border-width:0" /></a></div></li>
+	<li class="basic" id="FMID_1218023760FM"><div class="nodecontent" style="font-size:150%;">Make it part of the request header: Custom-Header: api-version=1.</div></li>
+	<li class="basic" id="FMID_921134720FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">As a best practice, implement versioning from the start, and always assume that there will be a version 2.</div></li></ul></li>
+	<li class="basic" id="FMID_913176446FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">When to change the version</div></li></ul></li>
+	<li class="exp" id="FMID_1341723529FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Defining Network API Contracts</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1492762508FM"><div class="nodecontent" style="font-size:150%;">Contracts can be defined with either a contract-first approach or a code-first approach.</div></li>
+	<li class="exp" id="FMID_713380019FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Contract-first</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_451635773FM"><div class="nodecontent" style="font-size:150%;">starts with the contract. A contract is first defined and then used to generate a back-end or mapping requests to functions in code.</div></li></ul></li>
+	<li class="exp" id="FMID_655761732FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Code-first</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1388546916FM"><div class="nodecontent" style="font-size:150%;">starts with the code. Classes and methods are developed, and a tool is used to generate a contract.</div></li>
+	<li class="basic" id="FMID_146340850FM"><div class="nodecontent" style="font-size:150%;">Contracts defined via code do not work.</div></li></ul></li>
+	<li class="basic" id="FMID_1679802718FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;"><a href="https://www.openapis.org">https://www.openapis.org</a> <a href="https://www.openapis.org"><img src="Distributed%20Cloud%20ComputingJS.html_files/ilink.png" alt="User Link" style="border-width:0" /></a></div></li>
+	<li class="basic" id="FMID_1679430065FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Consider using cross-language data transfer formats such as JSON, XML, Avro, and Protobuf.</div></li></ul></li>
+	<li class="exp" id="FMID_1104007814FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Circuit Breaking</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1402727235FM"><div class="nodecontent" style="font-size:150%;">situations might occur in which faults are due to unanticipated events, and that might take much longer to fix.</div></li>
+	<li class="basic" id="FMID_1158345405FM"><div class="nodecontent" style="font-size:150%;">These faults can range in severity from a partial loss of connectivity to the complete failure of a service</div></li>
+	<li class="basic" id="FMID_346243696FM"><div class="nodecontent" style="font-size:150%;">In these situations, it might be pointless for an application to continually retry an operation that is unlikely to succeed.</div></li>
+	<li class="basic" id="FMID_374394795FM"><div class="nodecontent" style="font-size:150%;">Instead, the application should quickly accept that the operation has failed and handle this failure accordingly.</div></li>
+	<li class="basic" id="FMID_1503626138FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">The Circuit Breaker pattern can prevent an application from repeatedly trying to execute an operation that's likely to fail.</div></li>
+	<li class="basic" id="FMID_238158327FM"><div class="nodecontent" style="font-size:150%;">The Circuit breaker pattern also enables an application to detect whether the fault has been resolved.</div></li>
+	<li class="basic" id="FMID_495228488FM"><div class="nodecontent" style="font-size:150%;">The purpose of the Circuit Breaker pattern is different than the Retry pattern. The Retry pattern enables an application to retry an operation in the expectation that it'll succeed.</div></li>
+	<li class="basic" id="FMID_1883899685FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">A circuit breaker acts as a proxy for operations that might fail. The proxy should monitor the number of recent failures that have occurred, and use this information to decide whether to allow the operation to proceed or to simply return an exception immediately.</div></li>
+	<li class="exp" id="FMID_1624318165FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">The proxy can be implemented as a state machine with the following states that mimic the functionality of an electrical circuit breaker:</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1294687684FM"><div class="nodecontent" style="font-size:150%;"><p><b>Closed</b>. The request from the application is routed to the operation. The proxy maintains a count of the number of recent failures, and if the call to the operation is unsuccessful the proxy increments this count. If the number of recent failures exceeds a specified threshold within a given time period, the proxy is placed into the Open state. At this point, the proxy starts a timeout timer, and when this timer expire, the proxy is placed into the Half-Open state. The purpose of the timeout timer is to give the system time to fix the problem that caused the failure before allowing the application to try to perform the operation again.
+    </p></div></li>
+	<li class="basic" id="FMID_368825642FM"><div class="nodecontent" style="font-size:150%;"><p><b>Open</b>. The request from the application fails immediately and an exception is returned to the application.
+    </p></div></li>
+	<li class="basic" id="FMID_1171276123FM"><div class="nodecontent" style="font-size:150%;"><p><b>Half-Open</b>. A limited number of requests from the application are allowed to pass through and invoke the operation. If these requests are successful, it's assumed that the fault that was previously causing the failure has been fixed and the circuit breaker switches to the Closed state (the failure counter is reset). If any request fails, the circuit breaker assumes that the fault is still present so it reverts back to the Open state and restarts the timeout timer to give the system a further period of time to recover from the failure.
+    </p></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1586312841FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Services Must Implement Operations Idempotently</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1189506706FM"><div class="nodecontent" style="font-size:150%;">An idempotent operation can be performed one or more times with no ill effect.</div></li>
+	<li class="exp" id="FMID_1569097044FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Idempotent CRUD considerations</div>
+		<ul class="sub">
+	<li class="col" id="FMID_1356204563FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Create</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_313361950FM"><div class="nodecontent" style="font-size:150%;">The HTTP specification that says POST does not have to be idempotent. You can use the following pattern to make it idempotent:</div></li>
+	<li class="basic" id="FMID_194615180FM"><div class="nodecontent" style="font-size:150%;"><p><b>Client:</b> Ask the server to create a unique ID. Alternatively, the client creates an ID if it is trusted, as in creating GUIDs. This way you can avoid the extra network hop.
+    </p></div></li>
+	<li class="basic" id="FMID_201753483FM"><div class="nodecontent" style="font-size:150%;"><p>
+       <b>Client:</b>Send the ID and the desired operation to the server, and retry if necessary.
+    </p></div></li>
+	<li class="basic" id="FMID_1158301967FM"><div class="nodecontent" style="font-size:150%;"><p><b>Server:</b> Check the ID to see whether it's in the log, do the operation, and log the ID. Then respond in a transaction.
+    </p></div></li></ul></li>
+	<li class="col" id="FMID_1268732932FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Read.</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1595236051FM"><div class="nodecontent" style="font-size:150%;">The client wants to read an entity with data = Read(id) using an ID and get some data back. This is typically done by sending HTTP GET, HEAD, OPTIONS, or TRACE verbs. These verbs are naturally idempotent. If we ask a bank account about the balance, and the balance is not changed by anybody else, we should get the same result over multiple requests.</div></li></ul></li>
+	<li class="basic" id="FMID_1389745911FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Update</div></li></ul></li></ul></li></ul></li>
+	<li class="exp" id="FMID_559508549FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Chapter 3: Messaging Communication  </div>
+		<ul class="sub">
+	<li class="col" id="FMID_1379704463FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Benefits</div>
+		<ul class="subexp">
+	<li class="exp" id="FMID_52968968FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Resource efficient:</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1356269669FM"><div class="nodecontent" style="font-size:150%;">The client does not wait for the service reply, thus there are no blocked threads or long lived locks.</div></li>
+	<li class="basic" id="FMID_677961265FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Service instances pull work vs. clients constantly pushing work to instances that might be busy serving other requests. This model has been proven mathematically to be the most efficient servicing model. It is known as <b>single queue, multiple servers.</b></p></div></li>
+	<li class="basic" id="FMID_1261288616FM"><div class="nodecontent" style="font-size:150%;">The queue service acts as an intermediary, which might help with service discovery issues.</div></li></ul></li>
+	<li class="col" id="FMID_907668729FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Resilient:</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_172217679FM"><div class="nodecontent" style="font-size:150%;">The client and service instances can be taken down or move to another server without adverse effect because the messages will be kept by the messaging service.</div></li>
+	<li class="basic" id="FMID_1352698868FM"><div class="nodecontent" style="font-size:150%;">If a service instance fails, another instance processes the message. This means that the single message message can be delivered multiple times and not in order. This implies that the service is idempotent.</div></li>
+	<li class="basic" id="FMID_1800026476FM"><div class="nodecontent" style="font-size:150%;">The clients and the services can be taken offline without message loss. After the service or the client is deployed, it will start pulling in the message on the messaging service</div></li></ul></li>
+	<li class="col" id="FMID_1145584424FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Elastic</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1722365144FM"><div class="nodecontent" style="font-size:150%;">The queue length can be used to determine the need to scale the service up and down. If the queue length is increasing over time, the orchestrator can decide to increase the instance number. If it is getting smaller over time, the orchestrator can decrease the number of instances.</div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1673052927FM"><div class="nodecontent" style="font-size:150%;">ex</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1129042936FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_8712427659422538824.jpeg" /></div></li></ul></li>
+	<li class="exp" id="FMID_738418882FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Fault-Tolerant Message Processing</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1336772330FM"><div class="nodecontent" style="font-size:150%;">To enable messaging communication, the message processing must be fault tolerant.</div></li>
+	<li class="basic" id="FMID_1560672568FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Processing messages in this way requires that the queuing service supports some features, and that the queue client uses those features to manage the messages.
+    </p></div></li>
+	<li class="col" id="FMID_552276181FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Required Features</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1197297894FM"><div class="nodecontent" style="font-size:150%;"><p>
+      the <b>service</b> must <b>support</b> <b>dequeue counts on messages</b>, and make the <b>messages</b> <b>reappear</b> on the queue<b> if</b>  they are <b>not explicitly deleted </b>within a <b>certain period of time</b>  <b>after being dequeued</b>. (This is <b>invisibility timeout</b>.)
+    </p></div></li>
+	<li class="basic" id="FMID_199730967FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_4831738602293926535.jpeg" /></div></li></ul></li>
+	<li class="exp" id="FMID_1097557374FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">sequence of events</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_75985841FM"><img src="Distributed%20Cloud%20ComputingJS.html_files/icons/full-1.png" alt="full-1" /> <div class="nodecontent" style="font-size:150%;">When the message is dequeued, the queue service increments the dequeue count by one, sets a invisibility timer on the message, and returns it to the client.</div></li>
+	<li class="basic" id="FMID_1601251248FM"><img src="Distributed%20Cloud%20ComputingJS.html_files/icons/full-2.png" alt="full-2" /> <div class="nodecontent" style="font-size:150%;">The client reads the message and checks the dequeue count on the message.</div></li>
+	<li class="basic" id="FMID_1761353062FM"><img src="Distributed%20Cloud%20ComputingJS.html_files/icons/full-3.png" alt="full-3" /> <div class="nodecontent" style="font-size:150%;">If the dequeue count is more than two, it indicates that the message was dequeued twice in the past and its processing failed for some reason. It's possible the message cannot be processed and will continue to show up on the queue. The message should be logged as a poison message, and it often is simply placed on a special poison message queue. This makes it possible for operations and development teams to analyze the cause of the failure.</div></li>
+	<li class="basic" id="FMID_135921136FM"><img src="Distributed%20Cloud%20ComputingJS.html_files/icons/full-4.png" alt="full-4" /> <div class="nodecontent" style="font-size:150%;">If the dequeue count is less than or equal to threshold value, the message is processed, and upon successful processing, deleted from the queue by the client.</div></li>
+	<li class="basic" id="FMID_294433270FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">The messages might be processed out of order, and more than once, because of this operation mode. The code should not make any assumptions that the messages are in order and it should be idempotent.</div></li></ul></li>
+	<li class="col" id="FMID_951638185FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">advanced features.</div>
+		<ul class="subexp">
+	<li class="exp" id="FMID_948808212FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Sending messages to multiple subscribers.</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_300738027FM"><div class="nodecontent" style="font-size:150%;">This is useful in group chat messaging or announcing weather changes to a group of subscribers. This mode allows a single message to be broadcast and processed in parallel. It is also know as pub/sub, or publish-subscribe mechanism.</div></li></ul></li>
+	<li class="exp" id="FMID_444580021FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Time to live on the message. </div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1220219875FM"><div class="nodecontent" style="font-size:150%;">Allows the message to be processed only within a specified time limit. This prevents costs from skyrocketing if the consumers never process the messages.</div></li></ul></li>
+	<li class="exp" id="FMID_156787069FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Consumer specified invisibility timeout.</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1072154832FM"><div class="nodecontent" style="font-size:150%;">A consumer can set the invisibility timeout each time a message is dequeued, instead of the same value for the queue for all of the messages.</div></li></ul></li>
+	<li class="exp" id="FMID_1510265031FM"><div class="nodecontent" style="font-size:150%;">Single processing </div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1783460744FM"><div class="nodecontent" style="font-size:150%;"><p>
+      Sometimes, <b>you might want to have the message processed only once.</b>  This is good for time-sensitive data that's only relevant at that given instant, such as stock prices or sport scores. You can accomplish this by setting a maximum time to live, and when dequeued, specifying an invisibility timeout that is greater than the maximum time to live, and using a threshold of 1 on the dequeue count. This results in a message that is processed at most only once, because if the consumer service crashes while processing the message, the message never appears on the queue again.
+    </p></div></li></ul></li>
+	<li class="col" id="FMID_990426000FM"><div class="nodecontent" style="font-size:150%;">PIc</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1567973022FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_5030644300310384405.jpeg" /></div></li></ul></li></ul></li></ul></li></ul></li>
+	<li class="exp" id="FMID_621829448FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Chapter 4 : Versioning, Upgrading, and Configuration  </div>
+		<ul class="sub">
+	<li class="exp" id="FMID_1903937165FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Service Update Options</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_44016753FM"><div class="nodecontent" style="font-size:150%;">There are several options for handling service updates, and trade-offs that need to be considered when selecting an update option. Cost, availability, recovery, and testability are some of the considerations for selecting an update option.</div></li>
+	<li class="col" id="FMID_946354204FM"><img src="Distributed%20Cloud%20ComputingJS.html_files/icons/full-1.png" alt="full-1" /> <div class="nodecontent" style="font-size:150%;font-weight:bold;">Rolling update</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_956675612FM"><div class="nodecontent" style="font-size:150%;">the update is performed in stages</div></li>
+	<li class="basic" id="FMID_1582531738FM"><div class="nodecontent" style="font-size:150%;">As a result, the application remains available throughout the update.</div></li>
+	<li class="exp" id="FMID_1589376055FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">pic</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_276874436FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_5108571168676449202.jpeg" /></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_163950659FM"><img src="Distributed%20Cloud%20ComputingJS.html_files/icons/full-2.png" alt="full-2" /> <div class="nodecontent" style="font-size:150%;font-weight:bold;">Delete and upload</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1773003926FM"><div class="nodecontent" style="font-size:150%;">For a service running V1 of the code, we can instruct the orchestrator to stop the service, delete the deployment, and deploy a new one with the V2 code.</div></li>
+	<li class="col" id="FMID_619973094FM"><div class="nodecontent" style="font-size:150%;">pic</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_570135196FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_7437342661904824592.jpeg" /></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_91095971FM"><img src="Distributed%20Cloud%20ComputingJS.html_files/icons/full-3.png" alt="full-3" /> <div class="nodecontent" style="font-size:150%;font-weight:bold;">Blue-green deployment</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1716466307FM"><div class="nodecontent" style="font-size:150%;">use to reduce downtime during deployments by running two identical production environments called Blue and Green. At any one time, one of the environments is live.</div></li>
+	<li class="col" id="FMID_586347619FM"><div class="nodecontent" style="font-size:150%;">e.g.</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1088684528FM"><div class="nodecontent" style="font-size:150%;">let's say that the software is running in the Blue environment. A new release of the software is prepared and tested in the Green environment. When the software is working in the Green environment, traffic is routed to the Green environment. All traffic can be immediately routed to the Green environment, or a portion of the traffic can be slowly transitioned over time, allowing it to ramp up. The Blue environment is now idle. If there's a problem, it's easy to rollback the deployment and route the traffic back to the Blue environment.</div></li>
+	<li class="basic" id="FMID_1409714597FM"><div class="nodecontent" style="font-size:150%;">After the green environment live and stable, the blue environment serve as the staging environment for the final testing of the next deployment.</div></li></ul></li>
+	<li class="col" id="FMID_335813700FM"><div class="nodecontent" style="font-size:150%;">pic</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_216464523FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_8425603075129097684.jpeg" /></div></li></ul></li></ul></li>
+	<li class="col" id="FMID_1945177485FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Summary</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1988482954FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_3878895435251082266.jpeg" /></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_467785650FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Rolling Update—How to Version APIs</div>
+		<ul class="sub">
+	<li class="col" id="FMID_506446835FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">API versioning best practices:</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1699919615FM"><div class="nodecontent" style="font-size:150%;">All API requests must pass version information, starting with V1.</div></li>
+	<li class="basic" id="FMID_37125895FM"><div class="nodecontent" style="font-size:150%;">New service versions must be backward compatible.</div></li>
+	<li class="col" id="FMID_678534647FM"><div class="nodecontent" style="font-size:150%;"><p>
+      2-Phase Update
+    </p></div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_1657897939FM"><div class="nodecontent" style="font-size:150%;"><img src="Distributed Cloud Computing_4856451508242847229.jpeg" /></div></li></ul></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1045271511FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Shutting Down and Reconfiguring Services</div>
+		<ul class="sub">
+	<li class="exp" id="FMID_1420630852FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Gracefully shutting down</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1473828549FM"><div class="nodecontent" style="font-size:150%;">You will want to make sure the service instance shuts down in a graceful way so any in-flight client requests being processed by the service completes before it's shutdown</div></li>
+	<li class="basic" id="FMID_107464100FM"><div class="nodecontent">LB : Load Balancer</div></li>
+	<li class="basic" id="FMID_341688790FM"><div class="nodecontent"><p><img src="Distributed Cloud Computing_1161939733646865736.jpeg" /></p></div></li></ul></li>
+	<li class="col" id="FMID_1074975035FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Service (re)configuration &amp; secrets</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">One type of critical information in the configuration are the secrets, such as passwords, certificates, or private keys.</div></li>
+	<li class="basic" id="FMID_1756350565FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Consider using cryptographic message syntax (CMS) when storing those secrets</div></li>
+	<li class="col" id="FMID_306296266FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Steps for using CMS are:</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">Create a simple utility to read the secret and the installed certificate, to create the encrypted content.</div></li>
+	<li class="basic"><div class="nodecontent">Use the utility to generate encrypted content.</div></li>
+	<li class="basic"><div class="nodecontent">Store the setting in the configuration using the encrypted content.</div></li>
+	<li class="basic"><div class="nodecontent">Make the same certificate for encrypting the content available on the destination machine.</div></li>
+	<li class="basic"><div class="nodecontent">Read the encrypted configuration setting in the service code and use the library to decrypt it.</div></li></ul></li></ul></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1502762522FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Chapter 5 : Leader Election  </div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1705346748FM"><div class="nodecontent">Using a Lock to Elect a Leader</div></li>
+	<li class="basic" id="FMID_1788813361FM"><div class="nodecontent">There are many software packages that are often used for leader election, such as ZooKeeper or etcd.</div></li></ul></li>
+	<li class="exp" id="FMID_119840324FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Chapter 6: Storage Services</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_1066595913FM"><div class="nodecontent">it's often better to store different types of data in different data stores, each focused on a specific workload or usage pattern.</div></li>
+	<li class="basic" id="FMID_138256265FM"><div class="nodecontent">The term polyglot persistence is used to describe solutions that use a mix of data-store technologies.</div></li>
+	<li class="col" id="FMID_765400730FM"><div class="nodecontent">Note that a particular data-store technology might support multiple storage models.</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent">For example, a relational database management system (RDBMS) might also support key/value or graph storage.</div></li></ul></li>
+	<li class="exp" id="FMID_1445829257FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Data Temperature</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent">Data that is frequently accessed is stored in fast store, and is also known as *hot data*.</div></li>
+	<li class="basic" id="FMID_1735866556FM"><div class="nodecontent"><p>
+      Infrequently accessed data, also known as *warm data*<font color="rgb(34, 34, 34)" face="Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif">, is stored in slightly slower and less expensive storage.</font></p></div></li>
+	<li class="basic" id="FMID_92514842FM"><div class="nodecontent">As data is accessed less frequently, it can be moved to slower storage, and this data is known as *cold* data</div></li>
+	<li class="exp" id="FMID_1618300523FM"><div class="nodecontent">pic</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_5613701542221691323.jpeg" /></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_1712423709FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Caching</div>
+		<ul class="sub">
+	<li class="col" id="FMID_176022268FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">strategies when caching data</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_187996777FM"><div class="nodecontent">Using a private cache, where data is held locally on the computer that's running an instance of an application or service.</div></li>
+	<li class="basic" id="FMID_541253843FM"><div class="nodecontent">Using a shared cache that serves as a common source that can be accessed by multiple processes and/or machines.</div></li>
+	<li class="exp" id="FMID_1589363443FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">pic</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_874951698200705544.jpeg" /></div></li></ul></li></ul></li></ul></li>
+	<li class="exp" id="FMID_116727577FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">CDN</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent">caches content at strategically placed locations to provide maximum throughput for delivering content to users.</div></li>
+	<li class="basic"><div class="nodecontent">offers developers a global solution for delivering high-bandwidth content by caching the content at physical nodes throughout the world.</div></li>
+	<li class="basic" id="FMID_545851352FM"><div class="nodecontent">commonly used for delivering static content such as images, style sheets, documents, files, client-side scripts, and HTML pages.</div></li>
+	<li class="col" id="FMID_1062955051FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">How it works:</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_279548128FM"><div class="nodecontent">A user requests a file (also called an asset) by using a URL with a special domain name. DNS routes the request to the best performing point-of-presence (POP) location. Usually, this is the POP that is geographically closest to the user.</div></li>
+	<li class="basic"><div class="nodecontent">If the edge servers in the POP do not have the file in their cache, the edge server requests the file from the origin. The origin can be a web server or a storage account.</div></li>
+	<li class="basic"><div class="nodecontent">The origin returns the file to the edge server, including optional HTTP headers describing the file's Time to Live (TTL) value.</div></li>
+	<li class="basic"><div class="nodecontent">The edge server caches the file and returns the file to the original requestor. The file remains cached on the edge server until the TTL expires.</div></li>
+	<li class="basic"><div class="nodecontent">Additional users may then request the same file by using that same URL, and may also be directed to that same POP.</div></li>
+	<li class="basic"><div class="nodecontent">If the TTL for the file hasn't expired, the edge server returns the file from the cache. This results in a faster, more responsive user experience.</div></li></ul></li>
+	<li class="basic"><div class="nodecontent">You can also use the CDN as a cache for serving dynamic content, such as a PDF report or a graph, based on specified inputs. If the same input values are provided by different users, the result should be the same.</div></li></ul></li>
+	<li class="exp" id="FMID_1237480199FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Data Partitioning and Replication</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent">Partitioning can help improve scalability, reduce contention, and optimize performance.</div></li>
+	<li class="basic"><div class="nodecontent">it provides a mechanism for dividing data by use pattern</div></li>
+	<li class="basic" id="FMID_1854310885FM"><div class="nodecontent">For example, you can archive older, less active (cold) data in less costly data storage.</div></li>
+	<li class="exp" id="FMID_1000402573FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">benefits</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_4331465746334545918.jpeg" /></div></li></ul></li>
+	<li class="exp" id="FMID_1889472749FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Partitioning strategies</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_3152713730237211086.jpeg" /></div></li>
+	<li class="basic"><div class="nodecontent">It’s important to note that the three strategies described here can be combined. They are not mutually exclusive, and we recommend that you consider them all when you design a partitioning scheme. For example, you might divide data into shards and then use vertical partitioning to further subdivide the data in each shard. Similarly, the data in a functional partition can be split into shards (which can also be vertically partitioned).</div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_123255266FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Replication</div>
+		<ul class="sub">
+	<li class="exp" id="FMID_1741741581FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Benefits</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_8156284983649132460.jpeg" /></div></li>
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_4092406600451964427.jpeg" /></div></li>
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_4123698939301548668.jpeg" /></div></li>
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_616913815129478959.jpeg" /></div></li></ul></li></ul></li>
+	<li class="exp" id="FMID_262149719FM"><div class="nodecontent">DatA Storage Paterns</div>
+		<ul class="sub">
+	<li class="basic" id="FMID_765669696FM"><div class="nodecontent">CQRS</div></li>
+	<li class="basic" id="FMID_423362413FM"><div class="nodecontent">Event Sourcing</div></li>
+	<li class="col" id="FMID_116068455FM"><div class="nodecontent">Saga Pattern</div>
+		<ul class="subexp">
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_1494119659069034730.jpeg" /></div></li></ul></li>
+	<li class="basic" id="FMID_469050950FM"><div class="nodecontent" /></li></ul></li>
+	<li class="exp" id="FMID_238375698FM"><div class="nodecontent" style="font-size:150%;font-weight:bold;">Versioning Data Schemas</div>
+		<ul class="sub">
+	<li class="basic"><div class="nodecontent"><img src="Distributed Cloud Computing_4756025623483414054.jpeg" /></div></li></ul></li></ul></li>
+	<li class="col" id="FMID_94865965FM"><div class="nodecontent">Tools</div>
+		<ul class="subexp">
+	<li class="basic" id="FMID_502045485FM"><div class="nodecontent" style="font-size:150%;"><a href="https://www.openapis.org">https://www.openapis.org</a> <a href="https://www.openapis.org"><img src="Distributed%20Cloud%20ComputingJS.html_files/ilink.png" alt="User Link" style="border-width:0" /></a></div></li>
+	<li class="basic" id="FMID_1577787946FM"><div class="nodecontent" style="font-size:150%;"><a href="http://swagger.io.">swagger.io</a> <a href="http://swagger.io."><img src="Distributed%20Cloud%20ComputingJS.html_files/ilink.png" alt="User Link" style="border-width:0" /></a></div></li></ul></li></ul></li></ul></div></body></html>

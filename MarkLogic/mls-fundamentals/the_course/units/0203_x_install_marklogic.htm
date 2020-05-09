@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Install MarkLogic</strong></p>
+<p>In this walkthrough exercise, you install MarkLogic on your virtual machine. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In a browser, navigate to the  <strong>Installation Guide for All Platforms</strong> at <a href="http://docs.marklogic.com/guide/installation" target="_blank">docs.marklogic.com/guide/installation</a>.</li>
+  <li class="exercise-step">Click the <strong>Procedures</strong> link.</li>
+  <li class="exercise-step">Scroll down to the table that lists the operating systems and their corresponding steps.
+    <br>
+  </li>
+  <li class="exercise-step">Scan the list, noticing that there are steps for installing on Window x64, Red Hat Linux 64, Sun Solaris x64, and Mac OS X.</li>
+  <li class="exercise-step">Note the Red Hat Linux x64 steps:<br>
+    <br>
+  <img src="../images/unit02/centos_installation_doc.png" width="693" height="419" class="image-border"></li>
+  <li class="exercise-step">In your <strong>virtual machine</strong>, double-click the  <strong>MarkLogic-8.0-3-2.x86_64.rpm</strong> file:<br>
+    <br>
+  <img src="../images/unit02/centos_rpm_file.png" width="186" height="157" class="image-border"></li>
+  <li class="exercise-step">When prompted, click the <strong>Install</strong> button.</li>
+  <li class="exercise-step">Watch the installation progress.</li>
+  <li class="exercise-step">When prompted, enter <span class="code">centos</span> as the password for root:<br>
+    <br>
+    <img src="../images/unit02/centos_root_password.png" width="427" height="266" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Click the <strong>Authenticate</strong> button.</li>
+  <li class="exercise-step">Watch the installation complete.</li>
+</ol>
+<p>Configure MarkLogic to run as  cent:</p>
+<ol start="12" class="exercise-step">
+  <li class="exercise-step">Select <strong>Applications</strong> - <strong>System Tools</strong> - <strong>Terminal</strong>, to open a command prompt window.</li>
+  <li class="exercise-step">Enter<span class="code"> su - </span>to become the root user.</li>
+  <li class="exercise-step">For password, enter<span class="code"> centos</span>.</li>
+  <li class="exercise-step">Enter<span class="code"> vim  /etc/sysconfig/MarkLogic</span>.</li>
+  <li class="exercise-step">Use the <strong>down arrow </strong>key on your keyboard to navigate to <strong>export MARKLOGIC_USER=daemon</strong> (line 17).</li>
+  <li class="exercise-step">Use the <strong>right arrow </strong>key on your keyboard to navigate to the <strong>d</strong> in daemon.</li>
+  <li class="exercise-step">Press the <strong>i</strong> key on your keyboard, to be able to edit the document.</li>
+  <li class="exercise-step">Type<span class="code"> cent</span>.</li>
+  <li class="exercise-step">Press the <strong>delete</strong> key on your keyboard 6 times, to delete daemon.</li>
+  <li class="exercise-step">Press the <strong>Esc</strong> key on your keyboard.</li>
+  <li class="exercise-step">Type <span class="code">:wq </span>and then press the <strong>Enter</strong> key, to exit.</li>
+  <li class="exercise-step">Leave the command prompt window open, for the next exercise.</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0204_starting_the_service.htm">Topic (Starting the Service)</a></p>
+<p>Back: <a href="0203_installing_marklogic.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

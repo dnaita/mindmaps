@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Initialize the Instance</strong></p>
+<p>In this walkthrough exercise, you initialize the MarkLogic instance in your CentOS virtual machine.</p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In your <strong>virtual machine</strong>, open a <strong>browser</strong> window (e.g. Firefox).</li>
+  <li class="exercise-step">Enter <span class="code">http://localhost:8001</span>.</li>
+  <li class="exercise-step">Notice the message about setting up the initial databases and application servers:<br>
+    <br>
+  <img src="../images/unit02/server_install.png" width="698" height="112" class="image-border"></li>
+  <li class="exercise-step">Click the <strong>ok</strong> button.</li>
+  <li class="exercise-step">Wait for the server to  restart after it has set up the initial databases and application servers.</li>
+  <li class="exercise-step">In the Join a Cluster screen, click the <strong>skip</strong> button.</li>
+  <li class="exercise-step">In the Security Setup screen, enter <span class="code">admin</span> for Admin.</li>
+  <li class="exercise-step">Enter <span class="code">admin</span> for both Password and Confirm Password.</li>
+  <li class="exercise-step">Click the <strong>ok</strong> button.</li>
+  <li class="exercise-step">Wait for MarkLogic to create the admin user.</li>
+  <li class="exercise-step">Once the setup has completed,  see that an Authentication Required window appears:<br>
+    <br>
+  <img src="../images/unit02/centos_authentication.png" width="548" height="156" class="image-border"></li>
+  <li class="exercise-step">Log in with a User Name of <span class="code">admin</span> and a Password of <span class="code">admin</span>, to log in to MarkLogic as the user that you just set up. <br>
+  </li>
+  <li class="exercise-step">See that  you are now viewing the System Summary screen of MarkLogic's administrative interface:<br>
+    <br>
+  <img src="../images/unit02/centos_admin_summary.png" width="696" height="534" class="image-border"></li>
+  <li class="exercise-step">Realize that the Admin Interface can be used to do a wide variety of administration tasks, such as create databases, create app servers, view log files, and set up security roles.</li>
+</ol>
+<p>View the license currently installed in this MarkLogic instance:</p>
+<ol>
+  <li class="exercise-step">In the left navigation, click on <strong>Hosts</strong>.</li>
+  <li class="exercise-step">Click on the name of the host (e.g. <strong>centos-vm.home</strong>).</li>
+  <li class="exercise-step">Select the <strong>Status</strong> tab.</li>
+  <li class="exercise-step">Click the <strong>license key</strong> button.</li>
+  <li class="exercise-step">See that this is where you would enter your license key information:<br>
+    <br>
+  <img src="../images/unit02/centos_license_key_screen.png" width="699" height="335" class="image-border"></li>
+  <li class="exercise-step">Click the browser's <strong>Back</strong> button, to return to the previous screen.</li>
+  <li class="exercise-step">If desired, continue to explore the Admin Interface, selecting items in the left navigation,  noticing that the tabs on the right update, based on  what you have selected. </li>
+  <li class="exercise-step">Click  <strong>Configure</strong>, to return to the summary page for the Admin Interface:<br>
+    <br>
+    <img src="../images/unit02/configure.png" width="95" height="21" class="image-border"><br>
+</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="02f1_summary.htm">Summary (Unit 2)</a></p>
+<p>Back: <a href="0205_initializing_the_instance.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

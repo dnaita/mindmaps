@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Write a Simple Search Query</strong></p>
+<p>In this walkthrough exercise, you try out writing a simple search query using the JavaScript cts.search() function, the XQuery cts:search() function, the Search API XQuery search:search() function, and the REST API search service.</p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In <strong>Query Console</strong>, select the <strong>patents</strong> database and click <strong>Explore</strong>, to see the two documents  previously inserted.</li>
+  <li class="exercise-step">Click <strong>/patents/waterski_drone.json</strong>, to remember the contents of the document:<br>
+    <br>
+    <img src="../images/unit07/waterski_drone.png" width="673" height="137" class="image-border"><br>
+  </li>
+  <li class="exercise-step">From the <strong>Workspace</strong> menu (far upper-right corner), select <strong>Import Workspace...</strong></li>
+  <li class="exercise-step">Navigate to mls-fundamentals/<strong>unit07</strong>.</li>
+  <li class="exercise-step">Select <strong>Workspace 1.xml</strong>.</li>
+  <li class="exercise-step">Click <strong>Open</strong>.</li>
+  <li class="exercise-step">Click the <strong>Import </strong>button.</li>
+  <li class="exercise-step"><strong>See</strong> that a document can have a  different schema:<br>
+    <br>
+  <img src="../images/unit07/magic_translator_source.png" width="673" height="210" class="image-border"></li>
+  <li class="exercise-step">Select the <strong>patents</strong> database.</li>
+  <li class="exercise-step">Check that Query Type is set to <strong>JavaScript</strong>.</li>
+  <li class="exercise-step">Click the <strong>Run</strong> button, to insert the document.</li>
+  <li class="exercise-step">Click the <strong>Explore</strong> button to see that the document was inserted:<br>
+    <br>
+    <img src="../images/unit07/three_documents.png" width="514" height="157" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Click the <strong>+</strong> button to create a new tab in Query Console.</li>
+  <li class="exercise-step"><strong>Replace</strong> the // query comment with the following:<br>
+    <br>
+    <span class="code">cts.search(&quot;waterski&quot;)</span><br>
+  </li>
+  <li class="exercise-step">With the <strong>patents</strong> database selected and the Query Type set to <strong>JavaScript</strong>, click the <strong>Run</strong> button.</li>
+  <li class="exercise-step">See that the waterski drone document is returned.<br>
+  </li>
+  <li class="exercise-step">Modify the search to the word <span class="code">small</span>:<br>
+    <br>
+    <span class="code">cts.search(&quot;small&quot;)</span>    <br>
+  </li>
+  <li class="exercise-step">See that the waterski drone and magic listening device documents are returned:<br>
+    <br>
+    <img src="../images/unit07/small_results.png" width="701" height="261" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Modify the search to query for the word<span class="code"> </span><span class="code">ruth </span>in the inventor property (can copy from unit07/<strong>ex03a.txt</strong>):<br>
+    <br>
+  <span class="code">cts.search(cts.jsonPropertyWordQuery(&quot;inventor&quot;,&quot;ruth&quot;))</span></li>
+  <li class="exercise-step">See that the waterski drone document is returned.</li>
+  <li class="exercise-step">In a browser, navigate to <a href="http://docs.marklogic.com" target="_blank">docs.marklogic.com</a>.</li>
+  <li class="exercise-step">In the left navigation, notice that the drop-down menu is set to <strong>Server-Side JavaScript APIs</strong>.</li>
+  <li class="exercise-step">Click the + icon to the left of the <strong>Search </strong>category, to expand it:<br>
+    <br>
+  <img src="../images/unit07/search.png" width="233" height="21" class="image-border"></li>
+  <li class="exercise-step">Click the + icon to the left of <strong>cts:query Constructors (cts.)</strong>, to expand it.</li>
+  <li class="exercise-step"><strong>Notice</strong> the many query constructor functions.</li>
+  <li class="exercise-step">If desired, select a function to learn about it.</li>
+</ol>
+<p>Use the XQuery cts:search() function:</p>
+<ol start="27" class="exercise-step">
+  <li class="exercise-step">In Query Console, click the <strong>+</strong> button to create a new tab.</li>
+  <li class="exercise-step">Set the Query Type  to <strong>XQuery</strong>.</li>
+  <li class="exercise-step">Enter  the following:<br>
+    <br>
+    <span class="code">cts:search(fn:doc(), &quot;diving&quot;)</span><br>
+  </li>
+  <li class="exercise-step">Click the <strong>Run</strong> button.</li>
+  <li class="exercise-step">See that the airless diving document is returned.</li>
+  <li class="exercise-step">Modify the search to query for the word <span class="code">tamas </span>in the inventor property (can copy from unit07/<strong>ex03b.txt</strong>):<br>
+    <br>
+    <span class="code">cts:search(fn:doc(), cts:json-property-word-query(&quot;inventor&quot;, &quot;tamas&quot;)) </span></li>
+  <li class="exercise-step">See that the magic translator document is returned.</li></ol>
+<p>Use the Search API XQuery search:search() function:</p>
+<ol start="34" class="exercise-step">
+  <li class="exercise-step">From the mls-fundamentals/<strong>unit07</strong> folder, open the <strong>ex03c.txt</strong> file in a text editor:<br>
+    <br>
+    <img src="../images/unit07/centos_search_search_function.png" width="662" height="225" class="image-border"><br>
+  </li>
+  <li class="exercise-step"><strong>Copy</strong> all of the text. </li>
+  <li class="exercise-step">In Query Console, click the <strong>+</strong> button to create a new tab.</li>
+  <li class="exercise-step">Delete the placeholder text and paste the new text in its place.</li>
+  <li class="exercise-step">With the patents database selected and the Query Type set to XQuery, click the <strong>Run</strong> button.</li>
+  <li class="exercise-step">See the result returned by the Search API (2 documents):<br>
+    <br>
+    <img src="../images/unit07/centos_search_api_results.png" width="697" height="451" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that the result could be used by application code to display the number of documents returned, as well as highlighting and snippets for the matches. </li>
+</ol>
+<p>Use the REST API's search service:</p>
+<ol start="41" class="exercise-step">
+  <li class="exercise-step">In the mls-fundamentals/<strong>unit07</strong> folder, open the <strong>ex03d.txt</strong> file in a text editor:<br>
+    <br>
+    <img src="../images/unit07/centos_curl.png" width="692" height="180" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In the URL to call on the REST API instance, notice the reference to the <strong>search</strong> service.</li>
+  <li class="exercise-step"><strong>Copy</strong> all.</li>
+  <li class="exercise-step">In a <strong>command prompt </strong>window, right-click to select <strong>Paste</strong>.</li>
+  <li class="exercise-step">Press the <strong>Enter</strong> key, to run the query.</li>
+  <li class="exercise-step">  See the result (1 document):<br>
+    <br>
+    <img src="../images/unit07/centos_curl_result.png" width="683" height="513" class="image-border"><br>
+  </li>
+  <li class="exercise-step">  Press the <strong>up arrow </strong>key, to access the last command.</li>
+  <li class="exercise-step"><strong>Modify</strong> the command to query for waterskiing or diving:<br>
+    <br>
+    <span class="code">curl --anyauth --user admin:admin -X GET &quot;http://localhost:8060/v1/search?q=<strong>diving OR waterskiing</strong>&quot;</span><br>
+  </li>
+  <li class="exercise-step">  See that both the waterskiing drone document and the airless diving document are returned.</li></ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="07f1_summary.htm">Summary (Unit 7)</a></p>
+<p>Back: <a href="0703_writing_a_simple_search_query.htm">Previous<br>
+</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

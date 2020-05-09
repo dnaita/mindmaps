@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Explore MarkLogic Application Servers</strong></p>
+<p>In this walkthrough exercise, you explore the existing application servers, already set up. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In the Admin Interface (http://localhost:8001), select  <strong>Configure</strong> - <strong>Groups</strong> - <strong>Default</strong> - <strong>App Servers</strong>.</li>
+  <li class="exercise-step">Notice the types of application servers available, in the tabs:<br>
+    <br>
+    <img src="../images/unit06/app_server_tabs.png" width="396" height="24" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In the Summary tab, notice the application server type, database,  and port number for each of the application servers already set up:<br>
+    <br>
+    <img src="../images/unit06/app_servers_existing.png" width="494" height="228" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Notice the application server for port 8001.</li>
+  <li class="exercise-step">Click on <strong>Admin</strong>, to see  the settings for the application server.</li>
+  <li class="exercise-step">Realize that it is serving the application that we are  using (i.e. the Admin Interface).</li>
+  <li class="exercise-step">Notice that the <strong>modules</strong> field is set to <strong>(file system)</strong>.</li>
+  <li class="exercise-step">Realize that  application files could be stored in a database instead of on the file system. </li>
+  <li class="exercise-step">Notice that the <strong>root</strong> path is <strong>Admin/</strong>.</li>
+  <li class="exercise-step">If desired, in a <strong>command prompt</strong> window, enter the following command to see the files for this application:<br>
+    <br>
+  <span class="code">ls /opt/MarkLogic/Admin</span></li>
+</ol>
+<p>In Query Console, view references to application servers and modules databases:</p>
+<ol start="11" class="exercise-step">
+  <li class="exercise-step">In a browser window, go to <strong>Query Console</strong>.</li>
+  <li class="exercise-step"><strong>Look</strong> in the Content Source list:<br>
+    <br>
+    <img src="../images/unit06/centos_content_source_list.png" width="249" height="288" class="image-border"><br>
+  </li>
+  <li class="exercise-step"><strong>Realize</strong> that the parentheses to the right of a database are simply for showing any application servers attached to the database.</li>
+  <li class="exercise-step"><strong>Notice</strong> that the <strong>patents</strong> database has an application server connected to it (created along with the REST API instance in Unit 4). </li>
+  <li class="exercise-step">In the <strong>Admin Interface</strong>, select <strong>Configure</strong>, to see the list of application servers in the Summary tab.</li>
+  <li class="exercise-step">In the App Servers column, click <strong>8060-patents</strong>, to see the settings for it.</li>
+  <li class="exercise-step">Notice  that the <strong>root</strong> field has a value of <strong>/</strong>, and the modules field is set to the database named <strong>8060-patents-modules</strong>. </li>
+  <li class="exercise-step"><strong>Realize</strong> that this HTTP application server, and the modules database, were created in Unit 4, when we created the REST API instance for the patents database.</li>
+  <li class="exercise-step">In <strong>Query Console</strong>, select the <strong>8060-patents-modules</strong> database. </li>
+  <li class="exercise-step">Click the <strong>Explore</strong> button, to see the contents of this database:<br>
+    <br>
+    <img src="../images/unit06/rest_api_docs.png" width="352" height="128" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that these REST API supporting documents were created when the REST API instance was created.</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0602_defining_an_http_application_server.htm">Topic (Defining an HTTP Application Server)</a></p>
+<p>Back: <a href="0601_understanding_marklogic_application_servers.htm">Previous<br>
+</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

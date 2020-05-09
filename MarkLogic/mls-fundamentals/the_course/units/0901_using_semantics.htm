@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Using Semantics</strong></p>
+<p>MarkLogic  can be used to store RDF triples and process SPARQL queries.</p>
+<p class="topic-sub-heading">RDF Triples</p>
+<p>Semantic data is stored in RDF (Resource Description Framework) triples, which are composed of a subject, predicate, and object. RDF triples relate one item to another.</p>
+<p><img src="../images/unit09/semantics_triples.png" width="704" height="219" class="image-border"></p>
+<p>Triples can be loaded  and stored in MarkLogic, and then accessed with SPARQL, for use in an application.</p>
+<p><img src="../images/unit09/semantics_beatles.png" width="506" height="174" class="image-border"></p>
+<p class="topic-sub-heading">SPARQL</p>
+<p>SPARQL (SPARQL Protocol and RDF Query Language) is the <strong>query language</strong> for retrieving and manipulating data stored in RDF triples.</p>
+<p class="code">xquery version &quot;1.0-ml&quot;; <br>
+<strong>import module namespace sem = &quot;http://marklogic.com/semantics&quot; at &quot;/MarkLogic/semantics.xqy&quot;; </strong></p>
+<p class="code">let $artist := &quot;The_Beatles&quot; <br>
+let $bindings := <strong>map:map() </strong><br>
+let $_binding := <strong>map:put($bindings, 'band', sem:iri(fn:concat(&quot;http://dbpedia.org/resource/&quot;, $artist)))</strong><br>
+let $result :=    <br>
+<strong>&nbsp;&nbsp;sem:sparql(&quot;               <br>
+&nbsp;&nbsp;&nbsp;&nbsp;PREFIX rsrc: &amp;lt;http://dbpedia.org/resource/&amp;gt;               <br>
+&nbsp;&nbsp;&nbsp;&nbsp;PREFIX onto: &amp;lt;http://dbpedia.org/ontology/&amp;gt;                  <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ASK <br>
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE { $band onto:bandMember ?o } <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&quot;, $bindings) </strong><br>
+<br>
+return ...</p>
+<p class="topic-sub-heading">Learning Resources</p>
+<p>The MarkLogic <strong>Semantics Developer's Guide</strong> (docs.marklogic.com/guide/semantics) provides documentation on loading RDF triples and using SPARQL in MarkLogic.</p>
+<p>In addition, MarkLogic University offers a free 40-minute self-paced <strong>Getting to Know MarkLogic Semantics</strong>  on-demand video (<span class="exercise-step">mlu.marklogic.com/ondemand/4fe01747</span>), as well as a full-day <strong>Using MarkLogic Semantics</strong> hands-on training course (mlu.marklogic.com/registration).</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0901_x_see_semantics_in_use.htm">Exercise (See Semantics in Use)</a><br>
+</p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

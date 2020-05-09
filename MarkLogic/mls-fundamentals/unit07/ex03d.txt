@@ -1,0 +1,1 @@
+curl --anyauth --user admin:admin -X GET "http://localhost:8060/v1/search?q=diving"

@@ -1,0 +1,9 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+  body
+     <p>This data is from the MarkLogic patents database:</p>
+    
+    each document in data
+      <p><b>#{document.patent.title}</b> (inventor: #{document.patent.inventor}) <br/> #{document.patent.description}</p>

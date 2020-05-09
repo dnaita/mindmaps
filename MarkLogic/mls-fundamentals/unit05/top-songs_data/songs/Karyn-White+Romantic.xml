@@ -1,0 +1,43 @@
+<top-song xmlns="http://marklogic.com/MLU/top-songs">
+  <!--Copyright (c) 2010 Mark Logic Corporation. Permission is
+granted to copy, distribute and/or modify this document under the terms of the
+GNU Free Documentation License, Version 1.2 or any later version published by
+the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts,
+and no Back-Cover Texts. A copy of the license is included in the section 
+entitled "GNU Free Documentation License." Content derived from 
+http://en.wikipedia.org/wiki/Romantic_(song) 
+
+Modified in February 2010 by Mark Logic Corporation under the terms of the 
+GNU Free Documentation License.-->
+  <title href="http://en.wikipedia.org/wiki/Romantic_(song)" xmlns:ts="http://marklogic.com/MLU/top-songs">Romantic</title>
+  <artist href="http://en.wikipedia.org/wiki/Karyn_White" xmlns:ts="http://marklogic.com/MLU/top-songs">Karyn White</artist>
+  <weeks last="1991-11-02">
+    <week>1991-11-02</week>
+  </weeks>
+  <album url="http://upload.wikimedia.org/wikipedia/en/6/66/Karyn_White_Romantic.jpg" uri="/images/Karyn-White+Romantic.jpg">Ritual of Love</album>
+  <released>August 23, 1991</released>
+  <genres>
+    <genre>Pop / R&amp;B</genre>
+  </genres>
+  <lengths>
+    <length>4:07</length>
+  </lengths>
+  <label>Warner Bros</label>
+  <writers>
+    <writer>Karyn White</writer>
+    <writer>Jimmy Jam &amp; Terry Lewis</writer>
+  </writers>
+  <producers>
+    <producer>Jimmy Jam &amp; Terry Lewis</producer>
+  </producers>
+  <descr>
+    <p>"Romantic" is a song recorded by Karyn White. It hit number
+    one on the Billboard Hot 100 on November 2, 1991, making it her
+    biggest hit to date. "Romantic" was also Karyn White's fourth
+    number one on the Hot Black Singles chart.. She recorded it
+    with her then-husband Terry Lewis and Jimmy Jam and it became a
+    huge success, replacing Mariah Carey's "Emotions" on November
+    2, 1991.</p>
+    
+  </descr>
+</top-song>

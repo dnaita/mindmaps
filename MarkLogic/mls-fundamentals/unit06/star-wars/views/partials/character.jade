@@ -1,0 +1,21 @@
+.row
+  .panel.panel-default
+    .panel-heading
+      h3.panel-title {{ vm.character.name }}
+    .panel-body.col-sm-5.col-md-6 {{ vm.character.bio }}
+    .panel-body.col-sm-3.col-md-2
+      ul.list-unstyled
+        li
+          strong Homeworld: 
+          | {{ vm.character.homeworld }}
+        li
+          strong Weapon: 
+          | {{ vm.character.weapon }}
+        li
+          strong Species: 
+          | {{ vm.character.species }}
+        li
+          strong Height: 
+          | {{ vm.character.height }}
+    .panel-body.col-sm-3.col-md-2.text-center
+      img(ng-src='{{ vm.character.binary }}', alt='{{ vm.character.name }}')

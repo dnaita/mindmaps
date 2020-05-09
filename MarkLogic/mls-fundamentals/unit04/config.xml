@@ -1,0 +1,6 @@
+<rest-api xmlns="http://marklogic.com/rest-api">
+  <name>8060-patents</name>
+  <database>patents</database>
+  <port>8060</port>
+  <forests-per-host>1</forests-per-host>
+</rest-api>

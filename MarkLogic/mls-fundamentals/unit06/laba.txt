@@ -1,0 +1,5 @@
+#This curl statement uses the MarkLogic REST API to create an application server for us to use to talk to the star-wars database from Node.js.
+
+
+
+curl --anyauth --user admin:admin -X POST -d@"Desktop/mls-fundamentals/unit06/star-wars_config.json" -i -H "Content-type: application/json" http://localhost:8002/v1/rest-apis

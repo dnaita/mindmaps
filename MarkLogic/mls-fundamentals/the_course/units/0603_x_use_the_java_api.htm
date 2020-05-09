@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Use the Java API</strong> (optional)</p>
+<p>In this walkthrough exercise, you  use the Java API to create a  Hello World application. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In a browser, navigate to    <a href="https://github.com/marklogic/java-client-api" target="_blank">github.com/marklogic/java-client-api</a>.</li>
+  <li class="exercise-step">See that you are viewing the GitHub page for the Java API:<br>
+    <br>
+    <img src="../images/unit04/github_java_client_api.png" width="701" height="580" class="image-border"><br>
+  </li>
+  <li class="exercise-step"><strong>Notice</strong> the <strong>Download ZIP</strong> link, which could be used to download the Java API files.</li>
+  <li class="exercise-step"><strong>Scroll </strong>down, to see  the Maven  settings, for using Maven to download and manage the Java API files:<br>
+    <br>
+  <img src="../images/unit06/maven_pom_settings.png" width="421" height="120" class="image-border"></li>
+  <li class="exercise-step">To see the steps that were done to provide you with a Java development environment in your virtual machine, view  <a href="xb02_x_see_the_steps_that_were_done.htm#java" target="_blank">See the Steps That Were Done</a>, steps 114-200.</li>
+  <li class="exercise-step">In your virtual machine, on the desktop, double-click the <strong>Eclipse</strong> shortcut, to launch Eclipse.</li>
+  <li class="exercise-step">Click <strong>OK</strong> to accept the default workspace.</li>
+  <li class="exercise-step">Wait for Eclipse to open.</li>
+  <li class="exercise-step">Create a new project by selecting <strong>File</strong> - <strong>New</strong> -<strong> Dynamic Web Project</strong>.</li>
+  <li class="exercise-step">For Project name, enter <span class="code">hello</span>.</li>
+  <li class="exercise-step">For Target runtime, see that <strong>Apache Tomcat v8.0</strong> is selected.</li>
+  <li class="exercise-step">Click the <strong>Next</strong> button.</li>
+  <li class="exercise-step">Click <strong>Next</strong> again.</li>
+  <li class="exercise-step">Select the checkbox for <strong>Generate web.xml deployment descriptor</strong>.</li>
+  <li class="exercise-step">Click the <strong>Finish</strong> button.</li>
+  <li class="exercise-step">See that the hello project has been created:<br>
+    <br>
+    <img src="../images/unit06/eclipse_project_hello.png" width="243" height="104" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Click the <strong>triangle</strong> to the left of <strong>hello</strong>, to expand it:<br>
+    <br>
+    <img src="../images/unit06/eclipse_hello_expanded.png" width="226" height="129" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Click the <strong>triangle</strong> to the left of <strong>Java Resources</strong>, to expand it:<br>
+    <br>
+  <img src="../images/unit06/eclipse_src.png" width="137" height="57" class="image-border"></li>
+  <li class="exercise-step"><strong>Right-click</strong> on the <strong>src</strong> folder, to select <strong>New</strong> - <strong>Servlet</strong>.</li>
+  <li class="exercise-step">For Java package, enter <span class="code">com.mlu.hello</span>.</li>
+  <li class="exercise-step">For Class name, enter <span class="code">Hello</span>.</li>
+  <li class="exercise-step">Click the <strong>Next</strong> button.</li>
+  <li class="exercise-step">In the URL mappings section, select <strong>/Hello</strong>.</li>
+  <li class="exercise-step">Click the <strong>Edit...</strong> button.</li>
+  <li class="exercise-step">Change the pattern to <span class="code">/page</span>:<br>
+    <br>
+    <img src="../images/unit06/eclipse_url_mapping.png" width="316" height="120"><br>
+  </li>
+  <li class="exercise-step">Click <strong>OK</strong>. </li>
+  <li class="exercise-step">Click <strong>Next</strong>.</li>
+  <li class="exercise-step"><strong>Deselect</strong> the checkbox for <strong>doPost</strong>.</li>
+  <li class="exercise-step">Click <strong>Finish</strong>.</li>
+  <li class="exercise-step">Wait for the Hello.java file to be created.</li>
+  <li class="exercise-step">Click the <strong>triangle</strong> to the left of the <strong>src</strong> folder, to see that a package named com.mlu.hello was created.</li>
+  <li class="exercise-step">Click the <strong>triangle</strong> to the left of com.mlu.hello to see that a servlet file named Hello.java was created:<br>
+    <br>
+  <img src="../images/unit06/eclipse_hello_servlet.png" width="222" height="131" class="image-border"></li>
+  <li class="exercise-step">Notice that the Hello.java file is <strong>open</strong>.</li>
+  <li class="exercise-step">In the Hello.java file, scroll down, if necessary, to locate the <strong>doGet</strong> method.  </li>
+  <li class="exercise-step">At the end of the TODO line in the doGet method, press the <strong>Enter</strong> key twice, to create space to type code within the method.</li>
+  <li class="exercise-step">Delete the response.getWriter line of code:<br>
+    <br>
+    <img src="../images/unit06/eclipse_doget.png" width="377" height="112" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Type the following, to enter some placeholder text (can copy from unit06/<strong>ex03a.txt</strong>):<br>
+    <br>
+    <span class="code">PrintWriter out = response.getWriter();<br>
+  out.println(&quot;placeholder text&quot;);
+  </span></li>
+  <li class="exercise-step"><strong>Notice</strong> that Eclipse has underlined the unknown PrintWriter class.</li>
+  <li class="exercise-step"><strong>Hover</strong> over PrintWriter, to select <strong>Import 'PrintWriter' (java.io)</strong>:<br>
+    <br>
+    <img src="../images/unit06/centos_eclipse_printwriter.png" width="405" height="100" class="image-border"><br>
+  </li>
+  <li class="exercise-step">At the top of the file,  see that there is now a statement to import the PrintWriter class:<br>
+    <br>
+    <img src="../images/unit06/centos_eclipse_import.png" width="237" height="19" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Select <strong>File</strong> - <strong>Save</strong>, to save the Hello.java  file.</li>
+  <li class="exercise-step">Right-click anywhere in the code, to select <strong>Run As</strong> - <strong>Run on Server</strong>.</li>
+  <li class="exercise-step">Leave Tomcat v8.0 Server at localhost selected.</li>
+  <li class="exercise-step">Click <strong>Finish</strong>.</li>
+  <li class="exercise-step">Realize that the red text messages at the bottom of the screen, in the Console panel, are likely to be informative messages (not necessarily error messages).</li>
+  <li class="exercise-step">After a few seconds, see the page display:<br>
+    <br>
+    <img src="../images/unit06/centos_page_result.png" width="507" height="133" class="image-border"></li></ol>
+<p>Set up a REST API instance for the playground database (required by the MarkLogic Java API for it to communicate with the database): </p>
+<ol class="exercise-step" start="47">
+  <li class="exercise-step">On the desktop, in the mls-fundamentals/<strong>unit06</strong> folder, open the <strong>playground_config.json</strong> file in a text editor to see the REST API instance  we will be configuring for the playground database:<br>
+    <br>
+  <img src="../images/unit06/centos_playground_config.png" width="409" height="191" class="image-border"></li>
+  <li class="exercise-step">In the unit06 folder, open the <strong>ex03b.txt</strong> file in a text editor:<br>
+    <br>
+  <img src="../images/unit06/centos_ex03b.png" width="650" height="119" class="image-border"></li>
+  <li class="exercise-step"><strong>Copy</strong> all the text.</li>
+  <li class="exercise-step">In a  <strong>command prompt</strong> window as the cent user, <strong>paste</strong> the code and press Enter, to generate a REST API instance for the playground database.</li>
+  <li class="exercise-step">Wait a few seconds, to see that the command is successful:<br>
+    <br>
+  <img src="../images/unit06/centos_rest_created.png" width="250" height="100" class="image-border"></li>
+</ol>
+<p>Use Maven to add the MarkLogic Java API files to the Eclipse project (<em>requires Internet access</em>):</p>
+<ol class="exercise-step" start="52">
+  <li class="exercise-step">In <strong>Eclipse</strong>, <strong>right-click</strong>  the <strong>hello</strong> project folder, to select <strong>Configure</strong> - <strong>Convert to Maven Project</strong>:<br>
+    <br>
+  <img src="../images/unit06/centos_maven_convert.png" width="631" height="72" class="image-border"></li>
+  <li class="exercise-step">In the Create new POM window, leave the defaults and click the <strong>Finish</strong> button.</li>
+  <li class="exercise-step">Wait for Maven to download needed files (requires Internet access).</li>
+  <li class="exercise-step"><strong>Notice</strong> that a pom.xml file has been created and opened.</li>
+  <li class="exercise-step">In the pom.xml file, select the <strong>Dependencies</strong> tab:<br>
+    <br>
+  <img src="../images/unit06/centos_dependencies_tab.png" width="329" height="31" class="image-border"></li>
+  <li class="exercise-step">Click the <strong>Add...</strong> button for the <strong>left</strong> column.</li>
+  <li class="exercise-step">For Group Id, enter <span class="code">com.marklogic</span>.</li>
+  <li class="exercise-step">For Artifact Id, enter <span class="code">java-client-api</span>.</li>
+  <li class="exercise-step">For Version, enter <span class="code">3.0.1</span>.<br>
+  </li>
+  <li class="exercise-step">Click <strong>OK</strong>.</li>
+  <li class="exercise-step"><strong>Save</strong> and close the pom.xml file.</li>
+</ol>
+<p>Use the MarkLogic Java API to connect to the playground database:</p>
+<ol class="exercise-step" start="63">
+  <li class="exercise-step">In Eclipse, in the <strong>Hello.java</strong> file, create a blank line after the TODO line, before the PrintWriter line:<br>
+    <br>
+    <img src="../images/unit06/centos_eclipse_blank_line.png" width="439" height="196" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Enter the following code to make a connection to the playground database (can copy from<strong> ex03c.txt</strong>):<br>
+    <br>
+    <span class="code">DatabaseClient client = DatabaseClientFactory.newClient(&quot;localhost&quot;, 8051,    &quot;admin&quot;, &quot;admin&quot;, Authentication.DIGEST);    </span><br>
+  </li>
+  <li class="exercise-step"><strong>Notice</strong> there is a red underline under the word DatabaseClient.</li>
+  <li class="exercise-step"><strong>Hover</strong> over the word DatabaseClient, to select <strong>Import 'DatabaseClient' (com.marklogic.client)</strong>:<br>
+    <br>
+    <img src="../images/unit06/centos_eclipse_database_client.png" width="616" height="103" class="image-border"><br>
+  <em>Note: If Import 'DatabaseClient' (com.marklogic.client) is not listed, 
+  recheck your Maven steps.</em></li>
+  <li class="exercise-step"><strong>Repeat</strong> for <strong>DatabaseClientFactory</strong> and <strong>Authentication</strong>.</li>
+  <li class="exercise-step">Scroll to the top of the file to see that import statements were added:<br>
+    <br>
+    <img src="../images/unit06/centos_eclipse_import_statements.png" width="546" height="63" class="image-border"><br>
+  </li>
+  <li class="exercise-step"><strong>Save</strong> the file. </li>
+  <li class="exercise-step">Right-click on the file to select <strong>Run As</strong> - <strong>Run on Server</strong>. </li>
+  <li class="exercise-step">Leave Tomcat v8.0 Server at localhost selected and click <strong>Finish</strong>.</li>
+  <li class="exercise-step">If prompted to restart the server, select <strong>Continue without restarting</strong>, and click the OK button.</li>
+  <li class="exercise-step">See that the application compiles and displays the web page as before, with no errors.</li>
+</ol>
+<p>Read a document from the playground database:</p>
+<ol class="exercise-step" start="74">
+  <li class="exercise-step">In Eclipse, in the <strong>Hello.java</strong> file, after the DatabaseClient code, but  before the PrintWriter code, add the following  code to set up a JSON document manager, set up a handler,  read the /fun/hello.json document from the playground database, and store the document's contents in a variable named doc (can copy from <strong>ex03d.txt</strong>):<br>
+    <br>
+    <span class="code">JSONDocumentManager docMgr = client.newJSONDocumentManager();<br>
+JacksonHandle handle = new JacksonHandle();<br>
+docMgr.read(&quot;/fun/hello.json&quot;, handle);<br>
+JsonNode doc = handle.get();</span></li>
+  <li class="exercise-step"><strong>Hover</strong> over JSONDocumentManager to choose Import 'JSONDocumentManager' (com.marklogic.client.document).</li>
+  <li class="exercise-step"><strong>Hover</strong> over JacksonHandle to choose Import 'JacksonHandle' (com.marklogic.client.io).</li>
+  <li class="exercise-step"><strong>Hover</strong> over JsonNode to choose Import 'JsonNode' (com.fasterxml.jackson.databind).</li>
+  <li class="exercise-step">In the out.println() method, <strong>replace</strong> the placeholder text and quotes with the <span class="code">doc</span> variable:<br>
+    <br>
+    <img src="../images/unit06/eclipse_println_doc.png" width="137" height="21" class="image-border"><br>
+  </li>
+  <li class="exercise-step">After the out.println(doc) line, create a new line and enter the following, to close the database connection:<br>
+    <br>
+    <span class="code">client.release(); </span><br>
+  </li>
+  <li class="exercise-step"><strong>Save</strong> the file. </li>
+  <li class="exercise-step">Right-click on the file to select <strong>Run As</strong> - <strong>Run on Server</strong>. </li>
+  <li class="exercise-step">Leave Tomcat v8.0 Server at localhost selected and click <strong>Finish</strong>.</li>
+  <li class="exercise-step">If prompted to restart the server, select <strong>Continue without restarting</strong>, and click the OK button.</li>
+  <li class="exercise-step">See that the application displays the contents of the JSON file in the web page:<br>
+    <br>
+    <img src="../images/unit06/centos_eclipse_json_content.png" width="465" height="139" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In Hello.java, add to the argument in  out.println(doc), to  display just the value of greeting:<br>
+    <br>
+    <span class="code">out.println(doc<strong>.get(&quot;greeting&quot;).asText()</strong>); </span><br>
+  </li>
+  <li class="exercise-step"><strong>Save</strong> the file. </li>
+  <li class="exercise-step">Right-click on the file to select <strong>Run As</strong> - <strong>Run on Server</strong>. </li>
+  <li class="exercise-step">See that the application displays just the greeting content:<br>
+    <br>
+    <img src="../images/unit06/centos_eclipse_greeting_value.png" width="465" height="148" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that the above MarkLogic Java API classes, as well as many more, are covered in the <a href="http://docs.marklogic.com/guide/java.pdf" target="_blank">Java Application Developer's Guide</a>. </li>
+  <li class="exercise-step">If desired, revisit the <a href="https://github.com/marklogic/marklogic-samplestack" target="_blank">Samplestack GitHub page</a>, for an MVC  Java  reference instance.</li>
+  <li class="exercise-step">If desired, register for the 3-day <a href="http://mlu.marklogic.com/registration" target="_blank">Developing MarkLogic Applications I: Java course</a>.</li>
+  <li class="exercise-step"><strong>Close</strong> Eclipse.</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0604_getting_started_with_the_nodejs_api.htm" class="exercise-link">Topic (Getting Started with the Node.js API)</a></p>
+<p>Back: <a href="0603_getting_started_with_the_java_api.htm">Previous</a><a href="0202_downloading_the_installer.htm" class="exercise-link"></a><a href="#" class="exercise-link"><br>
+</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Spring</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p>Spring
+<ul><li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Benefits</span>
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <ul>&#xd;&#xa;      <li class="first-listitem">&#xd;&#xa;        <p id="120-8" class="first-para">&#xd;&#xa;          Spring MVC provides a dispatcher servlet, saving your writing one.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="120-9" class="first-para">&#xd;&#xa;          Spring MVC employs an XML-based configuration file that you can edit without recompiling the application.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="120-10" class="first-para">&#xd;&#xa;          Spring MVC instantiates controller classes and populates beans with user inputs.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="120-11" class="first-para">&#xd;&#xa;          Spring MVC automatically binds user input with the correct type. For example, Spring MVC can automatically parse a string and sets a property of type float or decimal.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="120-12" class="first-para">&#xd;&#xa;          Spring MVC validates user input and redirects the user back to the input form if validation failed. Input validation is optional and can be done programmatically or declaratively. On top of that, Spring MVC provides built-in validators for most of the tasks you may encounter when building a web application.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="120-13" class="first-para">&#xd;&#xa;          Spring MVC is part of the Spring framework. You get everything Spring has to offer.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="120-14" class="first-para">&#xd;&#xa;          Spring MVC supports internationalization and localization. This means, you can display messages in multiple languages depending on the user locale.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="120-15" class="first-para">&#xd;&#xa;          Spring MVC supports multiple view technologies. Most of the time you&#x2019;ll be using JSP, but other technologies are supported, including Velocity and FreeMarker.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;    </ul>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">servlet location placed at different loc</span>
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <pre id="124-1" class="literallayout">&lt;servlet&gt;&#xd;&#xa;    &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;&#xd;&#xa;    &lt;servlet-class&gt;&#xd;&#xa;        org.springframework.web.servlet.DispatcherServlet&#xd;&#xa;    &lt;/servlet-class&gt;&#xd;&#xa;    <tt><b>&lt;init-param&gt;&#xd;&#xa;        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;&#xd;&#xa;        &lt;param-value&gt;/WEB-INF/config/simple-config.xml&lt;/param-value&gt;&#xd;&#xa;    &lt;/init-param&gt;</b></tt>&#xd;&#xa;    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;&#xd;&#xa;&lt;/servlet&gt;</pre>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">important params</span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li>contextConfigLocation
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4" class="foldclosed" onClick="show_folder('1_4')" style="POSITION: absolute">+</span> <span id="hide1_4" class="foldopened" onClick="hide_folder('1_4')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">The View Resolver</span>
+<ul id="fold1_4" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <pre id="148-2" class="literallayout">&lt;bean id="viewResolver" class="org.springframework.web.servlet.&#xd;&#xa;<span class="inlinemediaobject"><img height="14" border="0" alt="Image from book" id="IMG_10" width="20" src="http://images.books24x7.com/bookimages/id_58386/ch3_ineqn1.jpg" title=""></span>view.InternalResourceViewResolver"&gt;&#xd;&#xa;    &lt;property name="prefix" value="/WEB-INF/jsp/"/&gt;&#xd;&#xa;    &lt;property name="suffix" value=".jsp"/&gt;&#xd;&#xa;&lt;/bean&gt;</pre>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_5" class="foldclosed" onClick="show_folder('1_5')" style="POSITION: absolute">+</span> <span id="hide1_5" class="foldopened" onClick="hide_folder('1_5')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Spring MVC Annotation Types</span>
+<ul id="fold1_5" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_5_1" class="foldclosed" onClick="show_folder('1_5_1')" style="POSITION: absolute">+</span> <span id="hide1_5_1" class="foldopened" onClick="hide_folder('1_5_1')">-</span>
+&#xd;&#xa;    <p>&#xd;&#xa;      org.springframework.stereotype.Controller&#xa0;&#xa0;@Controller&#xd;&#xa;    </p>&#xd;&#xa;    <p>&#xd;&#xa;      To ensure Spring can find your controllers,&#xd;&#xa;    </p>&#xd;&#xa;  
+<ul id="fold1_5_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <p>&#xd;&#xa;      declare the spring-context schema in your Spring MVC configuration file,&#xd;&#xa;    </p>&#xd;&#xa;    <pre id="162-4" class="literallayout"> <font color="#ff3300">xmlns:context="http://www.springframework.org/schema/context"</font></pre>&#xd;&#xa;  
+&#xd;&#xa;    <p>&#xd;&#xa;      &#xa0;use a &lt;component-scan/&gt; element in your configuration file:&#xd;&#xa;    </p>&#xd;&#xa;    <pre id="163-1" class="literallayout"><font color="#ff0033">&lt;context:component-scan base-package="com.example.controller"/&gt;</font></pre>&#xd;&#xa;  
+</li>
+</ul><span style="font-family: SansSerif, sans-serif; font-weight: bold; ">&#xd;&#xa;    <p>&#xd;&#xa;      &#xa0;RequestMapping Annotation Type&#xd;&#xa;    </p>&#xd;&#xa;    <p>&#xd;&#xa;      <b class="bold"><font color="#ff3300">org.springframework.web.bind.annotation</font></b><font color="#ff3300">.<b class="bold">RequestMapping</b></font>&#xd;&#xa;    </p>&#xd;&#xa;    <p>&#xd;&#xa;      <font color="#330099">use <b class="bold">@RequestMapping</b>&#xa0;to annotate a method or a class.</font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<p><span id="show1_5_2" class="foldclosed" onClick="show_folder('1_5_2')" style="POSITION: absolute">+</span> <span id="hide1_5_2" class="foldopened" onClick="hide_folder('1_5_2')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Dependency Injection with </span>
+<ul id="fold1_5_2" style="POSITION: relative; VISIBILITY: visible;"><li><p>org.springframework.beans.factory.annotation &nbsp;@Autowired
+&#xd;&#xa;    <p>&#xd;&#xa;      <b class="bold">org.springframework.stereotype</b>&#xa0;@Service&#xd;&#xa;    </p>&#xd;&#xa;    <p>&#xd;&#xa;      In order for a dependency to be found, its class must be annotated with <b class="bold">@Service</b>.&#xd;&#xa;    </p>&#xd;&#xa;  
+<p> your configuration file you need to add a &lt;component-scan/&gt; element to scan the base package for your dependencies.
+</li>
+</ul><p><span style="font-family: SansSerif, sans-serif; font-weight: bold; "> @RequestParam</span>
+<p><span id="show1_5_3" class="foldclosed" onClick="show_folder('1_5_3')" style="POSITION: absolute">+</span> <span id="hide1_5_3" class="foldopened" onClick="hide_folder('1_5_3')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">@PathVariable</span>
+<ul id="fold1_5_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    path variable is similar to a request parameter, except that there is no key part, just a value.&#xd;&#xa;  
+</li>
+</ul><p><span id="show1_5_4" class="foldclosed" onClick="show_folder('1_5_4')" style="POSITION: absolute">+</span> <span id="hide1_5_4" class="foldopened" onClick="hide_folder('1_5_4')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">@ModelAttribute</span>
+<ul id="fold1_5_4" style="POSITION: relative; VISIBILITY: visible;"><li><p>can be used to annotate a method argument or a method.
+<p> A method argument annotated with @ModelAttribute will have an instance of it retrieved or created and added to the Model object if the method body does not do it explicitly. 
+<ul><li>e.g.
+<ul><li>&#xd;&#xa;    Spring MVC will create an instance of <b class="bold">Order</b> every time this <b class="bold">submitOrder</b> method is invoked&#xd;&#xa;  
+&#xd;&#xa;    <pre id="210-2" class="literallayout">@RequestMapping(method = RequestMethod.POST)&#xd;&#xa;public String submitOrder(@ModelAttribute("newOrder") Order order,&#xd;&#xa;    Model model) {&#xd;&#xa;   &#x2026;&#xd;&#xa;}</pre>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>&#xd;&#xa;    Methods annotated with <b class="bold">@ModelAttribute</b> will be invoked every time a request-handling method in the same controller class is invoked.&#xd;&#xa;  
+<p>A method annotated with @ModelAttribute will be invoked right before a request-handling method.
+&#xd;&#xa;    Such a method may return an object or have a void return type. If it returns an object, the object is automatically added to the <b class="bold">Model</b>&#xa0; that was created for the request-handling method.&#xd;&#xa;  
+<p><span id="show1_5_4_1" class="foldclosed" onClick="show_folder('1_5_4_1')" style="POSITION: absolute">+</span> <span id="hide1_5_4_1" class="foldopened" onClick="hide_folder('1_5_4_1')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">e.g.</span>
+<ul id="fold1_5_4_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <pre id="210-7" class="literallayout">the return value of this method will be added to the <b class="bold">Model</b>.&#xd;&#xa;@ModelAttribute&#xd;&#xa;public Product addProduct(@RequestParam String productId) {&#xd;&#xa;&#xa0;&#xa0;&#xa0;&#xa0;return productService.get(productId);&#xd;&#xa;}</pre>&#xd;&#xa;    <a id="211" name="211">&#xd;&#xa;</a><a id="IDX-92" name="IDX-92">&#xd;&#xa;</a>&#xd;&#xa;    <p id="211-1" class="para">&#xd;&#xa;      If your annotated method returns void, then you must also add a <b class="bold">Model</b>&#xa0; argument type and add the instance yourself. Here is an example.&#xd;&#xa;    </p>&#xd;&#xa;    <p id="211-1" class="para">&#xd;&#xa;      &#xd;&#xa;    </p>&#xd;&#xa;    <pre id="211-2" class="literallayout">@ModelAttribute&#xd;&#xa;public void populateModel(@RequestParam String id, Model model) er);&#xd;&#xa;    model.addAttribute(new Account(id));&#xd;&#xa;}</pre>&#xd;&#xa;  
+</li>
+</ul></li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_6" class="foldclosed" onClick="show_folder('1_6')" style="POSITION: absolute">+</span> <span id="hide1_6" class="foldopened" onClick="hide_folder('1_6')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Writing Request-Handling Methods</span>
+<ul id="fold1_6" style="POSITION: relative; VISIBILITY: visible;"><li><p><span id="show1_6_1" class="foldclosed" onClick="show_folder('1_6_1')" style="POSITION: absolute">+</span> <span id="hide1_6_1" class="foldopened" onClick="hide_folder('1_6_1')">-</span>
+list of argument types that can appear as arguments 
+<ul id="fold1_6_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <ul>&#xd;&#xa;      <li class="first-listitem">&#xd;&#xa;        <p id="169-2" class="first-para">&#xd;&#xa;          <font face="Cambria">javax.servlet.ServletRequest&#xa0;or javax.servlet.http.HttpServletRequest </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-3" class="first-para">&#xd;&#xa;          <font face="Cambria">javax.servlet.ServletResponse&#xa0;or javax.servlet.http.HttpServletResponse </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-4" class="first-para">&#xd;&#xa;          <font face="Cambria">javax.servlet.http.HttpSession </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-5" class="first-para">&#xd;&#xa;          <font face="Cambria">org.springframework.web.context.request.WebRequest&#xa0;or org.springframework.web.context.request.NativeWebRequest </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-6" class="first-para">&#xd;&#xa;          <font face="Cambria">java.util.Locale </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-7" class="first-para">&#xd;&#xa;          <font face="Cambria">java.io.InputStream&#xa0;or java.io.Reader </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-8" class="first-para">&#xd;&#xa;          <font face="Cambria">java.io.OutputStream&#xa0;or java.io.Writer </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-9" class="first-para">&#xd;&#xa;          <font face="Cambria">java.security.Principal </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-10" class="first-para">&#xd;&#xa;          <font face="Cambria">HttpEntity&lt;?&gt;&#xa0;parameters </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-11" class="first-para">&#xd;&#xa;          <font face="Cambria" color="#ff3300">java.util.Map / org.springframework.ui.Model / org.springframework.ui.ModelMap</font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-12" class="first-para">&#xd;&#xa;          <font face="Cambria">org.springframework.web.servlet.mvc.support.RedirectAttributes </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-13" class="first-para">&#xd;&#xa;          <font face="Cambria">org.springframework.validation.Errors/org.springframework.validation.BindingResult </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-14" class="first-para">&#xd;&#xa;          <font face="Cambria">Command or form objects </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-15" class="first-para">&#xd;&#xa;          <font face="Cambria">org.springframework.web.bind.support.SessionStatus </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-16" class="first-para">&#xd;&#xa;          <font face="Cambria">org.springframework.web.util.UriComponentsBuilder </font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-17" class="first-para">&#xd;&#xa;          <font face="Cambria">Types annotated with @PathVariable, @MatrixVariable, @RequestParam, @RequestHeader, @RequestBody, or @RequestPart.</font>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;    </ul>&#xd;&#xa;    <p>&#xd;&#xa;      Of special importance is the <b class="bold">org.springframework.ui.Model</b>&#xa0;type. This is not a Servlet API type, but rather a Spring MVC type that contains a <b class="bold">Map</b>. Every time a request-handling method is invoked, Spring MVC creates a <b class="bold">Model</b>&#xa0;&#xa0;object and populates its <b class="bold">Map</b>&#xa0;with potentially various objects.&#xd;&#xa;    </p>&#xd;&#xa;  
+</li>
+</ul>&#xd;&#xa;    A request-handling method can return one of these objects.&#xd;&#xa;  
+<ul><li>&#xd;&#xa;    <ul>&#xd;&#xa;      <li class="first-listitem">&#xd;&#xa;        <p id="169-20" class="first-para">&#xd;&#xa;          A <b class="bold">ModelAndView</b> object&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-21" class="first-para">&#xd;&#xa;          A <b class="bold">Model</b> object&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-22" class="first-para">&#xd;&#xa;          A <b class="bold">Map</b> containing the attributes of the model&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-23" class="first-para">&#xd;&#xa;          A <b class="bold">View</b> object&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-24" class="first-para">&#xd;&#xa;          A <b class="bold">String</b> representing the logical view name&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-25" class="first-para">&#xd;&#xa;          void&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-26" class="first-para">&#xd;&#xa;          An <b class="bold">HttpEntity</b> or <b class="bold">ResponseEntity</b> object to provide access to the Servlet response HTTP headers and contents&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-27" class="first-para">&#xd;&#xa;          A <b class="bold">Callable</b>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-28" class="first-para">&#xd;&#xa;          A <b class="bold">DeferredResult</b>&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem">&#xd;&#xa;        <p id="169-29" class="first-para">&#xd;&#xa;          Any other return type. In this case, the return value will be considered a model attribute to be exposed to the view&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;    </ul>&#xd;&#xa;  
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_7" class="foldclosed" onClick="show_folder('1_7')" style="POSITION: absolute">+</span> <span id="hide1_7" class="foldopened" onClick="hide_folder('1_7')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Redirect and Flash Attributes</span>
+<ul id="fold1_7" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    The trade-off when using a redirect is you cannot easily pass a value to the target page. With a forward, you can simply add attributes to the <b class="bold">Model</b>&#xa0;object and the attributes will be accessible to the view.&#xd;&#xa;&#xd;&#xa;    <p>&#xd;&#xa;      Since a redirect is a round trip to the server, everything in the <b class="bold">Model</b>&#xa0;is lost when you redirect.&#xd;&#xa;    </p>&#xd;&#xa;    <p>&#xd;&#xa;      Fortunately, Spring version 3.1 and later provide a way of preserving values in a redirect by using <b>flash attributes.</b>&#xd;&#xa;    </p>&#xd;&#xa;  
+<p>To use flash attributes you must have an &lt;annotation-driven/&gt; element in your Spring MVC configuration file
+<p>you must also add a new argument of type org.springframework.web.servlet.mvc.support.RedirectAttributes in your method.
+</li>
+</ul>
+</li>
+<li><span id="show1_8" class="foldclosed" onClick="show_folder('1_8')" style="POSITION: absolute">+</span> <span id="hide1_8" class="foldopened" onClick="hide_folder('1_8')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">spring-config.xml elements</span>
+<ul id="fold1_8" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <b class="bold">&lt;component-scan/&gt;</b> element. It is to tell Spring MVC to scan classes under a certain package,&#xd;&#xa;  
+&#xd;&#xa;    <p>&#xd;&#xa;      <b class="bold">&lt;annotation-driven/&gt;</b>&#xa0;element does several things, including registering beans to support request processing with annotated controller methods.&#xd;&#xa;    </p>&#xd;&#xa;    <p>&#xd;&#xa;      &#xd;&#xa;    </p>&#xd;&#xa;    <p>&#xd;&#xa;      <b><font color="#ff3300">You don&#x2019;t need an &lt;annotation-driven/&gt;&#xa0;element if you are not using resources&#xa0;elements.</font></b>&#xd;&#xa;    </p>&#xd;&#xa;  
+&#xd;&#xa;    The <b class="bold">&lt;resources/&gt;</b> element tells Spring MVC which static resources need to be served independently from the dispatcher servlet.&#xd;&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_9" class="foldclosed" onClick="show_folder('1_9')" style="POSITION: absolute">+</span> <span id="hide1_9" class="foldopened" onClick="hide_folder('1_9')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Converters and Formatters</span>
+<ul id="fold1_9" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_9_1" class="foldclosed" onClick="show_folder('1_9_1')" style="POSITION: absolute">+</span> <span id="hide1_9_1" class="foldopened" onClick="hide_folder('1_9_1')">-</span>
+Converters
+<ul id="fold1_9_1" style="POSITION: relative; VISIBILITY: visible;"><li><p> are generic components that can be used in any tier of the application
+<p> an object that converts a type to another type.
+<p>For example, user input for a date can be in many forms. "December 25, 2014," 12/25/2014," "2014-12-25" can all represent the same date. 
+<p>To create a converter, you must write a Java class that implement org.springframework.core.convert.converter.Converter interface. 
+<br>
+
+<br>
+public interface Converter&lt;S, T&gt; // S is source type and T is target type.
+<br>
+
+<br>
+
+<p><span id="show1_9_1_1" class="foldclosed" onClick="show_folder('1_9_1_1')" style="POSITION: absolute">+</span> <span id="hide1_9_1_1" class="foldopened" onClick="hide_folder('1_9_1_1')">-</span>
+e.g.
+<ul id="fold1_9_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <form name="aspnetForm" method="post" action="assetviewer.aspx?bookid=58386&amp;chunkid=323534132&amp;noteMenuToggle=0&amp;hitSectionMenuToggle=0&amp;leftMenuState=1" id="aspnetForm">&#xd;&#xa;      <div>&#xd;&#xa;        <table cellspacing="0" border="0" width="100%" cellpadding="0" bgcolor="#ffffff">&#xd;&#xa;          <tr>&#xd;&#xa;            <td style="vertical-align: top">&#xd;&#xa;              <div id="container" class="b24-contentdiv" hidefocus="true" style="height: 456px" tabindex="0">&#xd;&#xa;                <div id="ctl00_ContentPlaceHolder1_ContentAreaUpdatePanel">&#xd;&#xa;                  <div id="ctl00_ContentPlaceHolder1_ContentPanel" style="margin-top: 0px">&#xd;&#xa;                    <div style="margin-top: 0px">&#xd;&#xa;                      <div id="ch006" class="chapter">&#xd;&#xa;                        <div id="ch006_s1_1" class="section">&#xd;&#xa;                          <div id="ex6_1" class="example">&#xd;&#xa;                            <div id="ex6_1" class="formalbody">&#xd;&#xa;                              <pre id="301-1" class="literallayout"><span labelid="300-6" class="b24-annotation-target" ids="301,301-1,300-6"><img alt="Add a note here" width="12" border="0" src="http://skillport.books24x7.com/images/tool_annotate_sm.gif" class="b24-expando" style="display: inline" title="Add a note here" height="12">&#xd;&#xa;&#xd;&#xa;</span>&#xd;&#xa;package app06a.converter;&#xd;&#xa;&#xd;&#xa;import java.text.ParseException;&#xd;&#xa;import java.text.SimpleDateFormat;&#xd;&#xa;import java.util.Date;&#xd;&#xa;&#xd;&#xa;import org.springframework.core.convert.converter.Converter;&#xd;&#xa;&#xd;&#xa;public class StringToDateConverter implements Converter&lt;String,&#xd;&#xa;       Date&gt; {&#xd;&#xa;&#xd;&#xa;    private String datePattern;&#xd;&#xa;&#xd;&#xa;    public StringToDateConverter(String datePattern) {&#xd;&#xa;        this.datePattern = datePattern;&#xd;&#xa;        System.out.println("instantiating .&#x2026; converter with&#xd;&#xa;       pattern:*"&#xd;&#xa;                + datePattern);&#xd;&#xa;    }&#xd;&#xa;&#xd;&#xa;    @Override&#xd;&#xa;    public Date convert(String s) {&#xd;&#xa;        try {&#xd;&#xa;            SimpleDateFormat dateFormat =&#xd;&#xa;                    new SimpleDateFormat(datePattern);&#xd;&#xa;            dateFormat.setLenient(false);&#xd;&#xa;            return dateFormat.parse(s);&#xd;&#xa;<a name="302" id="302">&#xd;&#xa;</a><a name="IDX-125" id="IDX-125"><span pagenum="125" class="beginpage">&#xd;&#xa;</span></a>&#xd;&#xa;        } catch (ParseException e) {&#xd;&#xa;            // the error message will be displayed when using&#xd;&#xa;            // &lt;form:errors&gt;&#xd;&#xa;            throw new IllegalArgumentException(&#xd;&#xa;                    "invalid date format. Please use this pattern\""&#xd;&#xa;                            + datePattern + "\"");&#xd;&#xa;        }&#xd;&#xa;    }&#xd;&#xa;}</pre>&#xd;&#xa;                            </div>&#xd;&#xa;                          </div>&#xd;&#xa;                        </div>&#xd;&#xa;                      </div>&#xd;&#xa;                    </div>&#xd;&#xa;                  </div>&#xd;&#xa;                </div>&#xd;&#xa;              </div>&#xd;&#xa;            </td>&#xd;&#xa;          </tr>&#xd;&#xa;        </table>&#xd;&#xa;      </div>&#xd;&#xa;    </form>&#xd;&#xa;  
+</li>
+</ul><p><span id="show1_9_1_2" class="foldclosed" onClick="show_folder('1_9_1_2')" style="POSITION: absolute">+</span> <span id="hide1_9_1_2" class="foldopened" onClick="hide_folder('1_9_1_2')">-</span>
+To use custom converters in a Spring MVC application, you need to write a conversionService bean in your Spring MVC configuration file. &nbsp;
+<br>
+
+<br>
+The class name for the bean must be org.springframework.context.support.ConversionServiceFactoryBean. &nbsp;
+<br>
+
+<br>
+The bean must contain a converters property that lists all custom converters to be used in the application.
+<ul id="fold1_9_1_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <p>&#xd;&#xa;      &#xd;&#xa;    </p>&#xd;&#xa;    <form name="aspnetForm" method="post" action="assetviewer.aspx?bookid=58386&amp;chunkid=323534132&amp;noteMenuToggle=0&amp;hitSectionMenuToggle=0&amp;leftMenuState=1" id="aspnetForm">&#xd;&#xa;      <div>&#xd;&#xa;        <table cellspacing="0" border="0" width="100%" cellpadding="0" bgcolor="#ffffff">&#xd;&#xa;          <tr>&#xd;&#xa;            <td style="vertical-align: top">&#xd;&#xa;              <div id="container" class="b24-contentdiv" hidefocus="true" style="height: 45px" tabindex="0">&#xd;&#xa;                <div id="ctl00_ContentPlaceHolder1_ContentAreaUpdatePanel">&#xd;&#xa;                  <div id="ctl00_ContentPlaceHolder1_ContentPanel" style="margin-top: 0px">&#xd;&#xa;                    <div style="margin-top: 0px">&#xd;&#xa;                      <div id="ch006" class="chapter">&#xd;&#xa;                        <div id="ch006_s1_1" class="section">&#xd;&#xa;                          <pre id="302-3" class="literallayout">&lt;bean id="conversionService"&#xd;&#xa;        class="org.springframework.context.support.&#xd;&#xa;<img alt="Image from book" border="0" width="15" src="http://images.books24x7.com/bookimages/id_58386/ch006_infig001.jpg" id="IMG_20" title="" height="11">ConversionServiceFactoryBean"&gt;&#xd;&#xa;    &lt;property name="converters"&gt;&#xd;&#xa;        &lt;list&gt;&#xd;&#xa;            &lt;bean class="app06a.converter.StringToDateConverter"&gt;&#xd;&#xa;                &lt;constructor-arg type="java.lang.String"&#xd;&#xa;                        value="MM-dd-yyyy"/&gt;&#xd;&#xa;            &lt;/bean&gt;&#xd;&#xa;        &lt;/list&gt;&#xd;&#xa;    &lt;/property&gt;&#xd;&#xa;&lt;/bean&gt;</pre>&#xd;&#xa;                        </div>&#xd;&#xa;                      </div>&#xd;&#xa;                    </div>&#xd;&#xa;                  </div>&#xd;&#xa;                </div>&#xd;&#xa;              </div>&#xd;&#xa;            </td>&#xd;&#xa;          </tr>&#xd;&#xa;        </table>&#xd;&#xa;      </div>&#xd;&#xa;    </form>&#xd;&#xa;  
+</li>
+</ul><p>After that, you need to assign the bean name (in this case, conversionService) to the conversion-service attribute of the annotation-driven element, like so 
+<br>
+
+<br>
+&lt;mvc:annotation-driven &nbsp;conversion-service="conversionService"/&gt; 
+</li>
+</ul>
+</li>
+<li><span id="show1_9_2" class="foldclosed" onClick="show_folder('1_9_2')" style="POSITION: absolute">+</span> <span id="hide1_9_2" class="foldopened" onClick="hide_folder('1_9_2')">-</span>
+Formatters
+<ul id="fold1_9_2" style="POSITION: relative; VISIBILITY: visible;"><li><p> on the other hand, are specifically designed for the web tier
+<p>the source type for a formatter must be a String whereas a converter can work with any source type. 
+<p>For converting user input in a form in a Spring MVC application, you should always choose a formatter over a converter. 
+<p>To create a formatter, write a Java class that implements the org.springframework.format.Formatter interface
+<br>
+public interface Formatter&lt;T&gt;
+<br>
+
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_10" class="foldclosed" onClick="show_folder('1_10')" style="POSITION: absolute">+</span> <span id="hide1_10" class="foldopened" onClick="hide_folder('1_10')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">The Form Tag Library</span>
+<ul id="fold1_10" style="POSITION: relative; VISIBILITY: visible;"><li> &lt;%@taglib prefix="form" &nbsp;&nbsp;uri="http://www.springframework.org/tags/form" %&gt; 
+
+</li>
+<li><span id="show1_10_1" class="foldclosed" onClick="show_folder('1_10_1')" style="POSITION: absolute">+</span> <span id="hide1_10_1" class="foldopened" onClick="hide_folder('1_10_1')">-</span>
+The form Tag
+<ul id="fold1_10_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>commandName attribute is probably the most important attribute as it specifies the name of the model attribute that contains a backing object whose properties will be used to populate the generated form. 
+</li>
+</ul>
+</li>
+<li><span id="show1_10_2" class="foldclosed" onClick="show_folder('1_10_2')" style="POSITION: absolute">+</span> <span id="hide1_10_2" class="foldopened" onClick="hide_folder('1_10_2')">-</span>
+The input Tag
+<ul id="fold1_10_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <p>&#xd;&#xa;      <b>path</b>&#xa0;attribute, binds this input field to a property of the form-backing object.&#xa0;&#xd;&#xa;    </p>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cloud Computing</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p><span style="font-size: 116%;font-family: Cambria, sans-serif; ">Cloud Computing</span>
+<ul><li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+<span style="color: #338800;font-family: Cambria, sans-serif; font-weight: bold; ">&#xd;&#xa;    <p>&#xd;&#xa;      1.Overview&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span id="show1_1_1" class="foldclosed" onClick="show_folder('1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_1_1" class="foldopened" onClick="hide_folder('1_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">cloud service models-3</span>
+<ul id="fold1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_1_1_1" class="foldclosed" onClick="show_folder('1_1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_1_1_1" class="foldopened" onClick="hide_folder('1_1_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; "> Infrastructure as a Service (IaaS),</span>
+<ul id="fold1_1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_1_1_1_1" class="foldclosed" onClick="show_folder('1_1_1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_1_1_1_1" class="foldopened" onClick="hide_folder('1_1_1_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; ">def:</span>
+<ul id="fold1_1_1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">is about providing compute and storage resources as a service.</span></font>&#xd;&#xa;  
+<p><span style="font-family: Cambria, sans-serif; ">As per NIST
+<br>
+"The capability provided to the consumer is to provision processing, storage, networks, and other fundamental computing resources where the consumer is able to deploy and run arbitrary software, which can include operating systems and applications. The consumer does not manage or control the underlying cloud infrastructure but has control over operating systems, storage, deployed applications, and possibly limited control of select networking components (e.g., host firewalls)."
+<br>
+</span>
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Well-known IaaS platforms include Amazon EC2, Rackspace, and Rightscale.</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_1_2" class="foldclosed" onClick="show_folder('1_1_1_2')" style="POSITION: absolute">+</span> <span id="hide1_1_1_2" class="foldopened" onClick="hide_folder('1_1_1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Platform as a Service (PaaS)</span>
+<ul id="fold1_1_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span id="show1_1_1_2_1" class="foldclosed" onClick="show_folder('1_1_1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_1_1_2_1" class="foldopened" onClick="hide_folder('1_1_1_2_1')">-</span>
+def:
+<ul id="fold1_1_1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">provide a system stack or platform for application deployment as a service.</span></font>&#xd;&#xa;  
+<p><span style="font-size: 116%;font-family: Cambria, sans-serif; ">The capability provided to the consumer is to deploy onto the cloud infrastructure consumer-created or acquired applications created using programming languages and tools supported by the provider. The consumer does not manage or control the underlying cloud infrastructure including network, servers, operating systems, or storage, but has control over the deployed applications and possibly application hosting environment configurations.</span>
+</li>
+</ul><span style="font-size: 108%;font-family: Cambria, sans-serif; font-style: italic; ">&#xd;&#xa;    <p>&#xd;&#xa;      <b><font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">&#xa0;Windows Azure, Google App Engine, and Hadoop are some well-known PaaS platforms</font></b>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+</li>
+</ul>
+</li>
+<li><span id="show1_1_1_3" class="foldclosed" onClick="show_folder('1_1_1_3')" style="POSITION: absolute">+</span> <span id="hide1_1_1_3" class="foldopened" onClick="hide_folder('1_1_1_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Software as a Service (SaaS)</span>
+<ul id="fold1_1_1_3" style="POSITION: relative; VISIBILITY: visible;"><li><p>def:
+<ul><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">about providing the complete application as a service.</span></font>&#xd;&#xa;  
+<p>The capability provided to the consumer is to use the provider's applications running on a cloud infrastructure. The applications are accessible from various client devices through a thin client interface such as a web browser (e.g., web-based email). The consumer does not manage or control the underlying cloud infrastructure including network, servers, operating systems, storage, or even individual application capabilities, with the possible exception of limited user-specific application configuration settings.
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">Users who log in to the SaaS service can both use the application as well as configure the application for their use.</span></font>&#xd;&#xa;  
+</li>
+</ul>&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">&#xa0;Prominent SaaS applications include Salesforce.com for CRM, Google Docs for document sharing, and web email systems like Gmail, Hotmail, and Yahoo! Mail.</font>&#xd;&#xa;    </p>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_1_1_4" class="foldclosed" onClick="show_folder('1_1_1_4')" style="POSITION: absolute">+</span> <span id="hide1_1_1_4" class="foldopened" onClick="hide_folder('1_1_1_4')">-</span>
+<span style="font-family: Cambria, sans-serif; ">pic</span>
+<ul id="fold1_1_1_4" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <img src="CloudServModel.JPG">&#xd;&#xa;  
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_1_1_5" class="foldclosed" onClick="show_folder('1_1_1_5')" style="POSITION: absolute">+</span> <span id="hide1_1_1_5" class="foldopened" onClick="hide_folder('1_1_1_5')">-</span>
+Few categories 
+<ul id="fold1_1_1_5" style="POSITION: relative; VISIBILITY: visible;"><li>Storage-as-a-service 
+
+</li>
+<li>Database-as-a-service 
+
+</li>
+<li>Information-as-a-service 
+
+</li>
+<li>Process-as-a-service 
+
+</li>
+<li>Application-as-a-service (SAAS) 
+
+</li>
+<li>Integration-as-a-service 
+
+</li>
+<li>Security-as-a-service 
+
+</li>
+<li>Management/governance-as-a-service 
+
+</li>
+<li>Testing-as-a-service 
+
+</li>
+
+</ul>
+</li>
+
+</ul><span id="show1_1_2" class="foldclosed" onClick="show_folder('1_1_2')" style="POSITION: absolute">+</span> <span id="hide1_1_2" class="foldopened" onClick="hide_folder('1_1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">&#xd;&#xa;    <p>&#xd;&#xa;      <font color="rgb(0, 0, 0)" face="Arial, Helvetica, sans-serif"><b>Cloud deployment models-4</b></font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<ul id="fold1_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_1_2_1" class="foldclosed" onClick="show_folder('1_1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_1_2_1" class="foldopened" onClick="hide_folder('1_1_2_1')">-</span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">private cloud</font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<ul id="fold1_1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">cloud computing infrastructure that is built for a single enterprise.</span></font>&#xd;&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_2_2" class="foldclosed" onClick="show_folder('1_1_2_2')" style="POSITION: absolute">+</span> <span id="hide1_1_2_2" class="foldopened" onClick="hide_folder('1_1_2_2')">-</span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; "> public cloud</span>
+<ul id="fold1_1_2_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">cloud infrastructure owned by a</span><span class="Apple-converted-space">&#xa0;</span><b style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-transform: none" class="bold">cloud service provider</b><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">that provides cloud services to the public for commercial purposes.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_2_3" class="foldclosed" onClick="show_folder('1_1_2_3')" style="POSITION: absolute">+</span> <span id="hide1_1_2_3" class="foldopened" onClick="hide_folder('1_1_2_3')">-</span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; ">community cloud</span>
+<ul id="fold1_1_2_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">cloud infrastructure shared by a community of multiple organizations that generally have a common purpose</span></font>&#xd;&#xa;  </span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">example : OpenCirrus, which is a cloud computing research testbed intended to be used by universities and research institutions.</font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_2_4" class="foldclosed" onClick="show_folder('1_1_2_4')" style="POSITION: absolute">+</span> <span id="hide1_1_2_4" class="foldopened" onClick="hide_folder('1_1_2_4')">-</span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; "> hybrid cloud</span>
+<ul id="fold1_1_2_4" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">mixtures of these different deployments.</span></font>&#xd;&#xa;  
+</li>
+</ul></li>
+</ul><p><span id="show1_1_3" class="foldclosed" onClick="show_folder('1_1_3')" style="POSITION: absolute">+</span> <span id="hide1_1_3" class="foldopened" onClick="hide_folder('1_1_3')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Characteristics -5</span>
+<ul id="fold1_1_3" style="POSITION: relative; VISIBILITY: visible;"><li>On-demand self-service
+
+</li>
+<li>Network access
+
+</li>
+<li>Resource pooling
+
+</li>
+<li>Elasticity: 
+
+</li>
+<li>Metered or measured service
+
+</li>
+
+</ul><p><span id="show1_1_4" class="foldclosed" onClick="show_folder('1_1_4')" style="POSITION: absolute">+</span> <span id="hide1_1_4" class="foldopened" onClick="hide_folder('1_1_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; "> technological challenges</span>
+<ul id="fold1_1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">computation scaling, storage scaling, multi-tenancy, availability, and security.</span></font>&#xd;&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_5" class="foldclosed" onClick="show_folder('1_1_5')" style="POSITION: absolute">+</span> <span id="hide1_1_5" class="foldopened" onClick="hide_folder('1_1_5')">-</span>
+<span style="font-family: Cambria, sans-serif; ">examples</span>
+<ul id="fold1_1_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">Salesforce.com CRM SaaS is built upon the Force.com PaaS.</span></font>&#xd;&#xa;  </span>
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; font-weight: bold; ">&#xd;&#xa;    <p>&#xd;&#xa;      <font size="3">2: IaaS</font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span id="show1_2_1" class="foldclosed" onClick="show_folder('1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1" class="foldopened" onClick="hide_folder('1_2_1')">-</span>
+pic
+<ul id="fold1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <img src="IAAS.png">&#xd;&#xa;  
+
+</li>
+
+</ul><span id="show1_2_2" class="foldclosed" onClick="show_folder('1_2_2')" style="POSITION: absolute">+</span> <span id="hide1_2_2" class="foldopened" onClick="hide_folder('1_2_2')">-</span>
+<span style="font-size: 108%;font-family: SansSerif, sans-serif; font-weight: bold; ">&#xd;&#xa;    <p>&#xd;&#xa;      <font color="rgb(0, 0, 0)" face="Arial, Helvetica, sans-serif">&#xa0;storage as a service.</font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<ul id="fold1_2_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_2_1" class="foldclosed" onClick="show_folder('1_2_2_1')" style="POSITION: absolute">+</span> <span id="hide1_2_2_1" class="foldopened" onClick="hide_folder('1_2_2_1')">-</span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; font-style: italic; font-weight: bold; ">&#xd;&#xa;    <p>&#xd;&#xa;      <b><font face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">&#xa0;</font><font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">key Amazon Storage Services:</font></b>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<ul id="fold1_2_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_2_1_1" class="foldclosed" onClick="show_folder('1_2_2_1_1')" style="POSITION: absolute">+</span> <span id="hide1_2_2_1_1" class="foldopened" onClick="hide_folder('1_2_2_1_1')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">: (a)</span><span class="Apple-converted-space">&#xa0;</span><b style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-transform: none" class="bold">Amazon Simple Storage Service</b><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">(</span><b style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-transform: none" class="bold">S3</b><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">)</span></font>&#xd;&#xa;  
+<ul id="fold1_2_2_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">highly reliable, highly available, scalable and fast storage in the cloud for storing and retrieving large amounts of data just through simple web services.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Amazon provides a REST-ful API with familiar HTTP operations such as GET, PUT, DELETE, and HEAD</span></font>&#xd;&#xa;  
+<span id="show1_2_2_1_1_1" class="foldclosed" onClick="show_folder('1_2_2_1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_2_2_1_1_1" class="foldopened" onClick="hide_folder('1_2_2_1_1_1')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">S3 Access Methods</b></font>&#xd;&#xa;  
+<ul id="fold1_2_2_1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <ul class="itemizedlist" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); list-style: square; font-weight: normal; font-family: Arial, Helvetica, sans-serif; text-align: left; margin-left: 0; text-indent: 0px; margin-top: 0; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">&#xd;&#xa;      <li class="first-listitem" style="margin-top: 0">&#xd;&#xa;        <p class="first-para" id="75-2" style="margin-top: 0; font-size: small; margin-bottom: 0; font-family: Arial, Helvetica, sans-serif">&#xd;&#xa;          AWS Console&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem" style="margin-top: 0">&#xd;&#xa;        <p class="first-para" id="75-3" style="margin-top: 0; font-size: small; margin-bottom: 0; font-family: Arial, Helvetica, sans-serif">&#xd;&#xa;          Amazon's RESTful API&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem" style="margin-top: 0">&#xd;&#xa;        <p class="first-para" id="75-4" style="margin-top: 0; font-size: small; margin-bottom: 0; font-family: Arial, Helvetica, sans-serif">&#xd;&#xa;          SDKs for Ruby and other languages&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;    </ul>&#xd;&#xa;  
+</li>
+</ul><p>Organizing Data In S3: Buckets, Objects and Keys
+</li>
+</ul><span id="show1_2_2_1_2" class="foldclosed" onClick="show_folder('1_2_2_1_2')" style="POSITION: absolute">+</span> <span id="hide1_2_2_1_2" class="foldopened" onClick="hide_folder('1_2_2_1_2')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">(b)</span><span class="Apple-converted-space">&#xa0;</span><b style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-transform: none" class="bold">Amazon SimpleDB</b><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">, a key-value store;</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+<ul id="fold1_2_2_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">It is a type of NoSQL data store.</span></font>&#xd;&#xa;  </span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Data in SDB is organized into domain</span></font>&#xd;&#xa;  </span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Each item in a domain has a unique key that must be provided during creation.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  </span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">Each item can have up to 256 attributes,&#xa0;<span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">which are name-value pairs.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">SDB provides a query language that is analogous to SQL,</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Queries take advantage of the fact that SDB automatically indexes all attributes.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+</li>
+</ul>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">(c)</span><span class="Apple-converted-space">&#xa0;</span><b style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-transform: none" class="bold">Amazon Relational Database Service</b><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">(</span><b style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: bold; text-transform: none" class="bold">RDS</b><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; font-variant: normal; color: rgb(0, 0, 0); display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">),</span></font>&#xd;&#xa;  
+<ul><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="text-align: left; font-style: normal; word-spacing: 0px; text-indent: 0px; letter-spacing: normal; color: rgb(0, 0, 0); font-variant: normal; display: inline !important; background-color: rgb(255, 255, 255); float: none; white-space: normal; font-size: small; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-weight: normal; text-transform: none">which provides a MySQL instance in the cloud.</span></font>&#xd;&#xa;  
+</li>
+</ul></li>
+</ul><p>abbreviated as StaaS
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">3.AWS </span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li>AWS is Amazon&#8217;s umbrella description of all of their web-based technology services. 
+
+</li>
+<li><span id="show1_3_1" class="foldclosed" onClick="show_folder('1_3_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1" class="foldopened" onClick="hide_folder('1_3_1')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Compute</span>
+<ul id="fold1_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_3_1_1" class="foldclosed" onClick="show_folder('1_3_1_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1" class="foldopened" onClick="hide_folder('1_3_1_1')">-</span>
+&#xd;&#xa;    <h2 class="first-section-title" id="annotationlabel-first" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 128); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; margin-top: 0; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; margin-bottom: 0; font-variant: normal; font-size: medium; word-spacing: 0px">&#xd;&#xa;      AMAZON ELASTIC COMPUTE CLOUD (EC2)&#xd;&#xa;    </h2>&#xd;&#xa;  
+<ul id="fold1_3_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">allows enterprises to define a virtual server, with virtual storage and virtual networking.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">As with S3, EC2 can be accessed via the Amazon Web Services console at</span><span class="Apple-converted-space">&#xa0;</span></font><font size="small" face="Arial, Helvetica, sans-serif" color="maroon"><a class="url" href="http://aws.amazon.com/console" style="line-height: normal; letter-spacing: normal; text-decoration: none; color: maroon; font-weight: normal; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px" target="_top">http://aws.amazon.com/console</a></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">user has to create at least one key-value pair that is needed to securely connect to the instance.</span></font>&#xd;&#xa;  
+<span id="show1_3_1_1_1" class="foldclosed" onClick="show_folder('1_3_1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_1" class="foldopened" onClick="hide_folder('1_3_1_1_1')">-</span>
+<span style="font-size: 108%;font-family: SansSerif, sans-serif; font-weight: bold; ">&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" color="rgb(0, 0, 0)" face="Arial, Helvetica, sans-serif"><b>security groups</b></font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<ul id="fold1_3_1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">for the instance can be set to ensure the required network ports are open or blocked for the instance.</span></font>&#xd;&#xa;  
+</li>
+</ul><p><span id="show1_3_1_1_2" class="foldclosed" onClick="show_folder('1_3_1_1_2')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_2" class="foldopened" onClick="hide_folder('1_3_1_1_2')">-</span>
+ to start using the machine from a Linux client
+<ul id="fold1_3_1_1_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <pre class="programlisting" id="95-3" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; font-family: Courier New, Courier, mono; text-align: left; margin-left: 0px; text-indent: 0px; margin-top: 0; text-transform: none; background-color: rgb(255, 255, 255); font-style: normal; width: 800px; font-variant: normal; font-size: small; word-spacing: 0px">ssh -i my_keypair.pem ec2-67-202-62-112.compute-1.amazonaws.com</pre>&#xd;&#xa;  
+</li>
+</ul><span id="show1_3_1_1_3" class="foldclosed" onClick="show_folder('1_3_1_1_3')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_3" class="foldopened" onClick="hide_folder('1_3_1_1_3')">-</span>
+<span style="color: #338800;">&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">. An</span><span class="Apple-converted-space">&#xa0;</span><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">EC2 Compute Unit</b><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">(</span><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">CU</b><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">)</span></font>&#xd;&#xa;  </span>
+<ul id="fold1_3_1_1_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">standard measure of computing power in the same way that bytes are a standard measure of storage.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">One EC2 CU provides the same amount of computing power as a 1.0&#x2013;1.2 GHz Opteron or Xeon processor in 2007.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+</li>
+</ul><span id="show1_3_1_1_4" class="foldclosed" onClick="show_folder('1_3_1_1_4')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_4" class="foldopened" onClick="hide_folder('1_3_1_1_4')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Amazon Machine Images (AMIs)</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_4" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Amazon makes available certain standard combinations of operating system and application software</span></font>&#xd;&#xa;  
+<p><span id="show1_3_1_1_4_1" class="foldclosed" onClick="show_folder('1_3_1_1_4_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_4_1" class="foldopened" onClick="hide_folder('1_3_1_1_4_1')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Public AMIs</span>
+<ul id="fold1_3_1_1_4_1" style="POSITION: relative; VISIBILITY: visible;"><li>Use pre-configured, template AMIs to get up and running immediately. 
+
+</li>
+
+</ul><p><span id="show1_3_1_1_4_2" class="foldclosed" onClick="show_folder('1_3_1_1_4_2')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_4_2" class="foldopened" onClick="hide_folder('1_3_1_1_4_2')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Private AMIs: </span>
+<ul id="fold1_3_1_1_4_2" style="POSITION: relative; VISIBILITY: visible;"><li><p>Create an Amazon Machine Image (AMI) containing your applications, libraries, data and associated configuration settings
+</li>
+</ul><p><span id="show1_3_1_1_4_3" class="foldclosed" onClick="show_folder('1_3_1_1_4_3')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_4_3" class="foldopened" onClick="hide_folder('1_3_1_1_4_3')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Paid AMIs</span>
+<ul id="fold1_3_1_1_4_3" style="POSITION: relative; VISIBILITY: visible;"><li>: Set a price for your AMI and let others purchase and use it (Single payment and/or per hour) 
+
+</li>
+
+</ul></li>
+</ul><span id="show1_3_1_1_5" class="foldclosed" onClick="show_folder('1_3_1_1_5')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_5" class="foldopened" onClick="hide_folder('1_3_1_1_5')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Load Balancing and Scaling:</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_5" style="POSITION: relative; VISIBILITY: visible;"><li><p>automatically distributes incoming application traffic across multiple Amazon EC2 instances. 
+<p>It enables you to achieve even greater fault tolerance in your applications, seamlessly providing the amount of load balancing capacity needed in response to incoming application traffic. &nbsp;
+<p>detects unhealthy instances and automatically reroutes traffic to healthy instances until the unhealthy instances have been restored. 
+<p>Customers can enable Elastic Load Balancing within a single Availability Zone or across multiple zones for even more consistent application performance. &nbsp;
+</li>
+</ul><span id="show1_3_1_1_6" class="foldclosed" onClick="show_folder('1_3_1_1_6')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_6" class="foldopened" onClick="hide_folder('1_3_1_1_6')">-</span>
+&#xd;&#xa;    <h4 class="sect4-title" id="annotationlabel-4" style="line-height: normal; letter-spacing: normal; color: rgb(1, 1, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; margin-top: 0; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; margin-bottom: 0; font-variant: normal; font-size: small; word-spacing: 0px">&#xd;&#xa;      EC2 Storage Resources&#xd;&#xa;    </h4>&#xd;&#xa;  
+<ul id="fold1_3_1_1_6" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_3_1_1_6_1" class="foldclosed" onClick="show_folder('1_3_1_1_6_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_6_1" class="foldopened" onClick="hide_folder('1_3_1_1_6_1')">-</span>
+&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">&#xa0;<b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">block storage resources</b>.</font>&#xd;&#xa;    </p>&#xd;&#xa;  
+<ul id="fold1_3_1_1_6_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_3_1_1_6_1_1" class="foldclosed" onClick="show_folder('1_3_1_1_6_1_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_6_1_1" class="foldopened" onClick="hide_folder('1_3_1_1_6_1_1')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Elastic Block Service (EBS)</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_6_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">provides a block storage service for EC2.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">It is possible to request an EBS disk volume of a particular size and attach this volume to one or multiple EC2 instances using the instance ID returned during the time the volume is created.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">the EBS volume has an existence independent of any EC2 instance, which is critical to have persistence of data</span></font>&#xd;&#xa;  
+</li>
+</ul><span id="show1_3_1_1_6_1_2" class="foldclosed" onClick="show_folder('1_3_1_1_6_1_2')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_6_1_2" class="foldopened" onClick="hide_folder('1_3_1_1_6_1_2')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Instance Storage:</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_6_1_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">EC2 instance has local storage that can be configured as a part of the compute resource</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">This instance storage is ephemeral</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">it exists only as long as the EC2 instance exists,</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">and cannot be attached to any other EC2 instance.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">if the EC2 instance is terminated, the instance storage ceases to exist.</span></font>&#xd;&#xa;  
+</li>
+</ul>&#xd;&#xa;    <img src="EBSvsInstaStorage.JPG">&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">S3-backed instances vs. EBS-backed instances:</b></font>&#xd;&#xa;  
+<ul><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">In an S3-backed instance, the root AMI is stored in S3, which is file storage. Therefore, it must be copied to the root device in the EC2 instance before the EC2 instance can be booted.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">since instance storage is not persistent, any modifications made to the AMI of an S3-backed instance (such as patching the OS or installing additional software) will not be persistent beyond the lifetime of the instance.</span></font>&#xd;&#xa;  
+</li>
+</ul></li>
+</ul></li>
+</ul><span id="show1_3_1_1_7" class="foldclosed" onClick="show_folder('1_3_1_1_7')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_7" class="foldopened" onClick="hide_folder('1_3_1_1_7')">-</span>
+&#xd;&#xa;    <h4 class="sect4-title" id="annotationlabel-5" style="line-height: normal; letter-spacing: normal; color: rgb(1, 1, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; margin-top: 0; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; margin-bottom: 0; font-variant: normal; font-size: small; word-spacing: 0px">&#xd;&#xa;      EC2 Networking Resources&#xd;&#xa;    </h4>&#xd;&#xa;  
+<ul id="fold1_3_1_1_7" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">EC2 offers both a public address as well as a private address</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">also offers DNS services for managing DNS names associated with these IP addressees.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">The<b>&#xa0;Virtual Private Cloud</b>&#xa0;can be used to provide secure communication between an Intranet and the EC2 network.&#xa0;</font>&#xd;&#xa;    </p>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">. One can also create a complete logical sub network and expose it to public (a DMZ) with its own firewall rules.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Elastic IP addresses which are independent of any instance, and this feature can be used to support failover of servers.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+<span id="show1_3_1_1_7_1" class="foldclosed" onClick="show_folder('1_3_1_1_7_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_7_1" class="foldopened" onClick="hide_folder('1_3_1_1_7_1')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Instance addresses:</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_7_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Each EC2 instance has two IP addresses associated with it</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+<span id="show1_3_1_1_7_1_1" class="foldclosed" onClick="show_folder('1_3_1_1_7_1_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_7_1_1" class="foldopened" onClick="hide_folder('1_3_1_1_7_1_1')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">public IP address</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_7_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">public IP address and DNS name can be used for communication outside the Amazon cloud</span></font>&#xd;&#xa;  
+</li>
+</ul><span id="show1_3_1_1_7_1_2" class="foldclosed" onClick="show_folder('1_3_1_1_7_1_2')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_7_1_2" class="foldopened" onClick="hide_folder('1_3_1_1_7_1_2')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">private IP address</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_7_1_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">private IP address and DNS name can be resolved only within the EC2 cloud.</span></font>&#xd;&#xa;  
+</li>
+</ul></li>
+</ul><span id="show1_3_1_1_7_2" class="foldclosed" onClick="show_folder('1_3_1_1_7_2')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_7_2" class="foldopened" onClick="hide_folder('1_3_1_1_7_2')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Elastic IP addresses:</b><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_7_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">are independent of any instance, but are associated with a particular Amazon EC2 account</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">can be dynamically assigned to any instance (in which case, the public IP address is de-assigned).</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">they are useful for implementing failover.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Elastic IP addresses are not automatically allocated; they have to be generated when needed.</span></font>&#xd;&#xa;  
+</li>
+</ul><span id="show1_3_1_1_7_3" class="foldclosed" onClick="show_folder('1_3_1_1_7_3')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_7_3" class="foldopened" onClick="hide_folder('1_3_1_1_7_3')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Route 53:</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_7_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <p>&#xd;&#xa;      <font face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">is a DNS server that can be used to associate an Elastic IP address or public IP address with a name of the form </font><font size="small" face="Arial, Helvetica, sans-serif" color="maroon"><a class="url" href="http://www.myenterprise.com/" style="line-height: normal; text-decoration: none; letter-spacing: normal; color: maroon; font-weight: normal; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px" target="_top">www.myenterprise.com</a></font><font face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">. </font>&#xd;&#xa;    </p>&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">This is not possible by default, since the EC2 instances are inside the&#xa0;</font><font size="small" face="Courier New, Courier, mono" color="rgb(0, 0, 0)"><tt style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; font-family: Courier New, Courier, mono; text-align: left; text-indent: 0px; text-transform: none; background-color: rgb(255, 255, 255); white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">amazon.com</tt></font><font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">&#xa0;domain.&#xa0;</font>&#xd;&#xa;    </p>&#xd;&#xa;  
+</li>
+</ul></li>
+</ul><span id="show1_3_1_1_8" class="foldclosed" onClick="show_folder('1_3_1_1_8')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_8" class="foldopened" onClick="hide_folder('1_3_1_1_8')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Security Groups</b></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_8" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">to define network security policies that restrict the ports through which any machine can be accessed, or the IP addresses that can access a server.</span><span class="Apple-converted-space">&#xa0;</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Each security group is a collection of network security policies.</span></font>&#xd;&#xa;  
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span class="Apple-converted-space">&#xa0;</span><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">The default security group when creating an EC2 instance allows the instance to connect to any outside IP address but disallows incoming connections.</span></font>&#xd;&#xa;  
+</li>
+</ul><span id="show1_3_1_1_9" class="foldclosed" onClick="show_folder('1_3_1_1_9')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_9" class="foldopened" onClick="hide_folder('1_3_1_1_9')">-</span>
+<span style="font-size: 108%;font-family: Cambria, sans-serif; ">&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Cambria" color="rgb(0, 0, 0)"><b class="bold" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">Virtual Private Cloud:</b></font>&#xd;&#xa;    </p>&#xd;&#xa;  </span>
+<ul id="fold1_3_1_1_9" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <p>&#xd;&#xa;      <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)">Its for&#xa0;enterprises that desire more control over their networking configuration. </font>&#xd;&#xa;    </p>&#xd;&#xa;  
+<span id="show1_3_1_1_9_1" class="foldclosed" onClick="show_folder('1_3_1_1_9_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_9_1" class="foldopened" onClick="hide_folder('1_3_1_1_9_1')">-</span>
+&#xd;&#xa;    <font size="small" face="Arial, Helvetica, sans-serif" color="rgb(0, 0, 0)"><span style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 0); font-weight: normal; display: inline !important; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; float: none; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; font-variant: normal; font-size: small; word-spacing: 0px">advanced networking features offered by VPC include:</span></font>&#xd;&#xa;  
+<ul id="fold1_3_1_1_9_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <ul>&#xd;&#xa;      <li class="first-listitem" style="margin-top: 0">&#xd;&#xa;        <p class="first-para" id="105-11" style="margin-top: 0; font-size: small; margin-bottom: 0; font-family: Arial, Helvetica, sans-serif">&#xd;&#xa;          the ability to allocate both public and private IP addresses to instances from any address range&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem" style="margin-top: 0">&#xd;&#xa;        <p class="first-para" id="105-12" style="margin-top: 0; font-size: small; margin-bottom: 0; font-family: Arial, Helvetica, sans-serif">&#xd;&#xa;          the ability to divide the addresses into subnets and control the routing between subnets&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;      <li class="listitem" style="margin-top: 0">&#xd;&#xa;        <p class="first-para" id="105-13" style="margin-top: 0; font-size: small; margin-bottom: 0; font-family: Arial, Helvetica, sans-serif">&#xd;&#xa;          the ability to connect the EC2 network with an Intranet using a VPN tunnel. Details of VPC are beyond the scope of this book and can be found in<span class="Apple-converted-space">&#xa0;</span><i class="emphasis" style="font-style: italic">Amazon Virtual Private Cloud</i><font color="rgb(0, 128, 0)"><a class="chapterjump" href="http://skillport.books24x7.com/assetviewer.aspx?bkid=44733&amp;destid=161#161" style="color: rgb(0, 128, 0); text-decoration: none" target="_parent">[11]</a></font>.&#xd;&#xa;        </p>&#xd;&#xa;      </li>&#xd;&#xa;    </ul>&#xd;&#xa;  
+</li>
+</ul></li>
+</ul><span id="show1_3_1_1_10" class="foldclosed" onClick="show_folder('1_3_1_1_10')" style="POSITION: absolute">+</span> <span id="hide1_3_1_1_10" class="foldopened" onClick="hide_folder('1_3_1_1_10')">-</span>
+&#xd;&#xa;    <h4 class="sect4-title" id="annotationlabel-12" style="line-height: normal; letter-spacing: normal; color: rgb(1, 1, 0); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; margin-top: 0; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; margin-bottom: 0; font-variant: normal; font-size: small; word-spacing: 0px">&#xd;&#xa;      : Auto-Scaling&#xd;&#xa;    </h4>&#xd;&#xa;  
+<ul id="fold1_3_1_1_10" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <h5 class="sect5-title" id="annotationlabel-13" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 128); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; margin-top: 0; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; margin-bottom: 0; font-variant: normal; font-size: small; word-spacing: 0px">&#xd;&#xa;      using AWS Beanstalk&#xd;&#xa;    </h5>&#xd;&#xa;  
+&#xd;&#xa;    <h5 class="sect5-title" id="annotationlabel-14" style="line-height: normal; letter-spacing: normal; color: rgb(0, 0, 128); font-weight: bold; font-family: Arial, Helvetica, sans-serif; text-align: left; text-indent: 0px; margin-top: 0; background-color: rgb(255, 255, 255); text-transform: none; white-space: normal; font-style: normal; margin-bottom: 0; font-variant: normal; font-size: small; word-spacing: 0px">&#xd;&#xa;      Application-controlled Auto-Scaling&#xd;&#xa;    </h5>&#xd;&#xa;  
+</li>
+</ul><p><span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Availability Zones </span>
+<ul><li><p>Each zone is basically a separate datacenter, and provides low latency connectivity to all other zones in the region. &nbsp;
+</li>
+</ul></li>
+</ul>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>Amazon Elastic MapReduce&#xa0;(Amazon EMR) </b></font>&#xd;&#xa;    </div>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>Auto scaling</b></font>&#xd;&#xa;    </div>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>Elastic Load Balancing </b></font>&#xd;&#xa;    </div>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_3_2" class="foldclosed" onClick="show_folder('1_3_2')" style="POSITION: absolute">+</span> <span id="hide1_3_2" class="foldopened" onClick="hide_folder('1_3_2')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Storage</span>
+<ul id="fold1_3_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>Amazon Simple Storage Service (Amazon S3) </b></font>&#xd;&#xa;    </div>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>Amazon Glacier </b></font>&#xd;&#xa;    </div>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>AWS Storage Gateway </b></font>&#xd;&#xa;    </div>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>AWS Import/Export </b></font>&#xd;&#xa;    </div>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_3_3" class="foldclosed" onClick="show_folder('1_3_3')" style="POSITION: absolute">+</span> <span id="hide1_3_3" class="foldopened" onClick="hide_folder('1_3_3')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Database</span>
+<ul id="fold1_3_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>Amazon Relational Database Service (Amazon RDS) </b></font>&#xd;&#xa;    </div>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>Amazon DynamoDB&#xa0;</b></font>&#xd;&#xa;    </div>&#xd;&#xa;    <div style="margin-top: 0pt; text-align: left; text-indent: -.31in; margin-bottom: 0pt; margin-left: .31in">&#xd;&#xa;      <font size="4" color="black" face="Calibri"><b>Amazon ElastiCache&#xa0;</b></font>&#xd;&#xa;    </div>&#xd;&#xa;  
+</li>
+</ul>
+</li>
+<li><span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Content Deliver</span>
+<ul><li><span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Amazon CloudFront &nbsp;</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_4" class="foldclosed" onClick="show_folder('1_3_4')" style="POSITION: absolute">+</span> <span id="hide1_3_4" class="foldopened" onClick="hide_folder('1_3_4')">-</span>
+pic
+<ul id="fold1_3_4" style="POSITION: relative; VISIBILITY: visible;"><li>&#xd;&#xa;    <img src="AWS.png">&#xd;&#xa;  
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>

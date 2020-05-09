@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Use the  Node.js API</strong> (optional)</p>
+<p>In this walkthrough exercise, you first view information on the MarkLogic Node.js  API in GitHub. Then you stand up a  simple Node.js application. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In a browser, navigate to    <a href="http://github.com/marklogic/node-client-api" target="_blank">github.com/marklogic/node-client-api</a>, to learn about the MarkLogic Node.js API.</li>
+  <li class="exercise-step">See that you are viewing the  GitHub page for the <strong>MarkLogic Node.js API</strong>: <br>
+    <br>
+    <img src="../images/unit06/github_nodejs_api.png" width="704" height="677" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Scroll down the web page, skimming the text as you go.</li>
+  <li class="exercise-step">In the <strong>Getting started</strong> section, click the <strong>docs.marklogic.com/guide/node-dev/intro#id_68052</strong> link to access the getting started documentation.</li>
+  <li class="exercise-step">In a browser window, navigate to <a href="http://www.npmjs.com/package/marklogic" target="_blank">www.npmjs.com/package/marklogic</a>, to see that MarkLogic provides an npm package for the MarkLogic Node.js API.</li>
+  <li class="exercise-step">To see the steps that were done in the virtual machine to set you up with a Node.js development environment, view  <a href="xb02_x_see_the_steps_that_were_done.htm#node" target="_blank">See the Steps That Were Done</a>, steps 201-208.</li>
+  <li class="exercise-step">In your virtual machine,  open a <strong>command prompt</strong> window. </li>
+  <li class="exercise-step">Enter<span class="code"> node -v</span>, to see that Node.js is installed:<br>
+    <br>
+    <img src="../images/unit06/centos_node_v.png" width="523" height="87" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Enter<span class="code"> npm -v</span>, to see that npm is installed:<br>
+    <br>
+    <img src="../images/unit06/centos_npm_v.png" width="525" height="85" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Enter<span class="code"> git --version</span>, to see that Git is installed: <br>
+    <br>
+  <img src="../images/unit06/centos_git_v.png" width="523" height="85" class="image-border"></li>
+  <li class="exercise-step">Enter<span class="code"> bower -v</span>, to see that Bower is installed: <br>
+    <br>
+  <img src="../images/unit06/centos_bower_v.png" width="524" height="85" class="image-border"></li>
+  <li class="exercise-step">In Query Console, explore the <strong>patents</strong> database to view the documents in it: <br>
+    <br>
+  <img src="../images/unit06/patents_docs.png" width="460" height="128" class="image-border"></li>
+  <li class="exercise-step">Knowing that the Node.js API requires a REST API instance in order to communicate with a MarkLogic database, <strong>remember</strong> the <strong>REST API instance</strong> that we set up at port <strong>8060</strong> for the <strong>patents</strong> database (in Unit 4).</li></ol>
+<p>Stand up a simple  Node.js application:</p>
+<ol start="14" class="exercise-step">
+  <li class="exercise-step">On the desktop of the virtual machine, copy the <strong>patents</strong> folder from mls-fundamentals/<strong>unit06</strong> folder into the <strong>mls-projects</strong> folder.</li>
+  <li class="exercise-step">In the<strong> mls-projects</strong>/<strong>patents</strong> folder, open <strong>package.json</strong>  in a text editor:<br>
+    <br>
+  <img src="../images/unit06/centos_packagejson.png" width="639" height="306" class="image-border"></li>
+  <li class="exercise-step">Notice the marklogic reference:<br>
+    <br>
+    <img src="../images/unit06/centos_marklogic.png" width="216" height="19" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that the MarkLogic Node.js API files will be downloaded when we run the npm install command, to install all of the dependencies  declared in this file.</li>
+  <li class="exercise-step">Close the file.</li>
+  <li class="exercise-step">In a <strong>command prompt</strong> window, enter<span class="code"> cd Desktop/mls-projects/patents</span>, to navigate to the patents application  folder:<br>
+    <br>
+  <img src="../images/unit06/centos_cd_patents.png" width="522" height="89" class="image-border"></li>
+  <li class="exercise-step">Enter <span class="code">npm install</span>, to install the dependencies listed in the package.json file. <br>
+    <br>
+    <em>Note: Do not worry about the WARN messages in the results.</em><br>
+  <em>Note: Requires Internet access. </em>  </li>
+  <li class="exercise-step">In<strong> </strong>the mls-projects/<strong>patents</strong> folder, see that there is now a folder called <strong>node_modules</strong>:<br>
+    <br>
+    <img src="../images/unit06/centos_node_modules.png" width="500" height="225" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Open the node_modules folder to see the <strong>marklogic</strong> folder:<br>
+    <br>
+    <img src="../images/unit06/centos_marklogic_folder.png" width="503" height="164" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Back in the mls-projects/<strong>patents</strong> folder, open <strong>app.js</strong> in a text editor:<br>
+    <br>
+    <img src="../images/unit06/centos_appjs_patents.png" width="660" height="834" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize  this is the   main application file, which we will be calling on to run the  application.</li>
+  <li class="exercise-step">Notice the require('marklogic') line:<br>
+    <br>
+    <img src="../images/unit06/centos_require_marklogic.png" width="324" height="20" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that this line references the  node_modules/marklogic folder, providing access to the MarkLogic Node.js API files.</li>
+  <li class="exercise-step">Notice that the port  for the Node.js application will be <strong>3060</strong>.</li>
+  <li class="exercise-step">Notice the require('./dbsettings') line, for connecting to a database:<br>
+    <br>
+    <img src="../images/unit06/centos_require_dbsettings.png" width="441" height="20" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Leave the file open.</li>
+  <li class="exercise-step">Located in the mls-projects/patents folder, open <strong>dbsettings.js</strong>  in a text editor:<br>
+    <br>
+    <img src="../images/unit06/centos_dbsettings.png" width="658" height="315" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that this file contains the settings for the application to connect to our patents database through the    REST API instance we  set up at port 8060. </li>
+  <li class="exercise-step">Close the dbsettings.js file.</li>
+  <li class="exercise-step">Back in the <strong>app.js</strong> file, on <strong>line 16</strong> (Edit - Preferences to  display line numbers in gedit), notice the <strong>read</strong> method for the patents documents. </li>
+  <li class="exercise-step">On <strong>line 12</strong>, notice the call to the <strong>views</strong> folder.</li>
+  <li class="exercise-step">In the mls-projects/patents/<strong>views</strong> folder, open <strong>index.jade</strong> in a text editor:<br>
+    <br>
+  <img src="../images/unit06/centos_jade_index.png" width="662" height="316" class="image-border"></li>
+  <li class="exercise-step">Realize that this page will display  content from the documents in the database. </li>
+  <li class="exercise-step">In a <strong>command prompt</strong> window, at the<span class="code"> Desktop/mls-projects/patents</span> directory, enter<span class="code"> node app.js</span>, to start the patents application:<br>
+    <br>
+  <img src="../images/unit06/centos_start_patents.png" width="525" height="106" class="image-border"></li>
+  <li class="exercise-step"><strong>Leave</strong> the command prompt window open, to leave the node application running.</li>
+  <li class="exercise-step">In a <strong>browser</strong>, enter<span class="code"> http://localhost:3060</span>, to view the application:<br>
+    <br>
+  <img src="../images/unit06/centos_patents_display.png" width="694" height="248" class="image-border"></li>
+</ol>
+<p>&nbsp;</p>
+<p><br>
+</p>
+<p>Next: <a href="06f1_summary.htm">Summary (Unit 6)</a></p>
+<p>Back: <a href="0604_getting_started_with_the_nodejs_api.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

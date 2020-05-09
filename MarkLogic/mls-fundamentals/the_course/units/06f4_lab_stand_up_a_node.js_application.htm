@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Lab: <strong>Stand up a Node.js Application</strong> (optional)</p>
+<p>In this lab exercise, you  either use the steps below (normal steps), or the  <a href="06f4_alt_lab_stand_up_a_node.js_application.htm">alternate steps</a> (less detailed, so more challenging), to stand up the Node.js star-wars application. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In the mls-fundamentals/<strong>unit06 </strong>folder, open the <strong>star-wars.pdf</strong> file to see a screenshot of the application that we will be standing up. </li>
+  <li class="exercise-step">Having already created a database named star-wars (Unit 3) and loaded files into it (Unit 5), go to <strong>Query Console</strong>, select <strong>star-wars</strong> in the Content Source list, and click the <strong>Explore</strong> button, to see the 51 documents in the database. </li>
+</ol>
+<p>Create a REST API instance for the database:</p>
+<ol start="3" class="exercise-step">
+  <li class="exercise-step">Open the unit06/<strong>star-wars_config.json</strong> file in a text editor, to see the REST API instance we will create for the Node.js application to use to communicate with the existing star-wars database:<br>
+    <br>
+    <img src="../images/unit06/centos_star-wars_config.png" width="592" height="303" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In a new<strong> command prompt</strong> window, run the following command (can copy from unit06/<strong>laba.txt</strong>) to create a REST API instance at port <strong>8071 </strong>to allow for communication with the existing star-wars database:<br>
+    <br>
+    <img src="../images/unit06/centos_star-wars_curl.png" width="659" height="402" class="image-border"></li></ol>
+<p>Stand up the application:</p>
+<ol start="5" class="exercise-step">
+  <li class="exercise-step">On the desktop of the virtual machine, copy the <strong>star-wars</strong> folder from mls-fundamentals/<strong>unit06</strong> folder to the <strong>mls-projects</strong> folder.</li>
+  <li class="exercise-step">In the <strong>mls-projects/star-wars</strong> folder, open <strong>package.json</strong> in a text editor to see marklogic listed in the dependencies:<br>
+    <br>
+  <img src="../images/unit06/centos_marklogic_line.png" width="183" height="20" class="image-border"></li>
+  <li class="exercise-step">In a <strong>command prompt</strong> window, enter<span class="code"> cd Desktop/mls-projects/star-wars</span>, to navigate to the star-wars application  folder.</li>
+  <li class="exercise-step">Enter <span class="code">npm install</span>, to install the dependencies listed in the package.json file<em>.</em><br>
+    <br>
+    <em>Note: You can ignore the WARN messages.
+    <br>
+    Note: Requires Internet access. </em><br>
+  </li>
+  <li class="exercise-step">In<strong> </strong>the mls-projects/<strong>star-wars</strong> folder, see that there is now a folder called <strong>node_modules</strong> and that, in it, there is a folder named <strong>marklogic</strong>.</li>
+  <li class="exercise-step">Back in the mls-projects/<strong>star-wars</strong> folder, open the <strong>app.js</strong> file in a text editor.</li>
+  <li class="exercise-step">Notice  the port of <strong>8072</strong> for the Node.js application:<br>
+    <br>
+    <img src="../images/unit06/centos_port_8072.png" width="202" height="22" class="image-border"><br>
+  </li>
+  <li class="exercise-step"><strong>Notice </strong>the <strong>require('./routes')</strong> lines:<br>
+    <br>
+    <img src="../images/unit06/centos_routes.png" width="395" height="38" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In the mls-projects/<strong>star-wars</strong> folder, open the <strong>routes.js</strong> file in a text editor.</li>
+  <li class="exercise-step">Notice the <strong>require('marklogic')</strong> line, the <strong>require('./settings')</strong> line, as well as additional variables to implement the application's functionality:<br>
+    <br>
+  <img src="../images/unit06/centos_star-wars_vars.png" width="418" height="44" class="image-border"></li>
+  <li class="exercise-step">On <strong>line 48</strong>, notice a reference to a collection named character.</li>
+  <li class="exercise-step">In <strong>Query Console</strong>, select the <strong>star-wars</strong> database and click <strong>Explore</strong>.</li>
+  <li class="exercise-step"><strong>See</strong> that none of the documents are currently in collections:<br>
+    <br>
+    <img src="../images/unit06/collections_none.png" width="538" height="120" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Open unit06/<strong>labb.txt</strong> and copy all of the code:<br>
+    <br>
+    <img src="../images/unit06/centos_collections_code_js.png" width="662" height="330" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Back in Query Console, create a new tab, ensure the <strong>star-wars</strong> database is selected, select <strong>JavaScript</strong> as the Query Type, paste the code, and click the <strong>Run</strong> button.</li>
+  <li class="exercise-step">Wait for the <em>your query response was empty</em> message. </li>
+  <li class="exercise-step">Click the <strong>Explore</strong> button, to see that the documents are now in collections named character and image:<br>
+    <br>
+    <img src="../images/unit06/collections_showing.png" width="521" height="120" class="image-border"></li>
+  <li class="exercise-step">In the mls-projects/<strong>star-wars</strong> folder, open the <strong>settings.js</strong> file in a text editor.</li>
+  <li class="exercise-step">See that this file contains  settings for the application to connect to the star-wars database through the  REST  API instance at port <strong>8071</strong>:<br>
+    <br>
+    <img src="../images/unit06/centos_star-wars_dbsettings.png" width="661" height="333" class="image-border"><br>
+  </li>
+  <li class="exercise-step">If desired, continue perusing the application folders and files.</li>
+  <li class="exercise-step">In a <strong>command prompt</strong> window, in the <strong> mls-projects/star-wars </strong>directory, enter<span class="code"> bower install</span>, to install application dependencies. <br>
+    <br>
+  <em>Note: Requires Internet access. </em> </li>
+  <li class="exercise-step">Wait for Bower to finish installing.</li>
+  <li class="exercise-step">In the command prompt window, at<strong> mls-projects/star-wars</strong>, enter<span class="code"> node app.js</span>, to start   the star-wars application. </li>
+  <li class="exercise-step">Leave the command prompt window open, to leave the application running.</li>
+  <li class="exercise-step">In a browser, enter<span class="code"> http://localhost:8072 </span>to access the application: <br>
+    <br>
+    <img src="../images/unit06/star-wars_home_page_showing.png" width="700" height="419" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In the menu bar, click  <strong>Characters</strong>.</li>
+  <li class="exercise-step"><strong></strong>Wait for the characters display:<br>
+    <br>
+    <img src="../images/unit06/star-wars_characters_page_showing.png" width="704" height="509" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Click <strong>Search</strong>.</li>
+  <li class="exercise-step">See the search page display:<br>
+    <br>
+    <img src="../images/unit06/star-wars_search_page_showing.png" width="700" height="420" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In the search field, enter <span class="code">darth</span>.</li>
+  <li class="exercise-step">See that there are 5 results:<br>
+    <br>
+  <img src="../images/unit06/star-wars_search_results_darth.png" width="238" height="145" class="image-border"></li>
+  <li class="exercise-step">Select the <strong>More info</strong> link for one of them (e.g. Darth Vader), to see details for that character:<br>
+    <br>
+    <img src="../images/unit06/star-wars_search_result_darth.png" width="696" height="425" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Continue perusing, as desired.</li></ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Unit 6 End: <a href="../index.htm">Course Home</a></p>
+<p>Back: <a href="06f3_quiz_answers.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

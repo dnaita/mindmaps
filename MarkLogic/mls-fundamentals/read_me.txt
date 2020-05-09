@@ -1,0 +1,1 @@
+To launch the course, open the folder named the_course, and double-click the index.htm file.

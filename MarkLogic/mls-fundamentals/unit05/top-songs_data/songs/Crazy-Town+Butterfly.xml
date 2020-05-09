@@ -1,0 +1,57 @@
+<top-song xmlns="http://marklogic.com/MLU/top-songs">
+  <!--Copyright (c) 2010 Mark Logic Corporation. Permission is
+granted to copy, distribute and/or modify this document under the terms of the
+GNU Free Documentation License, Version 1.2 or any later version published by
+the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts,
+and no Back-Cover Texts. A copy of the license is included in the section 
+entitled "GNU Free Documentation License." Content derived from 
+http://en.wikipedia.org/wiki/Butterfly_(Crazy_Town_song) 
+
+Modified in February 2010 by Mark Logic Corporation under the terms of the 
+GNU Free Documentation License.-->
+  <title href="http://en.wikipedia.org/wiki/Butterfly_(Crazy_Town_song)" xmlns:ts="http://marklogic.com/MLU/top-songs">Butterfly</title>
+  <artist href="http://en.wikipedia.org/wiki/Crazy_Town" xmlns:ts="http://marklogic.com/MLU/top-songs">Crazy Town</artist>
+  <weeks last="2001-04-07">
+    <week>2001-03-24</week>
+    <week>2001-04-07</week>
+  </weeks>
+  <album url="http://upload.wikimedia.org/wikipedia/en/thumb/6/65/CrazyTownButterfly.jpg/200px-CrazyTownButterfly.jpg" uri="/images/Crazy-Town+Butterfly.jpg">The Gift of Game</album>
+  <released>February 20, 2001</released>
+  <formats>
+    <format>CD single</format>
+  </formats>
+  <genres>
+    <genre>Rap rock</genre>
+    <genre>Alternative rock</genre>
+    <genre>Funk rock</genre>
+  </genres>
+  <lengths>
+    <length>3:36</length>
+  </lengths>
+  <writers>
+    <writer>Shifty Shellshock</writer>
+    <writer>Epic Mazur</writer>
+  </writers>
+  <descr>
+    <p>"Butterfly" is a rap rock song by Crazy Town from their
+    album 
+    <i>The Gift of Game</i>that was released in February 2001. It
+    reached No. 1 in 15 countries, including the Billboard Hot
+    100.</p>
+    <p>The song consists mainly of a sample from the Red Hot Chili
+    Peppers' song "Pretty Little Ditty" with additional lyrics by
+    Shifty Shellshock and Epic Mazur on top.</p>
+    <p>The song is referenced in DJ Paul Oakenfold's 2002 song,
+    Starry Eyed Surprise, in the line sung by Shifty Shellshock,
+    "Freaky deaky, star speckles and pink butterflies", in a
+    similar manner to that of "Butterfly".</p>
+    <p>"Butterfly" is one of only two No. 1 songs in the Hot 100
+    era naming an insect in its title (The other being 
+    <i>Fireflies</i>by Owl City)</p>
+    <p>The song's music video, directed by Honey, features the band
+    in a fantasy-like forest complete with butterflies where Shifty
+    Shellshock and Epic Mazur sing their praises to two women with
+    butterfly wings. At one point in the video, Shifty's
+    star-shaped tattoos fly off into the air.</p>
+  </descr>
+</top-song>

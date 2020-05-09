@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Angular JS</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p><span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Angular JS</span>
+<ul><li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Modules</span>
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p> representing components in an application
+<p>provides a namespace that allows you to reference directives, scopes, and other components based on model name
+<p>It makes easier to package and reuse parts of an application
+<p>Each view or webpage in AngularJS has a single module assigned to it via the ng-app directive.
+</li>
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Services</span>
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li>singleton objects that provide functionality for a web app
+
+</li>
+<li> For example, a common task of web applications it to perform AJAX requests to a webserver. 
+
+</li>
+<li>AngularJS provides an HTTP service that houses all the functionality to access a webserver
+
+</li>
+<li> completely independent of context or state
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">Separation of Responsibilities</span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li><p> The view acts as the official presentation structure for the application
+<p>any DOM manipulation, do it in a built-in or your own custom directive JavaScript code&#8212;and nowhere else. 
+<p>Implement any reusable tasks as services and add them to your modules by using dependency injection
+<p>Ensure that the scope reflects the current state of the model and is the single source for data consumed by the view. 
+<p>Ensure that the controller code only acts to augment the scope data and doesn&#8217;t include any business logic.
+<p>Define controllers within the module namespace and not globally. This ensures that your application can be packaged easily and prevents overwhelming the global namespace. 
+</li>
+</ul>
+</li>
+<li><span id="show1_4" class="foldclosed" onClick="show_folder('1_4')" style="POSITION: absolute">+</span> <span id="hide1_4" class="foldopened" onClick="hide_folder('1_4')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; "> Life Cycle</span>
+<ul id="fold1_4" style="POSITION: relative; VISIBILITY: visible;"><li><p>three phases of the life cycle of an AngularJS application happen each time a webpage is loaded in the browser
+<p><span id="show1_4_1" class="foldclosed" onClick="show_folder('1_4_1')" style="POSITION: absolute">+</span> <span id="hide1_4_1" class="foldopened" onClick="hide_folder('1_4_1')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">bootstrap</span>
+<ul id="fold1_4_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>occurs when the AngularJS JavaScript library is downloaded to the browser.
+<p>AngularJS initializes its own necessary components and then initializes your module, which the ng-app directive points to.
+<p>The module is loaded
+<p>dependencies are injected into your module and made available to code within the module. 
+</li>
+</ul><p><span id="show1_4_2" class="foldclosed" onClick="show_folder('1_4_2')" style="POSITION: absolute">+</span> <span id="hide1_4_2" class="foldopened" onClick="hide_folder('1_4_2')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">compilation</span>
+<ul id="fold1_4_2" style="POSITION: relative; VISIBILITY: visible;"><li>the HTML compilation stage. 
+
+</li>
+<li>The static DOM is replaced with a dynamic DOM that represents the AngularJS view
+
+</li>
+<li><span id="show1_4_2_1" class="foldclosed" onClick="show_folder('1_4_2_1')" style="POSITION: absolute">+</span> <span id="hide1_4_2_1" class="foldopened" onClick="hide_folder('1_4_2_1')">-</span>
+phase 1- 
+<ul id="fold1_4_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>traversing the static DOM and collect all the directives.
+<p>Then link the directives to the appropriate JS functionality in the AngularJS built-in library or custom directive code.
+</li>
+</ul>
+</li>
+<li>phase 2- The directives are combined with a scope to produce the dynamic or live view. 
+
+</li>
+
+</ul><p><span id="show1_4_3" class="foldclosed" onClick="show_folder('1_4_3')" style="POSITION: absolute">+</span> <span id="hide1_4_3" class="foldopened" onClick="hide_folder('1_4_3')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">runtime</span>
+<ul id="fold1_4_3" style="POSITION: relative; VISIBILITY: visible;"><li><p>exists until the user reloads or navigates away from a webpage. 
+<p>At that point, any changes in the scope are reflected in the view, and any changes in the view are directly updated in the scope, making the scope the single source of data for the view.
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_5" class="foldclosed" onClick="show_folder('1_5')" style="POSITION: absolute">+</span> <span id="hide1_5" class="foldopened" onClick="hide_folder('1_5')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">directives</span>
+<ul id="fold1_5" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_5_1" class="foldclosed" onClick="show_folder('1_5_1')" style="POSITION: absolute">+</span> <span id="hide1_5_1" class="foldopened" onClick="hide_folder('1_5_1')">-</span>
+ ng-app
+<ul id="fold1_5_1" style="POSITION: relative; VISIBILITY: visible;"><li>automatically initializes our application.
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_5_2" class="foldclosed" onClick="show_folder('1_5_2')" style="POSITION: absolute">+</span> <span id="hide1_5_2" class="foldopened" onClick="hide_folder('1_5_2')">-</span>
+ ng-model 
+<ul id="fold1_5_2" style="POSITION: relative; VISIBILITY: visible;"><li>directive stores/updates the value of the input field into/from a variable.
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_6" class="foldclosed" onClick="show_folder('1_6')" style="POSITION: absolute">+</span> <span id="hide1_6" class="foldopened" onClick="hide_folder('1_6')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">mark-ups</span>
+<ul id="fold1_6" style="POSITION: relative; VISIBILITY: visible;"><li>{{ expression | filter }}
+<ul><li><p>When the compiler encounters this markup, it will replace it with the evaluated value of the markup. 
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_7" class="foldclosed" onClick="show_folder('1_7')" style="POSITION: absolute">+</span> <span id="hide1_7" class="foldopened" onClick="hide_folder('1_7')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">model </span>
+<ul id="fold1_7" style="POSITION: relative; VISIBILITY: visible;"><li> The values that are stored in variables on the scope
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_8" class="foldclosed" onClick="show_folder('1_8')" style="POSITION: absolute">+</span> <span id="hide1_8" class="foldopened" onClick="hide_folder('1_8')">-</span>
+<span style="font-family: SansSerif, sans-serif; font-weight: bold; ">filter </span>
+<ul id="fold1_8" style="POSITION: relative; VISIBILITY: visible;"><li>formats the value of an expression for display to the user. 
+
+</li>
+
+</ul>
+</li>
+
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{ 
+  "rest-api": {
+    "name": "8051-playground",
+    "database": "playground",
+    "port": "8051",
+    "forests-per-host": 1
+  } 
+}

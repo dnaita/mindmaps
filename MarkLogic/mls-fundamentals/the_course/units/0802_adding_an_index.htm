@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Adding an Index</strong></p>
+<p>The Admin Interface can be used to add an index to a MarkLogic database.</p>
+<p>If the index to be added is one of the indexes available through the true and false radio buttons, the true button can be selected and then  the ok button pressed.</p>
+<p>Adding an index does not require a restart or system delay. As an index is being set up, MarkLogic re-indexes the database in the background. While it is re-indexing in the background, any queries to the database  continue to be served. Once the index is available, any new queries will take advantage of the index if useful to the query.</p>
+<p class="topic-sub-heading">Element Range Index</p>
+<p>An element range index can be added that contains the values of an element from the documents in the database. For example, an element range index could be set up for all of the name values in the documents in the star-wars database.</p>
+<p><img src="../images/unit07/element_range_index.png" width="666" height="578" class="image-border"></p>
+<p>If providing a way for a user to sort the values of a property within documents in a MarkLogic database, a range index can greatly improve the performance of the sorting (e.g. if there are millions of documents in the database). </p>
+<p><img src="../images/unit08/star-wars.png" width="595" height="120" class="image-border"></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0802_x_add_an_index.htm">Exercise (Add an Index)</a></p>
+<p>Back: <a href="0801_x_discuss_indexes.htm">Previous</a><br>
+</p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

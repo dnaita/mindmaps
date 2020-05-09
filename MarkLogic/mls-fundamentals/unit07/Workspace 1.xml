@@ -1,0 +1,11 @@
+<export><workspace name="Workspace 1"><query name="Query 1" focus="true" active="true" mode="javascript">declareUpdate();
+xdmp.documentInsert('/patents/magic_translator.json', 
+{
+  "patent": 
+  {
+    "market": "spies", 
+    "title": "Magic listening device", 
+    "inventor": "Tamas", 
+    "info": "Small earpiece that translates foreign language conversations for the listener in real time"
+  }
+});</query></workspace></export>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Understanding Indexes</strong></p>
+<p>Indexes are the secret sauce to MarkLogic's ability to provide real-time queries on extremely large databases (100s of terabytes or more). </p>
+<p>At a minimum, MarkLogic provides <strong>baseline indexing</strong> of the words and structure of every document that gets loaded. As a document gets loaded into a MarkLogic database, MarkLogic creates an index of all of the words in the document, as well as the structure of the document. This not only allows for real-time  search throughout the documents, but also real-time  search within  elements in the documents. (For example, searching only in the song title or artist element of a song document.)</p>
+<p>Along with the baseline indexing of a document's words and structure, <strong>additional indexes</strong> can be defined for a database, to speed up the performance of an application. Which indexes would help the performance of a given application depend on the application itself. For example, in the Top Songs application, having an index in the database for the ending week dates would speed up the sorting and subsequent display of the default song results on the landing page of the site.</p>
+<p>In addition, some MarkLogic search features, such facets and semantics, <strong>require</strong> that supporting indexes exist. </p>
+<p>As adding indexes  takes up additional disk space, and makes the loading of  documents take longer, the recommendation is to proceed with the default indexes  first, and then add additional indexes as needed.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0801_x_discuss_indexes.htm">Exercise (Discuss Indexes)</a><br>
+</p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

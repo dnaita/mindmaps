@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Create a REST API Instance</strong></p>
+<p>In this walkthrough exercise, you create a MarkLogic REST API instance, for communication to a MarkLogic database from any programming language that supports   HTTP (which is most programming languages). </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In the mls-fundamentals/<strong>unit04</strong> folder, double-click the <strong>ex03.txt</strong> file to display it in a text editor, to see the cURL command  you will be running:<br>
+    <br>
+    <img src="../images/unit04/centos_ex03.png" width="701" height="176" class="image-border"><br>
+  </li>
+  <li class="exercise-step"><strong>Copy</strong> all of the text. (The command may be wrapped to more than one line, as shown above.)</li>
+  <li class="exercise-step"><strong>Notice</strong> the reference to a file named config.json.</li>
+  <li class="exercise-step">In the unit04 folder, double-click  the <strong>config.json</strong> file, to be able to display it in <strong> gedit</strong>, to see the contents of the file:<br>
+    <br>
+    <img src="../images/unit04/centos_config.png" width="620" height="259" class="image-border"><br>
+  </li>
+  <li class="exercise-step"><strong>Realize</strong> that this will create a database named patents, a forest named patents-1, and an application server named 8060-patents that supports REST requests to the database.</li>
+  <li class="exercise-step">In the <strong>Admin Interface</strong> (http://localhost:8001), click <strong>Configure</strong> to see the Summary tab, to check in the App Servers list that port 8060 is not already taken: <br>
+    <br>
+    <img src="../images/unit04/available_8040.png" width="255" height="137" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Select <strong>Applications</strong> - <strong>System Tools</strong> - <strong>Terminal</strong>, to open a command prompt window.</li>
+  <li class="exercise-step">At the command prompt, right-click to select <strong>Paste</strong>.</li>
+  <li class="exercise-step">Press the <strong>Enter</strong> key, to run the command.</li>
+  <li class="exercise-step">After a few seconds, see that the response says HTTP/1.1 201 <strong>Created</strong>: <br>
+    <br>
+    <img src="../images/unit04/centos_curl_created.png" width="660" height="354" class="image-border"><br>
+    <br>
+    <em>Note: The reason the first response says Unauthorized is because the --anyauth option is asking  the MarkLogic service what type of authentication it uses. 
+Once the MarkLogic service responds with the authentication type it accepts, cURL resends the request using that authentication type.</em><br>
+  </li>
+  <li class="exercise-step">Within the virtual machine, in a <strong>browser</strong> window, enter<span class="code"> http://localhost:8060</span>, to check that the REST API instance was created.</li>
+  <li class="exercise-step">If prompted, enter a user name of <span class="code">admin</span> and password of <span class="code">admin</span>. </li>
+  <li class="exercise-step">See the summary of the capabilities available through the REST API instance:<br>
+    <br>
+    <img src="../images/unit04/8060_info_displayed.png" width="701" height="631" class="image-border"><br>
+    <br>
+  </li>
+  <li class="exercise-step">In the <strong>Admin Interface</strong>, click the <strong>Configure</strong> link on the left, to be able to see the <strong>patents</strong> database listed under Databases,  the<strong> patents-1</strong> forest listed under Forests, and the <strong>8060-patents</strong> application server listed under App Servers:<br>
+    <br>
+  <img src="../images/unit04/summary_with_8060_patents.png" width="690" height="548" class="image-border"></li>
+  <li class="exercise-step">Realize that, by having set up a REST API instance for the patents database, we will be able to make REST API calls through a wide variety of programming languages, with the ability to do actions such as CRUD  (create, read, update, and delete) documents and send search queries to the database.</li></ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="04f1_summary.htm" class="exercise-link">Summary (Unit 4)</a></p>
+<p>Back: <a href="0403_using_the_rest_api.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

@@ -1,0 +1,971 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Architecting Distributed Cloud Applications</title>
+<style type="text/css">
+    li { list-style: none;  margin: 0; }
+    p { margin: 0; }
+    span.foldopened { color: white; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: visible;
+    cursor:pointer; }
+
+
+    span.foldclosed { color: #666666; font-size: xx-small;
+    border-width: 1; font-family: monospace; padding: 0em 0.25em 0em 0.25em; background: #e0e0e0;
+    VISIBILITY: hidden;
+    cursor:pointer; }
+
+    span.foldspecial { color: #666666; font-size: xx-small; border-style: none solid solid none;
+    border-color: #CCCCCC; border-width: 1; font-family: sans-serif; padding: 0em 0.1em 0em 0.1em; background: #e0e0e0;
+    cursor:pointer; }
+
+    span.l { color: red; font-weight: bold; }
+
+    a.mapnode:link {text-decoration: none; color: black; }
+    a.mapnode:visited {text-decoration: none; color: black; }
+    a.mapnode:active {text-decoration: none; color: black; }
+    a.mapnode:hover {text-decoration: none; color: black; background: #eeeee0; }
+
+</style>
+<!-- ^ Position is not set to relative / absolute here because of Mozilla -->
+</head>
+<body>
+
+<script type="text/javascript">
+   // Here we implement folding. It works fine with MSIE5.5, MSIE6.0 and
+   // Mozilla 0.9.6.
+
+   if (document.layers) {
+      //Netscape 4 specific code
+      pre = 'document.';
+      post = ''; }
+   if (document.getElementById) {
+      //Netscape 6 specific code
+      pre = 'document.getElementById("';
+      post = '").style'; }
+   if (document.all) {
+      //IE4+ specific code
+      pre = 'document.all.';
+      post = '.style'; }
+
+function layer_exists(layer) {
+   try {
+      eval(pre + layer + post);
+      return true; }
+   catch (error) {
+      return false; }}
+
+function show_layer(layer) {
+   eval(pre + layer + post).position = 'relative'; 
+   eval(pre + layer + post).visibility = 'visible'; }
+
+function hide_layer(layer) {
+   eval(pre + layer + post).visibility = 'hidden';
+   eval(pre + layer + post).position = 'absolute'; }
+
+function hide_folder(folder) {
+    hide_folding_layer(folder)
+    show_layer('show'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function show_folder(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_layer('show'+folder+'_'+i); }
+}
+function show_folder_completely(folder) {
+    // Precondition: all subfolders are folded
+
+    show_layer('hide'+folder);
+    hide_layer('show'+folder);
+    show_layer('fold'+folder);
+
+    scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+
+    var i;
+    for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+
+
+function hide_folding_layer(folder) {
+   var i;
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folding_layer(folder+'_'+i); }
+
+   hide_layer('hide'+folder);
+   hide_layer('show'+folder);
+   hide_layer('fold'+folder);
+
+   scrollBy(0,0); // This is a work around to make it work in Browsers (Explorer, Mozilla)
+}
+
+function fold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       hide_folder(folder+'_'+i); }
+}
+
+function unfold_document() {
+   var i;
+   var folder = '1';
+   for (i=1; layer_exists('fold'+folder+'_'+i); ++i) {
+       show_folder_completely(folder+'_'+i); }
+}
+
+</script>
+<SPAN class="foldspecial" onclick="fold_document()">All +</SPAN>
+<SPAN class="foldspecial" onclick="unfold_document()">All -</SPAN>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Architecting Distributed Cloud Applications</span>
+<ul><li><span id="show1_1" class="foldclosed" onClick="show_folder('1_1')" style="POSITION: absolute">+</span> <span id="hide1_1" class="foldopened" onClick="hide_folder('1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Chapter 1</span>
+<ul id="fold1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><a href="https://developers.redhat.com/blog/2017/05/16/it-takes-more-than-a-circuit-breaker-to-create-a-resilient-application/" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Cambria, sans-serif; font-weight: bold; ">https://developers.redhat.com/blog/2017/05/16/it-takes-more-than-a-circuit-breaker-to-create-a-resilient-application/</span>
+</a>
+<span id="show1_1_1" class="foldclosed" onClick="show_folder('1_1_1')" style="POSITION: absolute">+</span> <span id="hide1_1_1" class="foldopened" onClick="hide_folder('1_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">&#xa;    <p>&#xa;      &#160;some reasons why a service instance might fail or stop&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Developer. Unhandled exception,</b>&#160;caused by something the developer was not expecting and did not handle. The natural order of events is that the service logs the exception and terminates. The developer analyzes the logs, and takes corrective action in the code either to avoid the exception in the future, or to handle it more gracefully. This is an iterative process.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>DevOps.Scaling down</b>&#160;the number of service instances. When the orchestrator takes the instances down, it is possible that the instance being stopped cannot shut down in a graceful way, and the request it was processing might fail.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>DevOps. Updating service code</b>&#160;to a new version also might result in the instance not shutting down gracefully. A service instance might be processing a request at the time it is taken down for upgrade, resulting in that instance being processed again.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Orchestrator</b>. <b>Moving service code from one machine to another.</b>&#160; The orchestrator's job is to make sure the service is up and running, and in doing so, it might decide to shut down an instance and move it to another piece of hardware.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Force majeure. <b>Hardware failure</b>, such as with the power supply, overheating fans, hard disk, network controller, router, or bad network cable, among others.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Force majeure. <b>Datacenter outages</b>&#160;due to natural disasters or attacks.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_2" class="foldclosed" onClick="show_folder('1_1_2')" style="POSITION: absolute">+</span> <span id="hide1_1_2" class="foldopened" onClick="hide_folder('1_1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; ">When architecting applications for the cloud, you should:</span>
+<ul id="fold1_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">Assume failures will happen and design for resiliency.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Avoid single points of failure through redundancy.</span>
+
+</li>
+
+</ul><p><span id="show1_1_3" class="foldclosed" onClick="show_folder('1_1_3')" style="POSITION: absolute">+</span> <span id="hide1_1_3" class="foldopened" onClick="hide_folder('1_1_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Design self-healing applications</span>
+<ul id="fold1_1_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">Detect failures.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Respond to failures gracefully.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Log and monitor failures to give operational insight.</span>
+
+</li>
+
+</ul><span id="show1_1_4" class="foldclosed" onClick="show_folder('1_1_4')" style="POSITION: absolute">+</span> <span id="hide1_1_4" class="foldopened" onClick="hide_folder('1_1_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">&#xa;    <p>&#xa;      Based on application's availability requirements.&#xa;    </p>&#xa;    <p>&#xa;      Following Application Level approaches can be taken.&#xa;    </p>&#xa;    <p>&#xa;      But its better to ship most of the cross cutting concern to the Platform level see Redhat link&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_1_4_1" class="foldclosed" onClick="show_folder('1_1_4_1')" style="POSITION: absolute">+</span> <span id="hide1_1_4_1" class="foldopened" onClick="hide_folder('1_1_4_1')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Retry failed operations.</b>&#160;&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Transient failures might occur due to momentary loss of network connectivity, a dropped database connection, or a timeout when a service is busy. Build retry logic into your application to handle transient failures.&#xa;    </p>&#xa;  </span>
+<p><span id="show1_1_4_1_1" class="foldclosed" onClick="show_folder('1_1_4_1_1')" style="POSITION: absolute">+</span> <span id="hide1_1_4_1_1" class="foldopened" onClick="hide_folder('1_1_4_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Implementation Using Spring Retry</span>
+<ul id="fold1_1_4_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Distributed Cloud Computing_3042280016954921575.jpeg" >&#xa;  
+&#xa;    <img src="Distributed Cloud Computing_3161482169519938471.jpeg" >&#xa;  
+&#xa;    <img src="Distributed Cloud Computing_2043850379797243384.jpeg" >&#xa;  
+&#xa;    <img src="Distributed Cloud Computing_3650675755352754696.jpeg" >&#xa;  
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">adding Delay </span>
+<ul><li>&#xa;    <img src="Distributed Cloud Computing_8130093491390210543.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul></li>
+</ul><span id="show1_1_4_2" class="foldclosed" onClick="show_folder('1_1_4_2')" style="POSITION: absolute">+</span> <span id="hide1_1_4_2" class="foldopened" onClick="hide_folder('1_1_4_2')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Protect failing remote services (circuit breaker design pattern).</b>&#160;&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      It's advisable to retry after a transient failure, but if the failure persists, you can end up with too many callers hitting a failing service. This can lead to cascading failures as requests back up. Use the circuit breaker design pattern to fail fast (without making the remote call) when an operation is likely to fail.&#xa;    </p>&#xa;  </span>
+<p><span id="show1_1_4_2_1" class="foldclosed" onClick="show_folder('1_1_4_2_1')" style="POSITION: absolute">+</span> <span id="hide1_1_4_2_1" class="foldopened" onClick="hide_folder('1_1_4_2_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Steps</span>
+<ul id="fold1_1_4_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>wrap a protected function call in a circuit breaker object, which monitors for failures. 
+<p>Once the failures reach a certain threshold, the circuit breaker trips, and all further calls to the circuit breaker return with an error or with some alternative service or default message, without the protected call being made at all.
+</li>
+</ul><p><span id="show1_1_4_2_2" class="foldclosed" onClick="show_folder('1_1_4_2_2')" style="POSITION: absolute">+</span> <span id="hide1_1_4_2_2" class="foldopened" onClick="hide_folder('1_1_4_2_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Different States of the Circuit Breaker</span>
+<ul id="fold1_1_4_2_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">Closed &#8211;&nbsp;When everything is normal, the circuit breaker remains in the closed state and all calls pass through to the services. When the number of failures exceeds a predetermined threshold the breaker trips, and it goes into the Open state.</span>
+<p>Open &#8211;&nbsp;The circuit breaker returns an error for calls without executing the function.
+<p>Half-Open &#8211;&nbsp;After a timeout period, the circuit switches to a half-open state to test if the underlying problem still exists. If a single call fails in this half-open state, the breaker is once again tripped. If it succeeds, the circuit breaker resets back to the normal, closed state.
+</li>
+</ul><p><span id="show1_1_4_2_3" class="foldclosed" onClick="show_folder('1_1_4_2_3')" style="POSITION: absolute">+</span> <span id="hide1_1_4_2_3" class="foldopened" onClick="hide_folder('1_1_4_2_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Example</span>
+<ul id="fold1_1_4_2_3" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Distributed Cloud Computing_742191162191431833.jpeg" >&#xa;  
+&#xa;    <img src="Distributed Cloud Computing_5469627999121516895.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul><span id="show1_1_4_3" class="foldclosed" onClick="show_folder('1_1_4_3')" style="POSITION: absolute">+</span> <span id="hide1_1_4_3" class="foldopened" onClick="hide_folder('1_1_4_3')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Isolate critical resources (bulkhead pattern).</b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>&#160;</b>Failures in one subsystem can sometimes cascade. This can happen if a failure causes some resources, such as threads or sockets, from being freed in a timely manner, leading to resource exhaustion. To avoid this, partition a system into isolated groups, so that a failure in one partition does not bring down the entire system.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_4" class="foldclosed" onClick="show_folder('1_1_4_4')" style="POSITION: absolute">+</span> <span id="hide1_1_4_4" class="foldopened" onClick="hide_folder('1_1_4_4')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Perform load leveling. </b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Applications may experience <b>sudden spikes in traffic that can overwhelm services on the backend</b>. To avoid this, use the <b>queue-based load leveling pattern</b>&#160;to queue work items to run asynchronously. The queue acts as a buffer that evens out peaks in the load.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_5" class="foldclosed" onClick="show_folder('1_1_4_5')" style="POSITION: absolute">+</span> <span id="hide1_1_4_5" class="foldopened" onClick="hide_folder('1_1_4_5')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Fail over</b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      If an instance can't be reached, fail over to another instance.&#xa;    </p>&#xa;    <p>&#xa;      &#xa;    </p>&#xa;    <p>&#xa;      For things that are stateless, like a web server, put several instances behind a load balancer or traffic manager.&#xa;    </p>&#xa;    <p>&#xa;      &#xa;    </p>&#xa;    <p>&#xa;      For things that store state, like a DB, use replicas and fail over.&#xa;    </p>&#xa;    <p>&#xa;      &#xa;    </p>&#xa;    <p>&#xa;      Depending on the data store and how it replicates, this might require the application to deal with eventual consistency.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_6" class="foldclosed" onClick="show_folder('1_1_4_6')" style="POSITION: absolute">+</span> <span id="hide1_1_4_6" class="foldopened" onClick="hide_folder('1_1_4_6')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Compensate for failed transactions </b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_6" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      &#160;In general, avoid distributed transactions because they require coordination across services and resources. Instead, use compensating transactions to undo any step that already completed.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_7" class="foldclosed" onClick="show_folder('1_1_4_7')" style="POSITION: absolute">+</span> <span id="hide1_1_4_7" class="foldopened" onClick="hide_folder('1_1_4_7')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Use checkpoints </b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_7" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      on long-running transactions.&#xa;    </p>&#xa;    <p>&#xa;      It can <b>provide</b>&#160;<b>resiliency</b>&#160;if a long-running operation fails. When the operation restarts (for example, it is picked up by another virtual machine), it can be resumed from the last checkpoint.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_8" class="foldclosed" onClick="show_folder('1_1_4_8')" style="POSITION: absolute">+</span> <span id="hide1_1_4_8" class="foldopened" onClick="hide_folder('1_1_4_8')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Degrade gracefully</b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_8" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Sometimes you can't work around a problem, but you can provide reduced functionality that is still useful. Consider an application that shows a catalog of books. If the application can't retrieve the thumbnail image for the cover, it might show a placeholder image. Entire subsystems might be noncritical for the application. For example, in an e-commerce site, showing product recommendations is probably less critical than processing orders.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_9" class="foldclosed" onClick="show_folder('1_1_4_9')" style="POSITION: absolute">+</span> <span id="hide1_1_4_9" class="foldopened" onClick="hide_folder('1_1_4_9')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Throttle clients</b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_9" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Sometimes a small number of users create excessive load, which can reduce your application's availability for other users. In this situation, throttle the client for a certain period of time. See the throttling pattern for more information.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_10" class="foldclosed" onClick="show_folder('1_1_4_10')" style="POSITION: absolute">+</span> <span id="hide1_1_4_10" class="foldopened" onClick="hide_folder('1_1_4_10')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Block bad actors</b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_10" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Just because you throttle a client, it doesn't mean the client was acting maliciously. It just means that the client exceeded its service quota. But <b>if a client consistently exceeds their quota or otherwise behaves badly, you might block them</b>. <b>Define an out-of-band process for the user to request getting unblocked.</b>&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_11" class="foldclosed" onClick="show_folder('1_1_4_11')" style="POSITION: absolute">+</span> <span id="hide1_1_4_11" class="foldopened" onClick="hide_folder('1_1_4_11')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Use leader election</b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_11" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      &#160;When you need to coordinate a task, use leader election to select a coordinator. That way, the coordinator is not a single point of failure. If the coordinator fails, a new one is selected. Rather than implement a leader election algorithm from scratch, consider an off-the-shelf solution such as Apache ZooKeeper.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_12" class="foldclosed" onClick="show_folder('1_1_4_12')" style="POSITION: absolute">+</span> <span id="hide1_1_4_12" class="foldopened" onClick="hide_folder('1_1_4_12')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Test with fault injection</b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_12" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      &#160;All too often, the success path is well tested but not the failure path. A system could run in production for a long time before a failure path is exercised. <b>Use fault injection to test the resiliency of the system to failures, either by triggering actual failures or by simulating them.</b>&#xa;    </p>&#xa;  </span>
+</li>
+</ul><span id="show1_1_4_13" class="foldclosed" onClick="show_folder('1_1_4_13')" style="POSITION: absolute">+</span> <span id="hide1_1_4_13" class="foldopened" onClick="hide_folder('1_1_4_13')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Embrace chaos engineering</b>&#xa;    </p>&#xa;  </span>
+<ul id="fold1_1_4_13" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      &#160;Chaos engineering extends the notion of fault injection by randomly injecting failures or abnormal conditions into production instances.&#xa;    </p>&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_4_14" class="foldclosed" onClick="show_folder('1_1_4_14')" style="POSITION: absolute">+</span> <span id="hide1_1_4_14" class="foldopened" onClick="hide_folder('1_1_4_14')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Let the Platform Handle it</span>
+<ul id="fold1_1_4_14" style="POSITION: relative; VISIBILITY: visible;"><li><p>There are many examples of developer and application responsibilities that have shifted from the application into the platform. With Kubernetes some examples are:
+<ul><li><p>Application health checks and restarts are handled by the platform.
+<p>Application placements are automated and performed by the scheduler.
+<p><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank"><span class=l>~</span>&nbsp;The act of updating a service with a newer version is covered by Deployments .
+</a>
+<p><a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank"><span class=l>~</span>&nbsp;Service discovery, which was an application level concern, has moved into the platform (through Services ).
+</a>
+<p><a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank"><span class=l>~</span>&nbsp;Managing Cron jobs have shifted from being an application responsibility to the platform (through Kubernetes CronJobs ).
+</a>
+</li>
+</ul><p>In a similar fashion, the act of performing timeouts, retries, circuit breaking is shifting from the application into the platform. There is a new category of tools referred to as Service Mesh and with the more popular members at this moment being:
+<ul><li><a href="https://lyft.github.io/envoy/" target="_blank"><span class=l>~</span>&nbsp;Envoy from Lyft Engineering
+</a>
+
+</li>
+<li><a href="https://buoyant.io" target="_blank"><span class=l>~</span>&nbsp;Linkerd from https://buoyant.io
+</a>
+
+</li>
+<li><a href="https://containo.us" target="_blank"><span class=l>~</span>&nbsp;Traefik from https://containo.us
+</a>
+
+</li>
+
+</ul><p>These tools provide following features
+<ul><li>Retry
+
+</li>
+<li>Circuit-breaking
+
+</li>
+<li>Latency and other metrics
+
+</li>
+<li>Failure- and latency-aware load balancing
+
+</li>
+<li>Distributed tracing
+
+</li>
+<li>Protocol upgrade
+
+</li>
+<li>Version-aware routing
+
+</li>
+<li>Cluster failover, etc
+
+</li>
+
+</ul></li>
+</ul></li>
+</ul><p><span id="show1_1_5" class="foldclosed" onClick="show_folder('1_1_5')" style="POSITION: absolute">+</span> <span id="hide1_1_5" class="foldopened" onClick="hide_folder('1_1_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Orchestrators</span>
+<ul id="fold1_1_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">automate the lifecycle and management of systems and services.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">The lifecycle consists of</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">creating and destroying the machines (virtual or physical)</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">monitoring the health of the deployed resources</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">deploying and running the service code.</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">also manages the network</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">so that the communication between your machines is isolated</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">coordinates the distribution of bandwidth between different tenants,</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Cloud vendors' orchestrators are exposed through an API.</span>
+
+</li>
+
+</ul><p><span id="show1_1_6" class="foldclosed" onClick="show_folder('1_1_6')" style="POSITION: absolute">+</span> <span id="hide1_1_6" class="foldopened" onClick="hide_folder('1_1_6')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Orchestration </span>
+<ul id="fold1_1_6" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Provisioning.</span>
+<ul><li><p><span style="font-family: Cambria, sans-serif; ">This is the process of bringing new resources online and getting those resources ready to perform work. This might be creating a new virtual machine and setting up the operating system, or creating and configuring the network.</span>
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Cluster management.</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">involves sending tasks to machines, adding and removing machines, and managing active processes.</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Scheduling</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">process of running a specific service on specific machines in a cluster.</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul><p><span id="show1_1_7" class="foldclosed" onClick="show_folder('1_1_7')" style="POSITION: absolute">+</span> <span id="hide1_1_7" class="foldopened" onClick="hide_folder('1_1_7')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">fault domain</span>
+<ul id="fold1_1_7" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">unit of a single point of failure</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">With this hierarchy, when:</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">A region goes down, everything inside the region is down.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">An availability zone goes down, everything inside the availability zone is lost.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">A rack goes down, the PCs are lost.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">A PC goes down, the VMs on it are lost.</span>
+
+</li>
+
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">You can ensure more robust services by deploying them across this fault-domain hierarchy.</span>
+
+</li>
+<li><span id="show1_1_7_1" class="foldclosed" onClick="show_folder('1_1_7_1')" style="POSITION: absolute">+</span> <span id="hide1_1_7_1" class="foldopened" onClick="hide_folder('1_1_7_1')">-</span>
+<span style="font-family: Cambria, sans-serif; ">pic</span>
+<ul id="fold1_1_7_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_330785631321591864.jpeg" >&#xa;  </span>
+</li>
+</ul>
+</li>
+
+</ul><p><span id="show1_1_8" class="foldclosed" onClick="show_folder('1_1_8')" style="POSITION: absolute">+</span> <span id="hide1_1_8" class="foldopened" onClick="hide_folder('1_1_8')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Why monolith to Microservice</span>
+<ul id="fold1_1_8" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">Scale independently</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Different Technology Stacks</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">2 or more clients using different service version of the service</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Conflicting dependencies</span>
+
+</li>
+<li><span id="show1_1_8_1" class="foldclosed" onClick="show_folder('1_1_8_1')" style="POSITION: absolute">+</span> <span id="hide1_1_8_1" class="foldopened" onClick="hide_folder('1_1_8_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Pic</span>
+<ul id="fold1_1_8_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_2765366986642207402.jpeg" >&#xa;  </span>
+</li>
+</ul>
+</li>
+
+</ul><p><span id="show1_1_9" class="foldclosed" onClick="show_folder('1_1_9')" style="POSITION: absolute">+</span> <span id="hide1_1_9" class="foldopened" onClick="hide_folder('1_1_9')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Myths on benefits of Microservices</span>
+<ul id="fold1_1_9" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_644808380527976357.jpeg" >&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_10" class="foldclosed" onClick="show_folder('1_1_10')" style="POSITION: absolute">+</span> <span id="hide1_1_10" class="foldopened" onClick="hide_folder('1_1_10')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Composing SLAs for Dependent Services</span>
+<ul id="fold1_1_10" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">when the application is dependent on services with varying levels of SLAs, the composite SLA will be lower. That is because the probability of each service failing is independent, so the composite becomes the multiplication of each individual services uptime probability. &nbsp;In the following example, the SLA for the application is 99.95% x 99.99% = 99.94%.</span>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Fallback can be used</span>
+<ul><li><p><span style="font-family: Cambria, sans-serif; ">improve the composite SLA by creating independent fallback paths.</span>
+<p><span style="font-family: Cambria, sans-serif; ">For example, if Microsoft Azure SQL Database is unavailable, put transactions into a queue for later processing.</span>
+<p><span style="font-family: Cambria, sans-serif; ">trade-offs to this approach. The application logic is more complex, you are paying for the queue, and there might be data-consistency issues to consider.</span>
+</li>
+</ul><p><span id="show1_1_10_1" class="foldclosed" onClick="show_folder('1_1_10_1')" style="POSITION: absolute">+</span> <span id="hide1_1_10_1" class="foldopened" onClick="hide_folder('1_1_10_1')">-</span>
+<span style="font-family: Cambria, sans-serif; ">pic</span>
+<ul id="fold1_1_10_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_4380662440492636840.jpeg" >&#xa;  </span>
+</li>
+</ul></li>
+</ul><p><span id="show1_1_11" class="foldclosed" onClick="show_folder('1_1_11')" style="POSITION: absolute">+</span> <span id="hide1_1_11" class="foldopened" onClick="hide_folder('1_1_11')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">12 Factors</span>
+<ul id="fold1_1_11" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_3132589503945783412.jpeg" >&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_4507555058211269979.jpeg" >&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_12" class="foldclosed" onClick="show_folder('1_1_12')" style="POSITION: absolute">+</span> <span id="hide1_1_12" class="foldopened" onClick="hide_folder('1_1_12')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Isolation vs. Density</span>
+<ul id="fold1_1_12" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">One of the issues that we need to consider when building services for the cloud is how to host those services. Do I want to host them on bare metal or on a virtual machine? Do I want to host them in a container? Do I want to host them in a process? Behind these questions is the isolation vs. density consideration:</span>
+<p><span style="font-family: Cambria, sans-serif; ">pic</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_780397850814123132.jpeg" >&#xa;  </span>
+</li>
+</ul><p><span id="show1_1_12_1" class="foldclosed" onClick="show_folder('1_1_12_1')" style="POSITION: absolute">+</span> <span id="hide1_1_12_1" class="foldopened" onClick="hide_folder('1_1_12_1')">-</span>
+<span style="font-family: Cambria, sans-serif; ">Hierarchy</span>
+<ul id="fold1_1_12_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_8906274938253059899.jpeg" >&#xa;  </span>
+</li>
+</ul></li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_2" class="foldclosed" onClick="show_folder('1_2')" style="POSITION: absolute">+</span> <span id="hide1_2" class="foldopened" onClick="hide_folder('1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Chapter 2</span>
+<ul id="fold1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_1" class="foldclosed" onClick="show_folder('1_2_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1" class="foldopened" onClick="hide_folder('1_2_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Proxies</span>
+<ul id="fold1_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_1_1" class="foldclosed" onClick="show_folder('1_2_1_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1_1" class="foldopened" onClick="hide_folder('1_2_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">pic</span>
+<ul id="fold1_2_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_2866069454978685627.jpeg" >&#xa;  </span>
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Forward Proxy</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">have features to support clients</span>
+
+</li>
+<li><span id="show1_2_1_2" class="foldclosed" onClick="show_folder('1_2_1_2')" style="POSITION: absolute">+</span> <span id="hide1_2_1_2" class="foldopened" onClick="hide_folder('1_2_1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; ">process outgoing requests and might perform following tasks</span>
+<ul id="fold1_2_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">Caching</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Client anonymization</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Monitoring</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Routing</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_1_3" class="foldclosed" onClick="show_folder('1_2_1_3')" style="POSITION: absolute">+</span> <span id="hide1_2_1_3" class="foldopened" onClick="hide_folder('1_2_1_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Reverse Proxy</span>
+<ul id="fold1_2_1_3" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_1_3_1" class="foldclosed" onClick="show_folder('1_2_1_3_1')" style="POSITION: absolute">+</span> <span id="hide1_2_1_3_1" class="foldopened" onClick="hide_folder('1_2_1_3_1')">-</span>
+<span style="font-family: Cambria, sans-serif; ">pic</span>
+<ul id="fold1_2_1_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_3002698433181399997.jpeg" >&#xa;  </span>
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">have features to support services.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-style: italic; font-weight: bold; "> perform some of the following tasks:</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">Load balancing</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Routing</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">SSL termination</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Caching</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Authentication/validation</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Tenant throttling/billing</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Some distributed denial of service (DDoS) mitigation</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Aggregation</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Monitoring</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_2" class="foldclosed" onClick="show_folder('1_2_2')" style="POSITION: absolute">+</span> <span id="hide1_2_2" class="foldopened" onClick="hide_folder('1_2_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Cluster DNS and Service Reverse Proxy</span>
+<ul id="fold1_2_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span id="show1_2_2_1" class="foldclosed" onClick="show_folder('1_2_2_1')" style="POSITION: absolute">+</span> <span id="hide1_2_2_1" class="foldopened" onClick="hide_folder('1_2_2_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">pic</span>
+<ul id="fold1_2_2_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_7304335103904699079.jpeg" >&#xa;  </span>
+</li>
+</ul><p><span style="font-family: Cambria, sans-serif; ">In above case the request is for Inventory service, so Web Site will first connect with DNS to address of RP-I </span>
+<p><span style="font-family: Cambria, sans-serif; ">DNS : Domain Name Service</span>
+<p><span style="font-family: Cambria, sans-serif; ">RP-I: stands for Inventory service reverse proxy</span>
+<p><span style="font-family: Cambria, sans-serif; ">RP-O: stands for Orders service reverse proxy</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_2_3" class="foldclosed" onClick="show_folder('1_2_3')" style="POSITION: absolute">+</span> <span id="hide1_2_3" class="foldopened" onClick="hide_folder('1_2_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Reverse Proxy Load-Balancer Probes</span>
+<ul id="fold1_2_3" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">Reverse proxies commonly use probes to determine whether a service instance is healthy.</span>
+<p><span style="font-family: Cambria, sans-serif; ">Typically, when you configure a load balancer for a service, you specify probes.</span>
+<p><span style="font-family: Cambria, sans-serif; ">With each probe, you specify an interval when the load balancer will make a request on the provided path and port and specify the expected result (for example, HTTP 200 OK)</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_2_4" class="foldclosed" onClick="show_folder('1_2_4')" style="POSITION: absolute">+</span> <span id="hide1_2_4" class="foldopened" onClick="hide_folder('1_2_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">API Versioning</span>
+<ul id="fold1_2_4" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_4_1" class="foldclosed" onClick="show_folder('1_2_4_1')" style="POSITION: absolute">+</span> <span id="hide1_2_4_1" class="foldopened" onClick="hide_folder('1_2_4_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">different approaches,</span>
+<ul id="fold1_2_4_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><a href="http://api.contoso.com/v1.0/products/users." target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Cambria, sans-serif; ">Make it a part of the URI path: http://api.contoso.com/v1.0/products/users.</span>
+</a>
+<p><a href="http://api.contoso.com/products/users?api-version=1.0." target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Cambria, sans-serif; ">Make it a query parameter as a number: http://api.contoso.com/products/users?api-version=1.0.</span>
+</a>
+<p><a href="http://api.contoso.com/products/users?api-version=2016-12-07." target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Cambria, sans-serif; ">Make it a query parameter as a date: http://api.contoso.com/products/users?api-version=2016-12-07.</span>
+</a>
+<p><span style="font-family: Cambria, sans-serif; ">Make it part of the request header: Custom-Header: api-version=1.</span>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">As a best practice, implement versioning from the start, and always assume that there will be a version 2.</span>
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">When to change the version</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_5" class="foldclosed" onClick="show_folder('1_2_5')" style="POSITION: absolute">+</span> <span id="hide1_2_5" class="foldopened" onClick="hide_folder('1_2_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Defining Network API Contracts</span>
+<ul id="fold1_2_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">Contracts can be defined with either a contract-first approach or a code-first approach.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Contract-first</span>
+<ul><li><p><span style="font-family: Cambria, sans-serif; ">starts with the contract. A contract is first defined and then used to generate a back-end or mapping requests to functions in code.</span>
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Code-first</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">starts with the code. Classes and methods are developed, and a tool is used to generate a contract.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">Contracts defined via code do not work.</span>
+
+</li>
+
+</ul>
+</li>
+<li><a href="https://www.openapis.org" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Cambria, sans-serif; font-weight: bold; ">https://www.openapis.org</span>
+</a>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Consider using cross-language data transfer formats such as JSON, XML, Avro, and Protobuf.</span>
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_2_6" class="foldclosed" onClick="show_folder('1_2_6')" style="POSITION: absolute">+</span> <span id="hide1_2_6" class="foldopened" onClick="hide_folder('1_2_6')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Circuit Breaking</span>
+<ul id="fold1_2_6" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">situations might occur in which faults are due to unanticipated events, and that might take much longer to fix.</span>
+<p><span style="font-family: Cambria, sans-serif; ">These faults can range in severity from a partial loss of connectivity to the complete failure of a service</span>
+<p><span style="font-family: Cambria, sans-serif; ">In these situations, it might be pointless for an application to continually retry an operation that is unlikely to succeed.</span>
+<p><span style="font-family: Cambria, sans-serif; ">Instead, the application should quickly accept that the operation has failed and handle this failure accordingly.</span>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">The Circuit Breaker pattern can prevent an application from repeatedly trying to execute an operation that's likely to fail.</span>
+<p><span style="font-family: Cambria, sans-serif; ">The Circuit breaker pattern also enables an application to detect whether the fault has been resolved.</span>
+<p><span style="font-family: Cambria, sans-serif; ">The purpose of the Circuit Breaker pattern is different than the Retry pattern. The Retry pattern enables an application to retry an operation in the expectation that it'll succeed.</span>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">A circuit breaker acts as a proxy for operations that might fail. The proxy should monitor the number of recent failures that have occurred, and use this information to decide whether to allow the operation to proceed or to simply return an exception immediately.</span>
+<p><span id="show1_2_6_1" class="foldclosed" onClick="show_folder('1_2_6_1')" style="POSITION: absolute">+</span> <span id="hide1_2_6_1" class="foldopened" onClick="hide_folder('1_2_6_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">The proxy can be implemented as a state machine with the following states that mimic the functionality of an electrical circuit breaker:</span>
+<ul id="fold1_2_6_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Closed</b>. The request from the application is routed to the operation. The proxy maintains a count of the number of recent failures, and if the call to the operation is unsuccessful the proxy increments this count. If the number of recent failures exceeds a specified threshold within a given time period, the proxy is placed into the Open state. At this point, the proxy starts a timeout timer, and when this timer expire, the proxy is placed into the Half-Open state. The purpose of the timeout timer is to give the system time to fix the problem that caused the failure before allowing the application to try to perform the operation again.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Open</b>. The request from the application fails immediately and an exception is returned to the application.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Half-Open</b>. A limited number of requests from the application are allowed to pass through and invoke the operation. If these requests are successful, it's assumed that the fault that was previously causing the failure has been fixed and the circuit breaker switches to the Closed state (the failure counter is reset). If any request fails, the circuit breaker assumes that the fault is still present so it reverts back to the Open state and restarts the timeout timer to give the system a further period of time to recover from the failure.&#xa;    </p>&#xa;  </span>
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_2_7" class="foldclosed" onClick="show_folder('1_2_7')" style="POSITION: absolute">+</span> <span id="hide1_2_7" class="foldopened" onClick="hide_folder('1_2_7')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Services Must Implement Operations Idempotently</span>
+<ul id="fold1_2_7" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">An idempotent operation can be performed one or more times with no ill effect.</span>
+
+</li>
+<li><span id="show1_2_7_1" class="foldclosed" onClick="show_folder('1_2_7_1')" style="POSITION: absolute">+</span> <span id="hide1_2_7_1" class="foldopened" onClick="hide_folder('1_2_7_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Idempotent CRUD considerations</span>
+<ul id="fold1_2_7_1" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_2_7_1_1" class="foldclosed" onClick="show_folder('1_2_7_1_1')" style="POSITION: absolute">+</span> <span id="hide1_2_7_1_1" class="foldopened" onClick="hide_folder('1_2_7_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Create</span>
+<ul id="fold1_2_7_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">The HTTP specification that says POST does not have to be idempotent. You can use the following pattern to make it idempotent:</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Client:</b>&#160;Ask the server to create a unique ID. Alternatively, the client creates an ID if it is trusted, as in creating GUIDs. This way you can avoid the extra network hop.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      &#160;<b>Client:</b>Send the ID and the desired operation to the server, and retry if necessary.&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      <b>Server:</b>&#160;Check the ID to see whether it's in the log, do the operation, and log the ID. Then respond in a transaction.&#xa;    </p>&#xa;  </span>
+</li>
+</ul>
+</li>
+<li><span id="show1_2_7_1_2" class="foldclosed" onClick="show_folder('1_2_7_1_2')" style="POSITION: absolute">+</span> <span id="hide1_2_7_1_2" class="foldopened" onClick="hide_folder('1_2_7_1_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Read.</span>
+<ul id="fold1_2_7_1_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">The client wants to read an entity with data = Read(id) using an ID and get some data back. This is typically done by sending HTTP GET, HEAD, OPTIONS, or TRACE verbs. These verbs are naturally idempotent. If we ask a bank account about the balance, and the balance is not changed by anybody else, we should get the same result over multiple requests.</span>
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Update</span>
+
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3" class="foldclosed" onClick="show_folder('1_3')" style="POSITION: absolute">+</span> <span id="hide1_3" class="foldopened" onClick="hide_folder('1_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Chapter 3: Messaging Communication &nbsp;</span>
+<ul id="fold1_3" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Benefits</span>
+<ul><li><span id="show1_3_1" class="foldclosed" onClick="show_folder('1_3_1')" style="POSITION: absolute">+</span> <span id="hide1_3_1" class="foldopened" onClick="hide_folder('1_3_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Resource efficient:</span>
+<ul id="fold1_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">The client does not wait for the service reply, thus there are no blocked threads or long lived locks.</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Service instances pull work vs. clients constantly pushing work to instances that might be busy serving other requests. This model has been proven mathematically to be the most efficient servicing model. It is known as <b>single queue, multiple servers.</b>&#xa;    </p>&#xa;  </span>
+<p><span style="font-family: Cambria, sans-serif; ">The queue service acts as an intermediary, which might help with service discovery issues.</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_3_2" class="foldclosed" onClick="show_folder('1_3_2')" style="POSITION: absolute">+</span> <span id="hide1_3_2" class="foldopened" onClick="hide_folder('1_3_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Resilient:</span>
+<ul id="fold1_3_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">The client and service instances can be taken down or move to another server without adverse effect because the messages will be kept by the messaging service.</span>
+<p><span style="font-family: Cambria, sans-serif; ">If a service instance fails, another instance processes the message. This means that the single message message can be delivered multiple times and not in order. This implies that the service is idempotent.</span>
+<p><span style="font-family: Cambria, sans-serif; ">The clients and the services can be taken offline without message loss. After the service or the client is deployed, it will start pulling in the message on the messaging service</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_3_3" class="foldclosed" onClick="show_folder('1_3_3')" style="POSITION: absolute">+</span> <span id="hide1_3_3" class="foldopened" onClick="hide_folder('1_3_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Elastic</span>
+<ul id="fold1_3_3" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">The queue length can be used to determine the need to scale the service up and down. If the queue length is increasing over time, the orchestrator can decide to increase the instance number. If it is getting smaller over time, the orchestrator can decrease the number of instances.</span>
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_3_4" class="foldclosed" onClick="show_folder('1_3_4')" style="POSITION: absolute">+</span> <span id="hide1_3_4" class="foldopened" onClick="hide_folder('1_3_4')">-</span>
+<span style="font-family: Cambria, sans-serif; ">ex</span>
+<ul id="fold1_3_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_8712427659422538824.jpeg" >&#xa;  </span>
+</li>
+</ul>
+</li>
+<li><span id="show1_3_5" class="foldclosed" onClick="show_folder('1_3_5')" style="POSITION: absolute">+</span> <span id="hide1_3_5" class="foldopened" onClick="hide_folder('1_3_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Fault-Tolerant Message Processing</span>
+<ul id="fold1_3_5" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">To enable messaging communication, the message processing must be fault tolerant.</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Processing messages in this way requires that the queuing service supports some features, and that the queue client uses those features to manage the messages.&#xa;    </p>&#xa;  </span>
+<p><span id="show1_3_5_1" class="foldclosed" onClick="show_folder('1_3_5_1')" style="POSITION: absolute">+</span> <span id="hide1_3_5_1" class="foldopened" onClick="hide_folder('1_3_5_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Required Features</span>
+<ul id="fold1_3_5_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      the <b>service</b>&#160;must <b>support</b>&#160;<b>dequeue counts on messages</b>, and make the <b>messages</b>&#160;<b>reappear</b>&#160;on the queue<b>&#160;if</b>&#160; they are <b>not explicitly deleted </b>within a <b>certain period of time</b>&#160; <b>after being dequeued</b>. (This is <b>invisibility timeout</b>.)&#xa;    </p>&#xa;  </span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_4831738602293926535.jpeg" >&#xa;  </span>
+</li>
+</ul><p><span id="show1_3_5_2" class="foldclosed" onClick="show_folder('1_3_5_2')" style="POSITION: absolute">+</span> <span id="hide1_3_5_2" class="foldopened" onClick="hide_folder('1_3_5_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">sequence of events</span>
+<ul id="fold1_3_5_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">When the message is dequeued, the queue service increments the dequeue count by one, sets a invisibility timer on the message, and returns it to the client.</span>
+<p><span style="font-family: Cambria, sans-serif; ">The client reads the message and checks the dequeue count on the message.</span>
+<p><span style="font-family: Cambria, sans-serif; ">If the dequeue count is more than two, it indicates that the message was dequeued twice in the past and its processing failed for some reason. It's possible the message cannot be processed and will continue to show up on the queue. The message should be logged as a poison message, and it often is simply placed on a special poison message queue. This makes it possible for operations and development teams to analyze the cause of the failure.</span>
+<p><span style="font-family: Cambria, sans-serif; ">If the dequeue count is less than or equal to threshold value, the message is processed, and upon successful processing, deleted from the queue by the client.</span>
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">The messages might be processed out of order, and more than once, because of this operation mode. The code should not make any assumptions that the messages are in order and it should be idempotent.</span>
+</li>
+</ul><p><span id="show1_3_5_3" class="foldclosed" onClick="show_folder('1_3_5_3')" style="POSITION: absolute">+</span> <span id="hide1_3_5_3" class="foldopened" onClick="hide_folder('1_3_5_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">advanced features.</span>
+<ul id="fold1_3_5_3" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_3_5_3_1" class="foldclosed" onClick="show_folder('1_3_5_3_1')" style="POSITION: absolute">+</span> <span id="hide1_3_5_3_1" class="foldopened" onClick="hide_folder('1_3_5_3_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Sending messages to multiple subscribers.</span>
+<ul id="fold1_3_5_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">This is useful in group chat messaging or announcing weather changes to a group of subscribers. This mode allows a single message to be broadcast and processed in parallel. It is also know as pub/sub, or publish-subscribe mechanism.</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_3_5_3_2" class="foldclosed" onClick="show_folder('1_3_5_3_2')" style="POSITION: absolute">+</span> <span id="hide1_3_5_3_2" class="foldopened" onClick="hide_folder('1_3_5_3_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Time to live on the message. </span>
+<ul id="fold1_3_5_3_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">Allows the message to be processed only within a specified time limit. This prevents costs from skyrocketing if the consumers never process the messages.</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_3_5_3_3" class="foldclosed" onClick="show_folder('1_3_5_3_3')" style="POSITION: absolute">+</span> <span id="hide1_3_5_3_3" class="foldopened" onClick="hide_folder('1_3_5_3_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Consumer specified invisibility timeout.</span>
+<ul id="fold1_3_5_3_3" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">A consumer can set the invisibility timeout each time a message is dequeued, instead of the same value for the queue for all of the messages.</span>
+</li>
+</ul>
+</li>
+<li><span id="show1_3_5_3_4" class="foldclosed" onClick="show_folder('1_3_5_3_4')" style="POSITION: absolute">+</span> <span id="hide1_3_5_3_4" class="foldopened" onClick="hide_folder('1_3_5_3_4')">-</span>
+<span style="font-family: Cambria, sans-serif; ">Single processing </span>
+<ul id="fold1_3_5_3_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      Sometimes, <b>you might want to have the message processed only once.</b>&#160; This is good for time-sensitive data that's only relevant at that given instant, such as stock prices or sport scores. You can accomplish this by setting a maximum time to live, and when dequeued, specifying an invisibility timeout that is greater than the maximum time to live, and using a threshold of 1 on the dequeue count. This results in a message that is processed at most only once, because if the consumer service crashes while processing the message, the message never appears on the queue again.&#xa;    </p>&#xa;  </span>
+</li>
+</ul>
+</li>
+<li><span id="show1_3_5_3_5" class="foldclosed" onClick="show_folder('1_3_5_3_5')" style="POSITION: absolute">+</span> <span id="hide1_3_5_3_5" class="foldopened" onClick="hide_folder('1_3_5_3_5')">-</span>
+<span style="font-family: Cambria, sans-serif; ">PIc</span>
+<ul id="fold1_3_5_3_5" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_5030644300310384405.jpeg" >&#xa;  </span>
+</li>
+</ul>
+</li>
+
+</ul></li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4" class="foldclosed" onClick="show_folder('1_4')" style="POSITION: absolute">+</span> <span id="hide1_4" class="foldopened" onClick="hide_folder('1_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Chapter 4 : Versioning, Upgrading, and Configuration &nbsp;</span>
+<ul id="fold1_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Service Update Options</span>
+<ul><li><p><span style="font-family: Cambria, sans-serif; ">There are several options for handling service updates, and trade-offs that need to be considered when selecting an update option. Cost, availability, recovery, and testability are some of the considerations for selecting an update option.</span>
+<p><span id="show1_4_1" class="foldclosed" onClick="show_folder('1_4_1')" style="POSITION: absolute">+</span> <span id="hide1_4_1" class="foldopened" onClick="hide_folder('1_4_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Rolling update</span>
+<ul id="fold1_4_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">the update is performed in stages</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">As a result, the application remains available throughout the update.</span>
+
+</li>
+<li><span id="show1_4_1_1" class="foldclosed" onClick="show_folder('1_4_1_1')" style="POSITION: absolute">+</span> <span id="hide1_4_1_1" class="foldopened" onClick="hide_folder('1_4_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">pic</span>
+<ul id="fold1_4_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_5108571168676449202.jpeg" >&#xa;  </span>
+</li>
+</ul>
+</li>
+
+</ul><p><span id="show1_4_2" class="foldclosed" onClick="show_folder('1_4_2')" style="POSITION: absolute">+</span> <span id="hide1_4_2" class="foldopened" onClick="hide_folder('1_4_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Delete and upload</span>
+<ul id="fold1_4_2" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">For a service running V1 of the code, we can instruct the orchestrator to stop the service, delete the deployment, and deploy a new one with the V2 code.</span>
+<p><span style="font-family: Cambria, sans-serif; ">pic</span>
+<ul><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_7437342661904824592.jpeg" >&#xa;  </span>
+</li>
+</ul></li>
+</ul><p><span id="show1_4_3" class="foldclosed" onClick="show_folder('1_4_3')" style="POSITION: absolute">+</span> <span id="hide1_4_3" class="foldopened" onClick="hide_folder('1_4_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Blue-green deployment</span>
+<ul id="fold1_4_3" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">use to reduce downtime during deployments by running two identical production environments called Blue and Green. At any one time, one of the environments is live.</span>
+<p><span id="show1_4_3_1" class="foldclosed" onClick="show_folder('1_4_3_1')" style="POSITION: absolute">+</span> <span id="hide1_4_3_1" class="foldopened" onClick="hide_folder('1_4_3_1')">-</span>
+<span style="font-family: Cambria, sans-serif; ">e.g.</span>
+<ul id="fold1_4_3_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">let's say that the software is running in the Blue environment. A new release of the software is prepared and tested in the Green environment. When the software is working in the Green environment, traffic is routed to the Green environment. All traffic can be immediately routed to the Green environment, or a portion of the traffic can be slowly transitioned over time, allowing it to ramp up. The Blue environment is now idle. If there's a problem, it's easy to rollback the deployment and route the traffic back to the Blue environment.</span>
+<p><span style="font-family: Cambria, sans-serif; ">After the green environment live and stable, the blue environment serve as the staging environment for the final testing of the next deployment.</span>
+</li>
+</ul><p><span id="show1_4_3_2" class="foldclosed" onClick="show_folder('1_4_3_2')" style="POSITION: absolute">+</span> <span id="hide1_4_3_2" class="foldopened" onClick="hide_folder('1_4_3_2')">-</span>
+<span style="font-family: Cambria, sans-serif; ">pic</span>
+<ul id="fold1_4_3_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_8425603075129097684.jpeg" >&#xa;  </span>
+</li>
+</ul></li>
+</ul><p><span id="show1_4_4" class="foldclosed" onClick="show_folder('1_4_4')" style="POSITION: absolute">+</span> <span id="hide1_4_4" class="foldopened" onClick="hide_folder('1_4_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Summary</span>
+<ul id="fold1_4_4" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_3878895435251082266.jpeg" >&#xa;  </span>
+</li>
+</ul></li>
+</ul>
+</li>
+<li><span id="show1_4_5" class="foldclosed" onClick="show_folder('1_4_5')" style="POSITION: absolute">+</span> <span id="hide1_4_5" class="foldopened" onClick="hide_folder('1_4_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Rolling Update&#8212;How to Version APIs</span>
+<ul id="fold1_4_5" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_4_5_1" class="foldclosed" onClick="show_folder('1_4_5_1')" style="POSITION: absolute">+</span> <span id="hide1_4_5_1" class="foldopened" onClick="hide_folder('1_4_5_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">API versioning best practices:</span>
+<ul id="fold1_4_5_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">All API requests must pass version information, starting with V1.</span>
+
+</li>
+<li><span style="font-family: Cambria, sans-serif; ">New service versions must be backward compatible.</span>
+
+</li>
+<li><span id="show1_4_5_1_1" class="foldclosed" onClick="show_folder('1_4_5_1_1')" style="POSITION: absolute">+</span> <span id="hide1_4_5_1_1" class="foldopened" onClick="hide_folder('1_4_5_1_1')">-</span>
+<span style="font-family: Cambria, sans-serif; ">&#xa;    <p>&#xa;      2-Phase Update&#xa;    </p>&#xa;  </span>
+<ul id="fold1_4_5_1_1" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; ">&#xa;    <img src="Distributed Cloud Computing_4856451508242847229.jpeg" >&#xa;  </span>
+</li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_4_6" class="foldclosed" onClick="show_folder('1_4_6')" style="POSITION: absolute">+</span> <span id="hide1_4_6" class="foldopened" onClick="hide_folder('1_4_6')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Shutting Down and Reconfiguring Services</span>
+<ul id="fold1_4_6" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_4_6_1" class="foldclosed" onClick="show_folder('1_4_6_1')" style="POSITION: absolute">+</span> <span id="hide1_4_6_1" class="foldopened" onClick="hide_folder('1_4_6_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Gracefully shutting down</span>
+<ul id="fold1_4_6_1" style="POSITION: relative; VISIBILITY: visible;"><li><p><span style="font-family: Cambria, sans-serif; ">You will want to make sure the service instance shuts down in a graceful way so any in-flight client requests being processed by the service completes before it's shutdown</span>
+<p>LB : Load Balancer
+&#xa;    <p>&#xa;      <img src="Distributed Cloud Computing_1161939733646865736.jpeg" >&#xa;      &#xa;    </p>&#xa;  
+</li>
+</ul>
+</li>
+<li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Service (re)configuration &amp; secrets</span>
+<ul><li><p>One type of critical information in the configuration are the secrets, such as passwords, certificates, or private keys.
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">Consider using cryptographic message syntax (CMS) when storing those secrets</span>
+<p><span id="show1_4_6_2" class="foldclosed" onClick="show_folder('1_4_6_2')" style="POSITION: absolute">+</span> <span id="hide1_4_6_2" class="foldopened" onClick="hide_folder('1_4_6_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Steps for using CMS are:</span>
+<ul id="fold1_4_6_2" style="POSITION: relative; VISIBILITY: visible;"><li><p>Create a simple utility to read the secret and the installed certificate, to create the encrypted content.
+<p>Use the utility to generate encrypted content.
+<p>Store the setting in the configuration using the encrypted content.
+<p>Make the same certificate for encrypting the content available on the destination machine.
+<p>Read the encrypted configuration setting in the service code and use the library to decrypt it.
+</li>
+</ul></li>
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><span id="show1_5" class="foldclosed" onClick="show_folder('1_5')" style="POSITION: absolute">+</span> <span id="hide1_5" class="foldopened" onClick="hide_folder('1_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Chapter 5 : Leader Election &nbsp;</span>
+<ul id="fold1_5" style="POSITION: relative; VISIBILITY: visible;"><li>Using a Lock to Elect a Leader
+
+</li>
+<li>There are many software packages that are often used for leader election, such as ZooKeeper or etcd.
+
+</li>
+
+</ul>
+</li>
+<li><span id="show1_6" class="foldclosed" onClick="show_folder('1_6')" style="POSITION: absolute">+</span> <span id="hide1_6" class="foldopened" onClick="hide_folder('1_6')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Chapter 6: Storage Services</span>
+<ul id="fold1_6" style="POSITION: relative; VISIBILITY: visible;"><li><p>it's often better to store different types of data in different data stores, each focused on a specific workload or usage pattern.
+<p>The term polyglot persistence is used to describe solutions that use a mix of data-store technologies.
+<p>Note that a particular data-store technology might support multiple storage models.
+<ul><li><p>For example, a relational database management system (RDBMS) might also support key/value or graph storage.
+</li>
+</ul><p><span id="show1_6_1" class="foldclosed" onClick="show_folder('1_6_1')" style="POSITION: absolute">+</span> <span id="hide1_6_1" class="foldopened" onClick="hide_folder('1_6_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Data Temperature</span>
+<ul id="fold1_6_1" style="POSITION: relative; VISIBILITY: visible;"><li><p>Data that is frequently accessed is stored in fast store, and is also known as *hot data*.
+&#xa;    <p>&#xa;      Infrequently accessed data, also known as *warm data*<font color="rgb(34, 34, 34)" face="Open Sans, Helvetica Neue, Helvetica, Arial, sans-serif">, is stored in slightly slower and less expensive storage.</font>&#xa;    </p>&#xa;  
+<p>As data is accessed less frequently, it can be moved to slower storage, and this data is known as *cold* data
+<p><span id="show1_6_1_1" class="foldclosed" onClick="show_folder('1_6_1_1')" style="POSITION: absolute">+</span> <span id="hide1_6_1_1" class="foldopened" onClick="hide_folder('1_6_1_1')">-</span>
+pic
+<ul id="fold1_6_1_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Distributed Cloud Computing_5613701542221691323.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul><p><span id="show1_6_2" class="foldclosed" onClick="show_folder('1_6_2')" style="POSITION: absolute">+</span> <span id="hide1_6_2" class="foldopened" onClick="hide_folder('1_6_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Caching</span>
+<ul id="fold1_6_2" style="POSITION: relative; VISIBILITY: visible;"><li><span style="font-family: Cambria, sans-serif; font-weight: bold; ">strategies when caching data</span>
+<ul><li><p>Using a private cache, where data is held locally on the computer that's running an instance of an application or service.
+<p>Using a shared cache that serves as a common source that can be accessed by multiple processes and/or machines.
+<p><span id="show1_6_2_1" class="foldclosed" onClick="show_folder('1_6_2_1')" style="POSITION: absolute">+</span> <span id="hide1_6_2_1" class="foldopened" onClick="hide_folder('1_6_2_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">pic</span>
+<ul id="fold1_6_2_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Distributed Cloud Computing_874951698200705544.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul>
+</li>
+
+</ul><p><span id="show1_6_3" class="foldclosed" onClick="show_folder('1_6_3')" style="POSITION: absolute">+</span> <span id="hide1_6_3" class="foldopened" onClick="hide_folder('1_6_3')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">CDN</span>
+<ul id="fold1_6_3" style="POSITION: relative; VISIBILITY: visible;"><li><p>caches content at strategically placed locations to provide maximum throughput for delivering content to users.
+<p>offers developers a global solution for delivering high-bandwidth content by caching the content at physical nodes throughout the world.
+<p>commonly used for delivering static content such as images, style sheets, documents, files, client-side scripts, and HTML pages.
+<p><span style="font-family: Cambria, sans-serif; font-weight: bold; ">How it works:</span>
+<ul><li><p>A user requests a file (also called an asset) by using a URL with a special domain name. DNS routes the request to the best performing point-of-presence (POP) location. Usually, this is the POP that is geographically closest to the user.
+<p>If the edge servers in the POP do not have the file in their cache, the edge server requests the file from the origin. The origin can be a web server or a storage account.
+<p>The origin returns the file to the edge server, including optional HTTP headers describing the file's Time to Live (TTL) value.
+<p>The edge server caches the file and returns the file to the original requestor. The file remains cached on the edge server until the TTL expires.
+<p>Additional users may then request the same file by using that same URL, and may also be directed to that same POP.
+<p>If the TTL for the file hasn't expired, the edge server returns the file from the cache. This results in a faster, more responsive user experience.
+</li>
+</ul><p>You can also use the CDN as a cache for serving dynamic content, such as a PDF report or a graph, based on specified inputs. If the same input values are provided by different users, the result should be the same.
+</li>
+</ul><p><span id="show1_6_4" class="foldclosed" onClick="show_folder('1_6_4')" style="POSITION: absolute">+</span> <span id="hide1_6_4" class="foldopened" onClick="hide_folder('1_6_4')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Data Partitioning and Replication</span>
+<ul id="fold1_6_4" style="POSITION: relative; VISIBILITY: visible;"><li>Partitioning can help improve scalability, reduce contention, and optimize performance.
+
+</li>
+<li>it provides a mechanism for dividing data by use pattern
+
+</li>
+<li>For example, you can archive older, less active (cold) data in less costly data storage.
+
+</li>
+<li><span id="show1_6_4_1" class="foldclosed" onClick="show_folder('1_6_4_1')" style="POSITION: absolute">+</span> <span id="hide1_6_4_1" class="foldopened" onClick="hide_folder('1_6_4_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">benefits</span>
+<ul id="fold1_6_4_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Distributed Cloud Computing_4331465746334545918.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li><span id="show1_6_4_2" class="foldclosed" onClick="show_folder('1_6_4_2')" style="POSITION: absolute">+</span> <span id="hide1_6_4_2" class="foldopened" onClick="hide_folder('1_6_4_2')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Partitioning strategies</span>
+<ul id="fold1_6_4_2" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Distributed Cloud Computing_3152713730237211086.jpeg" >&#xa;  
+<p>It&#8217;s important to note that the three strategies described here can be combined. They are not mutually exclusive, and we recommend that you consider them all when you design a partitioning scheme. For example, you might divide data into shards and then use vertical partitioning to further subdivide the data in each shard. Similarly, the data in a functional partition can be split into shards (which can also be vertically partitioned).
+</li>
+</ul>
+</li>
+
+</ul><p><span id="show1_6_5" class="foldclosed" onClick="show_folder('1_6_5')" style="POSITION: absolute">+</span> <span id="hide1_6_5" class="foldopened" onClick="hide_folder('1_6_5')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Replication</span>
+<ul id="fold1_6_5" style="POSITION: relative; VISIBILITY: visible;"><li><span id="show1_6_5_1" class="foldclosed" onClick="show_folder('1_6_5_1')" style="POSITION: absolute">+</span> <span id="hide1_6_5_1" class="foldopened" onClick="hide_folder('1_6_5_1')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Benefits</span>
+<ul id="fold1_6_5_1" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Distributed Cloud Computing_8156284983649132460.jpeg" >&#xa;  
+&#xa;    <img src="Distributed Cloud Computing_4092406600451964427.jpeg" >&#xa;  
+&#xa;    <img src="Distributed Cloud Computing_4123698939301548668.jpeg" >&#xa;  
+&#xa;    <img src="Distributed Cloud Computing_616913815129478959.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+
+</ul><p><span id="show1_6_6" class="foldclosed" onClick="show_folder('1_6_6')" style="POSITION: absolute">+</span> <span id="hide1_6_6" class="foldopened" onClick="hide_folder('1_6_6')">-</span>
+DatA Storage Paterns
+<ul id="fold1_6_6" style="POSITION: relative; VISIBILITY: visible;"><li>CQRS
+
+</li>
+<li>Event Sourcing
+
+</li>
+<li>Saga Pattern
+<ul><li>&#xa;    <img src="Distributed Cloud Computing_1494119659069034730.jpeg" >&#xa;  
+</li>
+</ul>
+</li>
+<li>&nbsp;
+
+</li>
+
+</ul><p><span id="show1_6_7" class="foldclosed" onClick="show_folder('1_6_7')" style="POSITION: absolute">+</span> <span id="hide1_6_7" class="foldopened" onClick="hide_folder('1_6_7')">-</span>
+<span style="font-family: Cambria, sans-serif; font-weight: bold; ">Versioning Data Schemas</span>
+<ul id="fold1_6_7" style="POSITION: relative; VISIBILITY: visible;"><li>&#xa;    <img src="Distributed Cloud Computing_4756025623483414054.jpeg" >&#xa;  
+</li>
+</ul></li>
+</ul>
+</li>
+<li>Tools
+<ul><li><a href="https://www.openapis.org" target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Cambria, sans-serif; ">https://www.openapis.org</span>
+</a>
+
+</li>
+<li><a href="http://swagger.io." target="_blank"><span class=l>~</span>&nbsp;<span style="font-family: Cambria, sans-serif; ">swagger.io</span>
+</a>
+
+</li>
+
+</ul>
+</li>
+
+</ul><SCRIPT type="text/javascript">
+fold_document();
+</SCRIPT>
+</body>
+</html>

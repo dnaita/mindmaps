@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Inserting Data through the REST API</strong></p>
+<p>Documents can be written to a MarkLogic database through the REST API by using the REST API <strong>documents</strong> service. Specifically, a PUT can be used to specify the URI and content  for a document. </p>
+<p class="topic-sub-heading">Writing  an XML Document</p>
+<p>An XML document can written to a MarkLogic database through a REST API instance by setting the content type to be application/xml, providing the XML, and, optionally, specifying a URI for the document being inserted.</p>
+<p class="code">curl --anyauth --user admin:admin -X PUT -i -H &quot;Content-Type: application/xml&quot; -d &quot;&lt;patent&gt;&lt;title&gt;Waterski drone&lt;/title&gt;&lt;inventor&gt;Ruth&lt;/inventor&gt;&lt;description&gt;Amazingly small but powerful drone for waterskiing without a boat&lt;/description&gt;&lt;/patent&gt;&quot; &quot;http://localhost:8060/v1/documents?uri=/patents/waterski_drone.xml&quot;</p>
+<p class="topic-sub-heading">Writing a JSON Document</p>
+<p>A JSON document can written to a MarkLogic database through a REST API instance by setting the content type to be application/json, providing the JSON, and, optionally, specifying a URI for the document being inserted.</p>
+<p class="code">curl --anyauth --user admin:admin -X PUT -i -H &quot;Content-Type: application/json&quot; -d '{&quot;patent&quot;: {&quot;title&quot;: &quot;Waterski drone&quot;, &quot;inventor&quot;: &quot;Ruth&quot;, &quot;description&quot;: &quot;Amazingly small but powerful drone for waterskiing without a boat&quot;}}' &quot;http://localhost:8060/v1/documents?uri=/patents/waterski_drone.json&quot;</p>
+<p class="topic-sub-heading">Inserting a Document from the File System</p>
+<p>A document on the file system can be inserted into a MarkLogic database through a REST API instance through the use of the -T option, specifying the location of the file on the file system, and, optionally, specifying a URI for the document being inserted.</p>
+<p class="code">curl --anyauth --user admin:admin -X PUT -i -H &quot;Content-Type: application/json&quot; -T Desktop/mls-fundamentals/unit05/patents_data/airless_diving.json &quot;http://localhost:8060/v1/documents?uri=/patents/airless_diving.json&quot;</p>
+<p><em><br>
+Or, for a Windows example (document location relative to location of curl.exe):</em></p>
+<p><span class="code"><em>curl --anyauth --user admin:admin -X PUT -i -H &quot;Content-Type: application/json&quot; -T ../mls-fundamentals/unit05/patents_data/airless_diving.json &quot;http://localhost:8060/v1/documents?uri=/patents/airless_diving.json&quot;</em></span></p>
+<p class="topic-sub-heading">Accessing a Document</p>
+<p>To access a document through the REST API, its URI can be referenced with a GET. </p>
+<p><span class="code">curl --anyauth --user admin:admin -X GET &quot;http://localhost:8060/v1/documents?uri=/patents/airless_diving.json&quot;</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0504_x_insert_data_through_the_rest_api.htm" class="exercise-link">Exercise (Insert Data through the REST API)</a></p>
+<p>Back: <a href="0503_x_insert_data_through_query_console.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

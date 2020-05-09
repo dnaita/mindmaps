@@ -1,0 +1,4 @@
+		JSONDocumentManager docMgr = client.newJSONDocumentManager();
+		JacksonHandle handle = new JacksonHandle();
+		docMgr.read("/fun/hello.json", handle);
+		JsonNode doc = handle.get();

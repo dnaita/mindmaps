@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Insert Data through Query Console</strong></p>
+<p>In this walkthrough exercise, you first write a JavaScript expression, and a XQuery expression, in Query Console, to write a couple documents to the playground  database. Then you load documents into the patents database. </p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In a browser, navigate to <strong>Query Console</strong> (http://localhost:8000).<span class="code"> <br>
+  </span></li>
+  <li class="exercise-step">In the Query Console interface, click the <strong>+</strong> button, to create a new tab:<br>
+    <br>
+  <img src="../images/unit05/plus_button.png" width="148" height="38" class="image-border"></li>
+  <li class="exercise-step">In the Content Source drop-down list, select the <strong>playground</strong> database:<br>
+    <br>
+    <img src="../images/unit05/playground.png" width="234" height="256" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In the Query Type drop-down list, ensure <strong>JavaScript</strong> is selected:<br>
+    <br>
+  <img src="../images/unit05/query_type.png" width="219" height="31" class="image-border"></li>
+  <li class="exercise-step"><strong>Delete</strong> the // query comment.</li>
+  <li class="exercise-step">Enter the following (can copy from unit05/<strong>ex03a.txt</strong>):<br>
+    <br>
+    <span class="code">declareUpdate();<br>
+xdmp.documentInsert('/fun/hello.json', {'greeting': 'Hello World!'});</span><br>
+  </li>
+  <li class="exercise-step">Press the <strong>Run</strong> button.</li>
+  <li class="exercise-step">Notice that the expression returned is <em>your query response was empty</em>, because we did not request anything to be returned from the database.</li>
+  <li class="exercise-step">With the playground database still chosen in the Content Source list, press the <strong>Explore</strong> button.</li>
+  <li class="exercise-step"><strong>See</strong> that the /fun/hello.json document is listed in the Result panel:<br>
+    <br>
+    <img src="../images/unit05/funhello.png" width="701" height="295" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that, although this document's URI includes a directory named fun, that the document isn't  physically stored in a directory named fun. (Documents are stored in a compressed format within a forest.)</li>
+  <li class="exercise-step">Click the URI for the document, <strong>/fun/hello.json</strong>, to see the contents of the document:<br>
+    <br>
+  <img src="../images/unit05/funhello_contents.png" width="331" height="101" class="image-border"></li>
+</ol>
+<p>Insert a document using an XQuery function: </p>
+<ol start="13" class="exercise-step">
+  <li class="exercise-step">Click the <strong>+</strong> button, to create a new tab in Query Console.</li>
+  <li class="exercise-step">Ensure <strong>playground</strong> is the selected database. </li>
+  <li class="exercise-step">In the Query Type drop-down list, select <strong>XQuery</strong>.</li>
+  <li class="exercise-step"><strong>Delete</strong> the // query comment.<br>
+  </li>
+  <li class="exercise-step">In the code panel, enter the following (can copy from unit05/<strong>ex03b.txt</strong>):<br>
+    <br>
+    <span class="code">xdmp:document-insert(&quot;/fun/hello.xml&quot;, &lt;greeting&gt;Hello World!&lt;/greeting&gt;)</span><br>
+  </li>
+  <li class="exercise-step">Press the <strong>Run</strong> button.</li>
+  <li class="exercise-step">Notice that the expression returned is <em>your query returned an empty sequence</em>, because we did not request anything to be returned from the database.</li>
+  <li class="exercise-step">With the playground database still chosen, press the <strong>Explore</strong> button.</li>
+  <li class="exercise-step"><strong>See</strong> that the /fun/hello.xml document is listed in the Result panel:<br>
+    <br>
+    <img src="../images/unit05/twodocs.png" width="367" height="125" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Click <strong>/fun/hello.xml</strong>, to see the contents of the document:<br>
+    <br>
+  <img src="../images/unit05/funsecond_contents.png" width="337" height="52" class="image-border"></li></ol>
+<p>Load a document from the file system: </p>
+<ol start="23" class="exercise-step">
+  <li class="exercise-step">Click the <strong>+</strong> button to create a new tab.</li>
+  <li class="exercise-step">Select <strong>top-songs</strong> for the database, and <strong>JavaScript</strong> as the Query Type.</li>
+  <li class="exercise-step">Remove the placeholder code.</li>
+  <li class="exercise-step">Enter the following (can copy from unit05/<strong>ex03c.txt</strong>):<br>
+    <br>
+    <span class="code">declareUpdate(); <br>
+xdmp.documentLoad('/home/cent/Desktop/mls-fundamentals/unit05/top-songs_data/songs/The-Doors+Light-My-Fire.xml')</span><br>
+  </li>
+  <li class="exercise-step">With the top-songs database selected as the content source, press <strong>Run</strong>.</li>
+  <li class="exercise-step">With the top-songs database still selected, click the <strong>Explore</strong> button.</li>
+  <li class="exercise-step">See that the top-songs database now contains the /home/cent/Desktop/mls-fundamentals/unit05/top-songs_data/songs/The-Doors+Light-My-Fire.xml document:<br>
+    <br>
+    <img src="../images/unit05/centos_top-songs_explore.png" width="543" height="96" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Modify the JavaScript expression to specify a custom URI (can copy from unit05/<strong>ex03d.txt</strong>):<br>
+    <br>
+    <span class="code">declareUpdate();  <br>
+    xdmp.documentLoad('/home/cent/Desktop/mls-fundamentals/unit05/top-songs_data/songs/The-Doors+Light-My-Fire.xml'<strong>, 
+    {'uri': '/songs/The-Doors+Light-My-Fire.xml'}</strong>)</span><br>
+  </li>
+  <li class="exercise-step">Press <strong>Run</strong>.</li>
+  <li class="exercise-step">Press the <strong>Explore</strong> button.</li>
+  <li class="exercise-step">See that the new document has a URI of /songs/The-Doors+Light-My-Fire.xml:<br>
+    <br>
+    <img src="../images/unit05/centos_top-songs_explore_two.png" width="531" height="130" class="image-border"></li></ol>
+<p>Delete a document:</p>
+<ol start="34" class="exercise-step">
+  <li class="exercise-step">Add a new tab and run the following, to delete the old document (can copy from unit05/<strong>ex03e.txt</strong>):<br>
+    <br>
+    <span class="code">declareUpdate();<br>
+    xdmp.documentDelete('/home/cent/Desktop/mls-fundamentals/unit05/top-songs_data/songs/The-Doors+Light-My-Fire.xml')</span><br>
+  </li>
+  <li class="exercise-step">Press the <strong>Explore</strong> button, to see that the document has been deleted:<br>
+    <br>
+  <img src="../images/unit05/top-songs_contents_doc_deleted.png" width="359" height="105" class="image-border"></li>
+</ol>
+<p>Load all of the top-songs documents from the file system, specifying custom URIs: </p>
+<ol start="36" class="exercise-step">
+  <li class="exercise-step">Click the <strong>+</strong> button to add a new tab.</li>
+  <li class="exercise-step">In the mls-fundamentals/<strong>unit05</strong> folder, open the <strong>ex03f.txt</strong> file:<br>
+    <br>
+    <img src="../images/unit05/centos_ex03f.png" width="702" height="259" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that this code is for loading all the song  documents as well as the album images. <br>
+  </li>
+  <li class="exercise-step">Select all of the code and <strong>copy</strong> it.</li>
+  <li class="exercise-step">In Query Console, click the <strong>+</strong> to create a new tab, delete the placeholder code and <strong>paste</strong> this in its place.</li>
+  <li class="exercise-step"><strong>Run</strong> it.</li>
+  <li class="exercise-step">See the response of <em>your query response was empty</em>.</li>
+  <li class="exercise-step">Click the <strong>Explore</strong> button, to see that the documents  loaded:<br>
+    <br>
+    <img src="../images/unit05/top-songs_all_files_loaded.png" width="433" height="178" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Scroll down, to see that both  song documents and  images loaded.</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0504_inserting_data_through_the_rest_api.htm" class="exercise-link">Topic (Inserting Data through the REST API)</a></p>
+<p>Back: <a href="0503_inserting_data_through_query_console.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

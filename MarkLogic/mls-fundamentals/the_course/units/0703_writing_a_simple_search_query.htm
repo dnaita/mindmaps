@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Writing a Simple Search Query</strong></p>
+<p>A simple search can be written using the MarkLogic search programming interfaces.</p>
+<p class="topic-sub-heading"> XQuery cts:search() function</p>
+<p>Although XQuery has over 300 cts (core text search) functions, the main cts function is <strong>cts:search()</strong>. </p>
+<p>When using  cts:search(), the first argument is which documents are to be searched (fn:doc() can be used to search all of the documents in the database), and the second argument is what it is to look for.</p>
+<p class="code">cts:search(fn:doc(), &quot;gold&quot;)</p>
+<p>Additional functions, like cts:and-query() or cts:or-query(), can be used within cts:search() to create more sophisticated searches. </p>
+<p>In total, there are over 300 XQuery cts functions. Detail for each is available at docs.marklogic.com.</p>
+<p><img src="../images/unit07/cts_functions.png" width="348" height="248" class="image-border"></p>
+<p class="topic-sub-heading"> JavaScript cts.search() function</p>
+<p>Like its XQuery equivalent, the JavaScript <strong>cts.search()</strong> function is the main JavaScript cts function.</p>
+<p class="code">cts.search(&quot;gold&quot;)</p>
+<p>By default, the cts.search() function searches all of the documents in the database. To have it only search certain documents, additional criteria could be specified through use of the cts.andQuery() function.</p>
+<p>In total, there are over 300 JavaScript cts functions. Detail for each is available at docs.marklogic.com.</p>
+<p><img src="../images/unit07/cts_functions_javascript.png" width="351" height="248" class="image-border"></p>
+<p class="topic-sub-heading">Search API </p>
+<p>The Search API is available in XQuery through the use of the <strong>search:search()</strong> function.</p>
+<p class="code">search:search(&quot;small&quot;)</p>
+<p>In order to use the search:search() function, the function needs to first be imported.</p>
+<p><span class="code">import module namespace search = &quot;http://marklogic.com/appservices/search&quot; at &quot;/MarkLogic/appservices/search/search.xqy&quot;;</span><br>
+</p>
+<p>The results from the search:search() function can be used by application code to create a search results page for a search application. Especially useful items in the results include the total number of results that met the search query (e.g. 2), paging information (e.g. start=&quot;1&quot; and page-length=&quot;10&quot;), content for highlighting and snippets (e.g. search:snippet), and the URI of each document (e.g. uri=&quot;patents/waterski_drone.json&quot;), for use by a more or detail link. </p>
+<p><img src="../images/unit07/search_api_results_cropped.png" width="699" height="503" class="image-border"></p>
+<p class="topic-sub-heading">REST API</p>
+<p>Searching a MarkLogic database through a REST API instance is done with the <strong>search service</strong>.</p>
+<p class="code">curl --anyauth --user admin:admin -X GET &quot;http://localhost:8060/v1/<strong>search</strong>?q=waterskiing&quot;</p>
+<p>The results returned from the search service are for a developer to use in their application code  to construct a search results page, similar to the results from the Search API, which the REST API search service is built on.</p>
+<p><img src="../images/unit07/centos_rest.png" width="696" height="493" class="image-border"><br>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0703_x_write_a_simple_search_query.htm">Exercise (Write a Simple Search Query)</a></p>
+<p>Back: <a href="0702_x_view_the_search_developers_guide.htm">Previous</a><br>
+</p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p>centos</p>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Using MarkLogic Content Pump to Bulk Load</strong></p>
+<p>MarkLogic Content Pump (MLCP) is a Java-based command line tool <strong>for</strong> <strong>bulk loading</strong> <strong>files</strong> into a MarkLogic database.</p>
+<p class="topic-sub-heading">Setting up MLCP</p>
+<p>As a Java-based command line tool, MLCP requires <strong> JRE 1.6 or later</strong>. </p>
+<p>MLCP can be downloaded for free from <strong>developer.marklogic.com/products/mlcp</strong>. Once it has been downloaded, the files can be unpacked to any folder on the file system. </p>
+<p>For MLCP to be able to communicate with a MarkLogic database, an <strong>XDBC  server</strong> needs to be set up for the database. This can be done in the Admin Interface.</p>
+<p class="topic-sub-heading">Using MLCP</p>
+<p>To use MLCP, a command can be run on the command line, from the directory where MLCP is located. </p>
+<p>For example, the following  could be run in a command prompt window, to bulk upload documents on the file system to a database that has an XDBC server set up at port 8065.</p>
+<p><span class="code">mlcp.sh import -host localhost -port 8065 -username admin -password admin -mode local -input_file_path Desktop/mls-fundamentals/unit05/patents_data -output_uri_replace &quot;home/cent/Desktop/mls-fundamentals/unit05/source, 'patents'&quot;</span><br>
+</p>
+<p><em>Note: If using Windows, use mlcp.bat instead of mlcp.sh.</em></p>
+<p class="topic-sub-heading">More Info</p>
+<p>Detail on MLCP is available in Chapter 6 of the Loading Content Into MarkLogic Server Guide. </p>
+<p><img src="../images/unit05/mlcp.png" width="693" height="463" class="image-border"></p>
+<p>In addition to the coverage of MLCP in the <strong>live online classes</strong>, MLU also offers an <strong>on-demand video on using MLCP</strong>, available   at mlu.marklogic.com/ondemand/82764289.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0505_x_use_marklogic_content_pump.htm">Exercise (Use MarkLogic Content Pump to Bulk Load)</a></p>
+<p>Back: <a href="0504_x_insert_data_through_the_rest_api.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

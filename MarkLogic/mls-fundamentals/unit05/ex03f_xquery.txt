@@ -1,0 +1,16 @@
+declare namespace dir="http://marklogic.com/xdmp/directory";
+
+(: load song documents :)
+for $d in xdmp:filesystem-directory("C:\mls-fundamentals\unit05\top-songs_data\songs")//dir:entry
+return xdmp:document-load($d//dir:pathname,
+  <options xmlns="xdmp:document-load">
+    <uri>/songs/{fn:string($d//dir:filename)}</uri>
+  </options>)
+,
+
+(: load images :)
+for $d in xdmp:filesystem-directory("C:\mls-fundamentals\unit05\top-songs_data\images")//dir:entry
+return xdmp:document-load($d//dir:pathname,
+  <options xmlns="xdmp:document-load">
+    <uri>/images/{fn:string($d//dir:filename)}</uri>
+  </options>)

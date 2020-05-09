@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="topic-heading"><strong>Inserting Data through Query Console</strong></p>
+<p>Query Console can be used to insert documents into a MarkLogic database via JavaScript or XQuery.</p>
+<p class="topic-sub-heading">Inserting  via JavaScript</p>
+<p> Documents can be written to a MarkLogic database through JavaScript by using the xdmp.documentInsert() function or xdmp.documentLoad()   function. </p>
+<p>The <strong>xdmp.documentInsert()</strong> function is commonly used to define a new document as it is being written to a database.</p>
+<p class="code">declareUpdate();<br>
+  xdmp.documentInsert('/patent/waterski_drone.json',<br>
+  {<br>
+'title': 'Waterski drone',<br>
+'inventor': 'Ruth',<br>
+'description': 'Amazingly small but powerful drone for waterskiing without a boat'<br>
+});</p>
+<p>To run a JavaScript expression that makes changes to a  database, the expression needs to be preceded by the declareUpdate() function. </p>
+<p>The <strong>xdmp.documentLoad()</strong> function is commonly used to load a document that already exists, such as for loading a document from the file system. </p>
+<p class="code">declareUpdate(); <br>
+xdmp.documentLoad(&quot;/home/cent/Desktop/mls-fundamentals/unit05/patents_data/waterski_drone.json&quot;)</p>
+<p><em>Or, for a Windows example:</em></p>
+<p><em><span class="code">declareUpdate();<br>
+xdmp.documentLoad(&quot;C:\mls-fundamentals\unit05\patents_data\waterski_drone.json&quot;)</span></em><span class="code"></span></p>
+<p>Detail on the above JavaScript functions, as well as many more, is available in the <strong>JavaScript Function Reference</strong> at http://docs.marklogic.com/js/all.</p>
+<p class="topic-sub-heading">Inserting via XQuery </p>
+<p>To insert documents into a database using XQuery, the <strong>xdmp:document-insert()</strong> and <strong>xdmp:document-load()</strong> functions can be used.</p>
+<p>The <strong>xdmp:document-insert() </strong>function is commonly used to define a new document as it is being written to a database.</p>
+<p class="code">xdmp:document-insert(&quot;hello.xml&quot;, &lt;greeting&gt;Hello World!&lt;/greeting&gt;)</p>
+<p>The <strong>xdmp:document-load() </strong>function is commonly used to load a document that already exists, such as for loading a document from the file system. </p>
+<p class="code">xdmp:document-load(&quot;/home/cent/Desktop/mls-fundamentals/unit05/top-songs_data/songs/Aerosmith+I-Don-t-Want-to-Miss-a-Thing.xml&quot;)</p>
+<p>Detail on the above XQuery functions, as well as others, is available in the <strong>XQuery/XSLT Function Reference</strong> at http://docs.marklogic.com/all.</p>
+<p class="topic-sub-heading">Deleting</p>
+<p>To delete all  of the documents in a database, the <strong>Clear</strong> button in the Admin Interface can be used.</p>
+<p><img src="../images/unit05/clear_button.png" width="81" height="31" class="image-border"></p>
+<p>To delete an individual document, the JavaScript <strong>xdmp.documentDelete()</strong> function, or the XQuery <strong>xdmp:document-delete() </strong>function, can be used. </p>
+<p class="topic-sub-heading">Accessing a Document</p>
+<p>For retrieving documents in a database, the JavaScript <strong>fn.doc()</strong> function, or the XQuery <strong>fn:doc()</strong> function, can be used. </p>
+<p>Using either fn.doc() or fn:doc() without an argument returns all of the documents in a database. </p>
+<p>To access an individual document, the URI of the document can be included in the fn.doc() function. </p>
+<p class="code">fn.doc('/patents/waterski_drone.json'); </p>
+<p>Retrieving a subset of  documents, or searching based on data within  documents, can be done by writing a JavaScript or XQuery expression. </p>
+<p><br>
+</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0503_x_insert_data_through_query_console.htm" class="exercise-link">Exercise (Insert Data through Query Console)</a>
+<p>Back: <a href="0502_x_view_the_loading_guide.htm">Previous</a>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

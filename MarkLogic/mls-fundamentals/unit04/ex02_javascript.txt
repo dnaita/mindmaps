@@ -1,0 +1,13 @@
+var admin = require('/MarkLogic/admin.xqy'); 
+
+var forestConfig = admin.getConfiguration(); 
+forestConfig = admin.forestCreate(forestConfig, 'top-songs-1', xdmp.host(), '', '', ''); 
+admin.saveConfiguration(forestConfig);
+
+var dbConfig = admin.getConfiguration(); 
+dbConfig = admin.databaseCreate(dbConfig, 'top-songs', xdmp.database('Security'), xdmp.database('Schemas')); 
+admin.saveConfiguration(dbConfig);
+
+var forestAttachConfig = admin.getConfiguration(); 
+forestAttachConfig = admin.databaseAttachForest(forestAttachConfig, xdmp.database('top-songs'), xdmp.forest('top-songs-1')); 
+admin.saveConfiguration(forestAttachConfig);

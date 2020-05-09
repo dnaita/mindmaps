@@ -1,0 +1,14 @@
+{
+  "name": "patents",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.11.1",
+    "jade": "^1.9.1",
+    "marklogic": "^1.0.1"
+  }
+}

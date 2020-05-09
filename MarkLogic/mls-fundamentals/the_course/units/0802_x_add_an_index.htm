@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Add an Index</strong></p>
+<p>In this walkthrough exercise, you add an element range index to the star-wars database, to improve sorting by name on the Characters page.</p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In a browser, navigate to<span class="code"> http://localhost:8072</span>, to view the Star Wars application (or alternatively, open the <strong>star-wars_screenshot.pdf</strong> file from the mls-fundamentals/<strong>unit01</strong> folder).</li>
+  <li class="exercise-step">On the <strong>Characters</strong> page, notice the <strong>Name</strong> sort button:<br>
+    <br>
+    <img src="../images/unit08/name_button.png" width="86" height="42" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Realize that clicking it will change the sorting order of the results.</li>
+  <li class="exercise-step">In Query Console, select the <strong>star-wars</strong> database and click the <strong>Explore</strong> button.</li>
+  <li class="exercise-step">Click the uri for one of the documents, to view its content.</li>
+  <li class="exercise-step">Notice the property named <strong>name</strong>:<br>
+    <br>
+    <img src="../images/unit08/name_property.png" width="218" height="23" class="image-border"><br>
+  </li>
+  <li class="exercise-step">In the <strong>Admin Interface </strong>(http://localhost:8001), select <strong>Configure</strong> - <strong>Databases</strong> - <strong>star-wars</strong>.</li>
+  <li class="exercise-step">In the left navigation, select <strong>Element Range Indexes</strong>.</li>
+  <li class="exercise-step">Select the <strong>Add</strong> tab.</li>
+  <li class="exercise-step">For scalar type, select <strong>string</strong>.</li>
+  <li class="exercise-step">For localname, enter <span class="code">name</span>.</li>
+  <li class="exercise-step">Click the <strong>ok</strong> button.</li>
+  <li class="exercise-step">If desired, as a test to see that the element range index now exists, in <strong>Query Console</strong>, run the following (can copy from unit08/<strong>ex02.txt</strong>), with the database set to <strong>star-wars</strong> and the Query Type set to <strong>JavaScript</strong>:<br>
+    <br>
+    <span class="code">cts.search(cts.jsonPropertyRangeQuery(&quot;name&quot;, &quot;&lt;&quot;, &quot;e&quot;));</span><br>
+    <br>
+  <em>Notice that only the three documents that satisfy the query (C-3PO, Darth Vader, and  Darth Sidious) </em><em>are returned. </em></li>
+  <li class="exercise-step">In a browser, on the <span class="code"> http://localhost:8072/#/characters </span>page, know that, if there were a large number of documents (thousands/millions/billions etc.), the index would greatly improve the performance of sorting by name.</li>
+  <li class="exercise-step">If desired, <strong>repeat steps 7-12</strong> to create an index for the <strong>role</strong> property. </li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="08f1_summary.htm" class="exercise-link">Summary (Unit 8)</a></p>
+<p>Back: <a href="0802_adding_an_index.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

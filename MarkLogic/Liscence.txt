@@ -1,0 +1,6 @@
+Host	centos-vm.in.ibm.com
+Licensee	Deepak Naita - Development
+Organization	IBM
+Email	deenaita@in.ibm.com
+License Type	Development
+License Key	B58D-BDEE-637B-8BDB-CB8C-28DB-D0E6-17BF-B9FD-A077-834C-DCD8-E657-3BBD-DD0F-6973-DBDE-D8F6-D731-CD0E-7FC8

@@ -1,0 +1,3 @@
+		DatabaseClient client = DatabaseClientFactory.newClient("localhost", 8051,
+				"admin", "admin",
+				Authentication.DIGEST);

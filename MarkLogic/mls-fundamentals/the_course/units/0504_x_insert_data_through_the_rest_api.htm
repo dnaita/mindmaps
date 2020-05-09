@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MarkLogic Fundamentals</title>
+<link href="../css/ml.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<p><img src="../images/general/Marklogic-University-RGB.png" alt="" width="130" height="38" class="logo-padding"/></p>
+<p class="exercise-heading">Exercise: <strong>Insert Data through the REST API</strong></p>
+<p>In this walkthrough exercise, you use a REST API instance to write a document to the patents database.</p>
+<p>&nbsp;</p>
+<ol class="exercise-step">
+  <li class="exercise-step">In the unit05 folder, open <strong>the ex04a.txt</strong> file:<br>
+    <br>
+    <img src="../images/unit05/centos_ex04a.png" width="662" height="124" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Walkthrough the curl command, <strong>noticing</strong> the  PUT, content type, and document URI. </li>
+  <li class="exercise-step"><strong>Copy</strong> it all.</li>
+  <li class="exercise-step">Select <strong>Applications</strong> - <strong>System Tools</strong> - <strong>Terminal</strong>, to open a command prompt window.</li>
+  <li class="exercise-step">At the command prompt, right-click to select <strong>Paste</strong>, and then press  <strong>Enter</strong>  to run the command. </li>
+  <li class="exercise-step">See the HTTP/1.1 201 <strong>Created</strong> message for uri=/patents/waterski_drone.json:<br>
+    <br>
+    <img src="../images/unit05/centos_rest_insert.png" width="661" height="417" class="image-border"><br>
+  </li>
+</ol>
+<p>Access the document through the REST API instance:</p>
+<ol start="8" class="exercise-step">
+  <li class="exercise-step">In the unit05 folder, open the <strong>ex04b.txt</strong> file:<br>
+    <br>
+    <img src="../images/unit05/centos_ex04b.png" width="686" height="98" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Walk through the curl command, noticing  GET, the REST API instance URL, and the document URI.</li>
+  <li class="exercise-step"><strong>Copy</strong> it all.</li>
+  <li class="exercise-step">In the <strong>command prompt</strong> window, right-click and select <strong>Paste</strong>.</li>
+  <li class="exercise-step">Press the <strong>Enter</strong> key to run the command. </li>
+  <li class="exercise-step">See that the document is returned: <br>
+    <br>
+  <img src="../images/unit05/centos_rest_get.png" width="660" height="122" class="image-border"></li>
+</ol>
+<p>Load a file from the file system through the REST API instance:</p>
+<ol start="14" class="exercise-step">
+  <li class="exercise-step">In the unit05/<strong>patents_data</strong> folder, open the <strong>airless_diving.json</strong> file in a text editor, to see the document that we will load from the file system:<br>
+    <br>
+  <img src="../images/unit05/centos_airless.png" width="685" height="195" class="image-border"></li>
+  <li class="exercise-step">In the unit05 folder, open the <strong>ex04c.txt</strong> file in a text editor:<br>
+    <br>
+    <img src="../images/unit05/centos_ex04c.png" width="686" height="116" class="image-border"><br>
+  </li>
+  <li class="exercise-step">Walk through the curl command, noticing  PUT, -T (to load a file from the file system), the documents service provided by the REST API instance,  the URI, and -i (to see the HTTP response, to see that the write is successful). </li>
+  <li class="exercise-step">In  the <strong>command prompt</strong> window, <strong>paste</strong> the command.</li>
+  <li class="exercise-step">Press the <strong>Enter</strong> key to run it. </li>
+  <li class="exercise-step">See that the write was successful (i.e. the HTTP/1.1 201 Created message): <br>
+    <br>
+  <img src="../images/unit05/centos_rest_load.png" width="659" height="463" class="image-border"></li>
+  <li class="exercise-step">If desired, in <strong>Query Console</strong>, select the <strong>patents</strong> database (if necessary, press F5 to update the database list) and click the <strong>Explore</strong> button, to see both documents in the patents database: <br>
+    <br>
+    <img src="../images/unit05/patents_explore.png" width="463" height="124" class="image-border"></li></ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Next: <a href="0505_using_marklogic_content_pump.htm">Topic (Using MarkLogic Content Pump)</a></p>
+<p>Back: <a href="0504_inserting_data_through_the_rest_api.htm">Previous</a></p>
+<hr>
+<p class="copyright">©2015 MarkLogic Corporation. All rights reserved. Copying, selling, or otherwise distributing any part of this course without prior written consent of an authorized representative of MarkLogic Corporation is prohibited.</p>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<top-song xmlns="http://marklogic.com/MLU/top-songs">
+  <!--Copyright (c) 2010 Mark Logic Corporation. Permission is
+granted to copy, distribute and/or modify this document under the terms of the
+GNU Free Documentation License, Version 1.2 or any later version published by
+the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts,
+and no Back-Cover Texts. A copy of the license is included in the section 
+entitled "GNU Free Documentation License." Content derived from 
+http://en.wikipedia.org/wiki/Mr._Lonely 
+
+Modified in February 2010 by Mark Logic Corporation under the terms of the 
+GNU Free Documentation License.-->
+  <title href="http://en.wikipedia.org/wiki/Mr._Lonely" xmlns:ts="http://marklogic.com/MLU/top-songs">Mr. Lonely</title>
+  <artist href="http://en.wikipedia.org/wiki/Bobby_Vinton" xmlns:ts="http://marklogic.com/MLU/top-songs">Bobby Vinton</artist>
+  <weeks last="1964-12-12">
+    <week>1964-12-12</week>
+  </weeks>
+  <album>Roses Are Red</album>
+  <released>1964</released>
+  <recorded>1962</recorded>
+  <genres>
+    <genre>Pop</genre>
+  </genres>
+  <lengths>
+    <length>2:40</length>
+  </lengths>
+  <label>Epic</label>
+  <writers>
+    <writer>Bobby Vinton and Gene Allan</writer>
+  </writers>
+  <descr>
+    <p>"Mr. Lonely" is a song co-written and recorded by Bobby
+    Vinton. It was released as a single in 1964 and reached #1 on
+    the United States charts. The song originally appeared on
+    Vinton's album 
+    <i>Roses Are Red</i>in 1962. Later that year, Buddy Greco
+    recorded a version of the song using the same backing track as
+    Vinton's version. Greco's single release reached #64 on the
+    Billboard Hot 100 in November 1962.</p>
+    <p>Philippine singer Victor Wood made a bilingual version of
+    the song, alternating the original lyrics with Filipino ones.
+    This particular cover became popular in the Philippines and
+    gave some fame to the entertainer.</p>
+    <p>In 2005, Senegalese singer Akon sampled this single for
+    Lonely and it was featured on his album 
+    <i>Trouble</i>. This song uses a sped-up sample of the earlier
+    song.</p>
+    
+  </descr>
+</top-song>
