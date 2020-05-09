@@ -1,5 +1,7 @@
 # mindmaps
 
-This repository contains mind maps which can be opened with free softwares like Freemind or FreePlane.
+This repository contains mind maps which I have created while learning them.
 
-Feel free to read anything and share with any one.
+It can be opened with free softwares like Freemind or FreePlane.
+
+Feel free to read anything and share with any one. There is no permission required.
